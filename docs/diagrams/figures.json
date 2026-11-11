@@ -1,0 +1,65 @@
+{
+  "chip-blocks": {
+    "title": "Inside the ADS7952",
+    "alt": "Block diagram of the ADS7952: its function blocks, how they connect and which package pins reach each block.",
+    "description": "The ADS7952's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.",
+    "profile": "detail",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/ads7952_spi_interface.hpp"
+    ]
+  },
+  "chip-circuit-typical": {
+    "title": "ADS7952: Typical application",
+    "alt": "Schematic of the ADS7952 typical application: the chip with U2 MCU, U3 REF5025, C1 capacitor 10 µF, C2 capacitor 1 µF, C3 capacitor 1 µF, C4 capacitor 150 pF, C5 capacitor 150 pF; the MCU wires carry the port hooks Transfer().",
+    "description": "A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.",
+    "profile": "detail",
+    "width": 1088,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/ads7952_spi_interface.hpp"
+    ]
+  },
+  "chip-pinout": {
+    "title": "ADS7952 pinout, TSSOP-38",
+    "alt": "Pinout of the ADS7952 in TSSOP-38, top view: 38 pins, each with its name, its electrical type as a colour and the driver hook that uses it.",
+    "description": "The ADS7952 seen from the top, in its TSSOP-38 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.",
+    "profile": "detail",
+    "width": 760,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/ads7952_spi_interface.hpp"
+    ]
+  },
+  "driver-layers": {
+    "title": "The layers, one of them yours",
+    "alt": "Layer diagram: your application calls the ADS7952 core, which sends register reads and writes through the SPI port contract to the port class you write, which drives the chip; the core and the contract are the same on every MCU.",
+    "description": "Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/diagrams/figures/driver-layers.py",
+    "sources": [
+      "inc/ads7952.hpp:public calls",
+      "inc/ads7952_spi_interface.hpp:SpiInterface"
+    ]
+  },
+  "frame-pipeline": {
+    "title": "A result comes back two frames after its channel",
+    "alt": "Two timing grids of 16-bit frames. Manual: a Manual word selects channel 4 in frame N, the multiplexer acquires it in frame N + 1 and its result comes back in frame N + 2. Auto-1: the Auto-1 word restarts the sequence 2, 5, 6 in frame N, and from frame N + 2 on every Auto-1 word returns the next channel.",
+    "description": "Each column is one 16-bit frame, CS low for 16 SCLK cycles, left to right in time. In each panel the top row is the word the driver sends on SDI, the middle row the channel the multiplexer acquires during that frame, and the bottom row the reply on SDO: the conversion of the channel acquired in the frame before, sampled at this frame's CS falling edge, tagged with its address in DO15:12. In Manual mode (top) ReadChannel(4) selects channel 4 with a Manual word, sends a \"continue\" word and then the Manual word for channel 4 again (it carries the range once more), and keeps the third reply, whose address must be 4; the two replies before it still belong to the previous channel. In Auto-1 (bottom), entering the mode restarts the sequence at its first channel: with channels 2, 5 and 6 programmed, the first result arrives two frames after the Auto-1 word, and from then on every Auto-1 word without restart (DI11 = 1, the range again) returns the next channel of the sequence, so a pass costs one frame per channel. The timing is the datasheet's Figures 51 and 53; the frame counts come from ReadChannel(), readSelected(), scan() and collect() in src/ads7952.ipp.",
+    "profile": "detail",
+    "width": 1200,
+    "source": "docs/diagrams/figures/frame-pipeline.py",
+    "sources": [
+      "src/ads7952.ipp:select()",
+      "src/ads7952.ipp:selectChecked()",
+      "src/ads7952.ipp:readSelected()",
+      "src/ads7952.ipp:scan()",
+      "inc/ads7952_registers.hpp:kContinue"
+    ]
+  }
+}

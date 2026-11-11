@@ -1,0 +1,78 @@
+# Kconfig for the ADS7952 driver. The root CMakeLists.txt registers it with ESP-IDF
+# (idf_component_register(... KCONFIG _config/Kconfig)), so `idf.py menuconfig` shows
+# "ADS7950 / ADS7951 / ADS7952 / ADS7953 SAR ADC". The values reach the code only through
+# inc/ads7952_kconfig.hpp; no public driver signature uses them.
+menuconfig ADS7952
+    bool "ADS7950 / ADS7951 / ADS7952 / ADS7953 SAR ADC"
+    default y
+    help
+      Defaults for ads7952::KconfigDefaults(). The driver itself does not
+      need Kconfig; outside ESP-IDF the same defaults come from Config{}.
+
+if ADS7952
+
+choice ADS7952_VARIANT
+    prompt "Part fitted"
+    default ADS7952_VARIANT_ADS7952
+    help
+      Config::variant. The chip cannot report its channel count.
+
+config ADS7952_VARIANT_ADS7950
+    bool "ADS7950 (4 channels)"
+config ADS7952_VARIANT_ADS7951
+    bool "ADS7951 (8 channels)"
+config ADS7952_VARIANT_ADS7952
+    bool "ADS7952 (12 channels)"
+config ADS7952_VARIANT_ADS7953
+    bool "ADS7953 (16 channels)"
+
+endchoice
+
+config ADS7952_PACKAGE_VQFN
+    bool "VQFN package (GPIO0 only)"
+    default n
+    help
+      Config::package = Package::Vqfn. Off: TSSOP, GPIO0 to GPIO3.
+
+config ADS7952_RANGE_2VREF
+    bool "Input range 0 to 2 x VREF"
+    default n
+    help
+      Config::range = Range::TwoVref. Needs 2 x VREF <= +VA (datasheet 7.6).
+
+config ADS7952_VREF_MV
+    int "REFP voltage (mV)"
+    range 2000 3000
+    default 2500
+    help
+      Config::vref_mv, used to convert codes; never sent to the chip.
+
+config ADS7952_VA_MIN_MV
+    int "Lowest guaranteed +VA supply (mV)"
+    range 2700 5250
+    default 5000
+    help
+      Config::va_min_mv: the lowest +VA the board guarantees under load, not
+      the nominal rail. Range 2 needs 2 x VREF <= this value.
+
+config ADS7952_AUTO1_CHANNELS
+    hex "Auto-1 channel mask (bit n = channel n)"
+    range 0x1 0xFFFF
+    default 0xF if ADS7952_VARIANT_ADS7950
+    default 0xFF if ADS7952_VARIANT_ADS7951
+    default 0xFFFF if ADS7952_VARIANT_ADS7953
+    default 0xFFF
+    help
+      Config::auto1_channels. The default is every channel, the reset value.
+
+config ADS7952_AUTO2_LAST_CHANNEL
+    int "Auto-2 last channel"
+    range 0 15
+    default 3 if ADS7952_VARIANT_ADS7950
+    default 7 if ADS7952_VARIANT_ADS7951
+    default 15 if ADS7952_VARIANT_ADS7953
+    default 11
+    help
+      Config::auto2_last_channel. The default is the last channel, the reset value.
+
+endif

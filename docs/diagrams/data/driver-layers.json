@@ -1,0 +1,31 @@
+{
+  "name": "ads7952",
+  "cls": "ADS7952",
+  "calls": [
+    "EnsureInitialized",
+    "Deinitialize",
+    "ApplyConfig",
+    "ReadChannel",
+    "ReadChannels",
+    "ReadAuto1",
+    "ReadAuto2",
+    "TraceFrames",
+    "CheckScale",
+    "SetRange",
+    "SetAuto1Channels",
+    "SetAuto2LastChannel",
+    "SetAlarmThresholds",
+    "SetGpioOutputs",
+    "ReadGpio"
+  ],
+  "sources": [
+    "inc/ads7952.hpp:public calls",
+    "inc/ads7952_spi_interface.hpp:SpiInterface"
+  ],
+  "bus": "SPI",
+  "base": "SpiInterface",
+  "hooks": [
+    "EnsureInitialized",
+    "Transfer"
+  ]
+}

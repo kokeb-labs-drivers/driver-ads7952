@@ -1,0 +1,150 @@
+---
+# The vendor documents this driver was written against (handbook ADR-0019), and where the driver relies on them.
+# Never commit a PDF: `sha256` identifies the exact file that was used, so a reader can confirm they hold the same
+# revision. `pdf` is a stable direct link when the vendor publishes one (page links are built from it, adding
+# `page_offset` when the printed page numbers differ from the PDF's); otherwise readers download from `url`.
+#
+# The README card, docs/datasheet.md and the "Datasheet" box on each page are generated from this file by
+# tools/docs/generators/datasheet.py (`kokeb-docs gen`).
+documents:
+  - id: ds
+    vendor: Texas Instruments
+    title: ADS79xx 12-, 10-, 8-Bit, 1-MSPS, 16-, 12-, 8-, 4-Channel, Single-Ended, Serial Interface ADCs
+    kind: Datasheet
+    number: SLAS605
+    revision: C
+    date: 2018-07
+    url: https://www.ti.com/product/ADS7952
+    pdf: https://www.ti.com/lit/ds/symlink/ads7952.pdf
+    page_offset: 0
+    sha256: e7922065e4d1691d2c1b9599273a07d1854331a47f7818d70fe830e9a8811d8b
+
+# One row per thing the driver takes from a document: the datasheet's own section names and printed page
+# numbers, the driver API that implements it, and the docs pages that explain it (file names in docs/).
+topics:
+  - topic: The family, its channel counts and resolutions
+    doc: ds
+    section: 1 Features; 3 Description; 5 Device Comparison Table
+    page: 1
+    driver: "`Variant`, `ChannelCount()`"
+    docs: [hardware, configuration]
+  - topic: Pins, packages and the GPIOs each package brings out
+    doc: ds
+    section: 6 Pin Configuration and Functions
+    page: 5
+    driver: "`Package`, `GpioConfig`"
+    docs: [hardware, quickstart]
+  - topic: Absolute limits of the inputs and supplies
+    doc: ds
+    section: 7.1 Absolute Maximum Ratings
+    page: 10
+    driver: "`Config::va_min_mv` (documented limits only: no register)"
+    docs: [reference-and-supplies, hardware]
+  - topic: Supplies, reference and SCLK limits
+    doc: ds
+    section: 7.3 Recommended Operating Conditions
+    page: 10
+    driver: "`Config::vref_mv`, `Config::va_min_mv`, `Validate()`"
+    docs: [hardware, configuration, porting, reference-and-supplies]
+  - topic: Input ranges, power-up time and the invalid first conversion
+    doc: ds
+    section: 7.6 Electrical Characteristics (ADS7950 to ADS7953)
+    page: 12
+    driver: "`Range`, `kPowerUpUs`, `EnsureInitialized()`, `Validate()`"
+    docs: [hardware, contract, configuration, reference-and-supplies]
+  - topic: Serial timing, CS high time and the 16-clock frame
+    doc: ds
+    section: 7.9 Timing Requirements; Figures 1 and 2
+    page: 17
+    driver: "`SpiInterface`, `kFrameBytes`"
+    docs: [porting, hardware]
+  - topic: Frame, reply word, GPIO refresh and alarm timing
+    doc: ds
+    section: 8.1 Overview
+    page: 28
+    driver: "`reg::ReplyAddress()`, `reg::ReplyCode()`, `SetGpioOutputs()`"
+    docs: [hardware, architecture, contract]
+  - topic: The external reference and its 10 µF capacitor
+    doc: ds
+    section: 8.3.1 Reference
+    page: 29
+    driver: "`Config::vref_mv`, `ScaleMonitor`"
+    docs: [reference-and-supplies, hardware]
+  - topic: Power-down through DI05
+    doc: ds
+    section: 8.3.2 Power Saving
+    page: 29
+    driver: "`Deinitialize()`"
+    docs: [api-guide, contract]
+  - topic: Channel sequencing modes and the program registers' reset values
+    doc: ds
+    section: 8.4.1 Channel Sequencing Modes; 8.4.2 Device Programming and Mode Control
+    page: 29
+    driver: "`ResetConfig()`, `Config::auto1_channels`, `Config::auto2_last_channel`"
+    docs: [hardware, configuration]
+  - topic: Power-up and the programming sequence
+    doc: ds
+    section: 8.4.3 Device Power-Up Sequence, Figure 49
+    page: 30
+    driver: "`EnsureInitialized()`, `ApplyConfig()`, `Error::DeviceReset`, `Config::park_channel`"
+    docs: [contract, troubleshooting, limitations]
+  - topic: Manual mode and the two-frame read latency
+    doc: ds
+    section: 8.4.4 Operating in Manual Mode, Figures 50 and 51, Table 1
+    page: 31
+    driver: "`ReadChannel()`, `ReadChannels()`, `TraceFrames()`, `SetRange()`"
+    docs: [api-guide, architecture, hardware, troubleshooting]
+  - topic: Auto-1 mode and its program register
+    doc: ds
+    section: 8.4.5 Operating in Auto-1 Mode, Figures 52 to 54, Tables 2 to 4
+    page: 34
+    driver: "`ReadAuto1()`, `SetAuto1Channels()`, `Error::SequenceMismatch`"
+    docs: [api-guide, architecture, hardware]
+  - topic: Auto-2 mode and its program register
+    doc: ds
+    section: 8.4.6 Operating in Auto-2 Mode, Figures 55 to 57, Tables 5 and 6
+    page: 38
+    driver: "`ReadAuto2()`, `SetAuto2LastChannel()`"
+    docs: [api-guide, hardware]
+  - topic: The "continue" word
+    doc: ds
+    section: 8.4.7 Continued Operation in a Selected Mode, Table 7
+    page: 41
+    driver: "`reg::kContinue`, `TraceFrames()`"
+    docs: [architecture, hardware]
+  - topic: Output codes and the LSB size
+    doc: ds
+    section: 8.5.1 Digital Output, Table 8
+    page: 41
+    driver: "`CodeToMicrovolts()`, `ToMicrovolts()`, `Bank::range`, `CheckScaleCode()`"
+    docs: [api-guide, configuration, reference-and-supplies]
+  - topic: GPIO program register and the register reset
+    doc: ds
+    section: 8.5.2 GPIO Registers, Figure 58, Table 11
+    page: 42
+    driver: "`GpioConfig`, `AlarmOutput`, `ReadGpio()`, `SetGpioOutputs()`, `EnsureInitialized()`"
+    docs: [hardware, configuration, api-guide, contract, reference-and-supplies]
+  - topic: Alarm thresholds
+    doc: ds
+    section: 8.5.3 Alarm Thresholds for GPIO Pins, Figure 59, Tables 12 and 13
+    page: 43
+    driver: "`AlarmThreshold`, `SetAlarmThresholds()`"
+    docs: [api-guide, configuration, hardware]
+  - topic: Analog input, source impedance and MXO to AINP
+    doc: ds
+    section: 9.1.1 Analog Input, Figures 60 and 61
+    page: 46
+    driver: "none: board design"
+    docs: [reference-and-supplies, hardware]
+  - topic: Supply range, decoupling and +VA at or above +VBD
+    doc: ds
+    section: 10 Power Supply Recommendations
+    page: 51
+    driver: "`Config::va_min_mv`"
+    docs: [reference-and-supplies, hardware]
+  - topic: Layout of grounds, supply and reference capacitors
+    doc: ds
+    section: 11.1 Layout Guidelines; 11.2 Layout Examples, Figures 69 and 70
+    page: 52
+    driver: "none: board design"
+    docs: [reference-and-supplies]

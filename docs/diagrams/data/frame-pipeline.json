@@ -1,0 +1,61 @@
+{
+  "manual": {
+    "words": [
+      "Manual, CH4",
+      "continue",
+      "Manual, CH4"
+    ],
+    "mux": [
+      "CHy",
+      "CH4",
+      "CH4"
+    ],
+    "reply": [
+      "CHx",
+      "CHy",
+      "CH4"
+    ],
+    "keep": [
+      false,
+      false,
+      true
+    ]
+  },
+  "auto": {
+    "words": [
+      "Auto-1, restart",
+      "continue",
+      "Auto-1",
+      "Auto-1",
+      "Auto-1"
+    ],
+    "mux": [
+      "CHy",
+      "CH2",
+      "CH5",
+      "CH6",
+      "CH2"
+    ],
+    "reply": [
+      "CHx",
+      "CHy",
+      "CH2",
+      "CH5",
+      "CH6"
+    ],
+    "keep": [
+      false,
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  "sources": [
+    "src/ads7952.ipp:select()",
+    "src/ads7952.ipp:selectChecked()",
+    "src/ads7952.ipp:readSelected()",
+    "src/ads7952.ipp:scan()",
+    "inc/ads7952_registers.hpp:kContinue"
+  ]
+}
