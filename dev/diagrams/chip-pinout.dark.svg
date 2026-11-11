@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="931" viewBox="0 0 760 931" role="img" aria-labelledby="chip-pinout-title chip-pinout-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-pinout-title">ADS7952 pinout, TSSOP-38</title>
+<desc id="chip-pinout-desc">Pinout of the ADS7952 in TSSOP-38, top view: 38 pins, each with its name, its electrical type as a colour and the driver hook that uses it.</desc>
+<rect x="0.5" y="0.5" width="759" height="930" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="44" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#F8D27A">HARDWARE</text>
+<text x="32" y="77.3" font-size="26" font-weight="700" fill="#E8EDF3">ADS7952 pinout, TSSOP-38</text>
+<text x="32" y="103.8" font-size="15" fill="#9AA6B5">Top view, pin 1 marked. Colour is the pin's electrical type; the mono text outside is the port</text>
+<text x="32" y="125.5" font-size="15" fill="#9AA6B5">hook the driver uses for it. Datasheet: 6 Pin Configuration and Functions, p. 5.</text>
+<rect x="32" y="141.6" width="696" height="1" fill="#252F3C"/>
+<rect x="250" y="179.6" width="260" height="690" rx="8" fill="#18202B" stroke="#D2DAE4" stroke-width="2"/>
+<path d="M364 179.6 A16 16 0 0 0 396 179.6" fill="#151C26" stroke="#D2DAE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="270" cy="199.6" r="6" fill="#D2DAE4"/>
+<rect x="220" y="208.6" width="30" height="20" rx="3" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
+<rect x="220" y="242.6" width="30" height="20" rx="3" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
+<rect x="220" y="276.6" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="310.6" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="344.6" width="30" height="20" rx="3" fill="#321820" stroke="#FB7185" stroke-width="1.4"/>
+<rect x="220" y="378.6" width="30" height="20" rx="3" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="220" y="412.6" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="446.6" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="480.6" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="514.5" width="30" height="20" rx="3" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="220" y="548.5" width="30" height="20" rx="3" fill="#1F1D1B" stroke="#57534E" stroke-width="1.4"/>
+<rect x="220" y="582.5" width="30" height="20" rx="3" fill="#1F1D1B" stroke="#57534E" stroke-width="1.4"/>
+<rect x="220" y="616.5" width="30" height="20" rx="3" fill="#1F1D1B" stroke="#57534E" stroke-width="1.4"/>
+<rect x="220" y="650.5" width="30" height="20" rx="3" fill="#1F1D1B" stroke="#57534E" stroke-width="1.4"/>
+<rect x="220" y="684.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="718.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="752.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="786.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="220" y="820.5" width="30" height="20" rx="3" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="510" y="208.6" width="30" height="20" rx="3" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
+<rect x="510" y="242.6" width="30" height="20" rx="3" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
+<rect x="510" y="276.6" width="30" height="20" rx="3" fill="#321820" stroke="#FB7185" stroke-width="1.4"/>
+<rect x="510" y="310.6" width="30" height="20" rx="3" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="510" y="344.6" width="30" height="20" rx="3" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="510" y="378.6" width="30" height="20" rx="3" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="510" y="412.6" width="30" height="20" rx="3" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="510" y="446.6" width="30" height="20" rx="3" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="510" y="480.6" width="30" height="20" rx="3" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<rect x="510" y="514.5" width="30" height="20" rx="3" fill="#321820" stroke="#FB7185" stroke-width="1.4"/>
+<rect x="510" y="548.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="510" y="582.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="510" y="616.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="510" y="650.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="510" y="684.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="510" y="718.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="510" y="752.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="510" y="786.5" width="30" height="20" rx="3" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="510" y="820.5" width="30" height="20" rx="3" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<text x="380" y="514.5" font-size="20" font-weight="700" text-anchor="middle" fill="#E8EDF3">ADS7952</text>
+<text x="380" y="538.5" font-size="13" text-anchor="middle" fill="#9AA6B5">TSSOP-38, top view</text>
+<text x="235" y="222.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#DDD6FE">1</text>
+<text x="210" y="223.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">GPIO2</text>
+<text x="235" y="256.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#DDD6FE">2</text>
+<text x="210" y="257.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">GPIO3</text>
+<text x="235" y="290.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">3</text>
+<text x="210" y="291.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">REFM</text>
+<text x="235" y="324.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">4</text>
+<text x="210" y="325.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">REFP</text>
+<text x="235" y="358.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#FECDD3">5</text>
+<text x="210" y="359.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">+VA</text>
+<text x="235" y="392.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#E2E8F0">6</text>
+<text x="210" y="393.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">AGND</text>
+<text x="235" y="426.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">7</text>
+<text x="210" y="427.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">MXO</text>
+<text x="235" y="460.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">8</text>
+<text x="210" y="461.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">AINP</text>
+<text x="235" y="494.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">9</text>
+<text x="210" y="495.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">AINM</text>
+<text x="235" y="528.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#E2E8F0">10</text>
+<text x="210" y="529.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">AGND</text>
+<text x="235" y="562.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#D6D3D1">11</text>
+<text x="210" y="563.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">NC</text>
+<text x="235" y="596.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#D6D3D1">12</text>
+<text x="210" y="597.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">NC</text>
+<text x="235" y="630.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#D6D3D1">13</text>
+<text x="210" y="631.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">NC</text>
+<text x="235" y="664.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#D6D3D1">14</text>
+<text x="210" y="665.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">NC</text>
+<text x="235" y="698.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">15</text>
+<text x="210" y="699.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">CH11</text>
+<text x="235" y="732.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">16</text>
+<text x="210" y="733.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">CH10</text>
+<text x="235" y="766.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">17</text>
+<text x="210" y="767.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">CH9</text>
+<text x="235" y="800.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">18</text>
+<text x="210" y="801.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">CH8</text>
+<text x="235" y="834.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#E2E8F0">19</text>
+<text x="210" y="835.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#E8EDF3">AGND</text>
+<text x="525" y="222.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#DDD6FE">38</text>
+<text x="550" y="223.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">GPIO1</text>
+<text x="525" y="256.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#DDD6FE">37</text>
+<text x="550" y="257.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">GPIO0</text>
+<text x="525" y="290.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#FECDD3">36</text>
+<text x="550" y="291.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">+VBD</text>
+<text x="525" y="324.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#E2E8F0">35</text>
+<text x="550" y="325.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">BDGND</text>
+<text x="525" y="358.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#BFDBFE">34</text>
+<text x="550" y="359.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">SDO</text>
+<text x="612.5" y="358.9" font-size="12" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#9AA6B5">Transfer()</text>
+<text x="525" y="392.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#BFDBFE">33</text>
+<text x="550" y="393.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">SDI</text>
+<text x="612.5" y="392.9" font-size="12" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#9AA6B5">Transfer()</text>
+<text x="525" y="426.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#BFDBFE">32</text>
+<text x="550" y="427.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">SCLK</text>
+<text x="612.5" y="426.9" font-size="12" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#9AA6B5">Transfer()</text>
+<text x="525" y="460.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#BFDBFE">31</text>
+<text x="550" y="461.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CS</text>
+<text x="612.5" y="460.9" font-size="12" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#9AA6B5">Transfer()</text>
+<text x="525" y="494.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#E2E8F0">30</text>
+<text x="550" y="495.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">AGND</text>
+<text x="525" y="528.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#FECDD3">29</text>
+<text x="550" y="529.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">+VA</text>
+<text x="525" y="562.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">28</text>
+<text x="550" y="563.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CH0</text>
+<text x="525" y="596.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">27</text>
+<text x="550" y="597.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CH1</text>
+<text x="525" y="630.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">26</text>
+<text x="550" y="631.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CH2</text>
+<text x="525" y="664.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">25</text>
+<text x="550" y="665.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CH3</text>
+<text x="525" y="698.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">24</text>
+<text x="550" y="699.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CH4</text>
+<text x="525" y="732.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">23</text>
+<text x="550" y="733.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CH5</text>
+<text x="525" y="766.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">22</text>
+<text x="550" y="767.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CH6</text>
+<text x="525" y="800.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#F5D0FE">21</text>
+<text x="550" y="801.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">CH7</text>
+<text x="525" y="834.7" font-size="11.5" font-weight="700" text-anchor="middle" fill="#E2E8F0">20</text>
+<text x="550" y="835.6" font-size="14" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#E8EDF3">AGND</text>
+<rect x="32" y="884.9" width="14" height="14" rx="4" fill="#321820" stroke="#FB7185" stroke-width="1.4"/>
+<text x="54" y="896.5" font-size="12.5" fill="#9AA6B5">power</text>
+<rect x="117.6" y="884.9" width="14" height="14" rx="4" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<text x="139.6" y="896.5" font-size="12.5" fill="#9AA6B5">ground</text>
+<rect x="208.5" y="884.9" width="14" height="14" rx="4" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<text x="230.5" y="896.5" font-size="12.5" fill="#9AA6B5">bus</text>
+<rect x="277.4" y="884.9" width="14" height="14" rx="4" fill="#221A3A" stroke="#A78BFA" stroke-width="1.4"/>
+<text x="299.4" y="896.5" font-size="12.5" fill="#9AA6B5">digital in/out</text>
+<rect x="400.7" y="884.9" width="14" height="14" rx="4" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<text x="422.7" y="896.5" font-size="12.5" fill="#9AA6B5">analog</text>
+<rect x="488.7" y="884.9" width="14" height="14" rx="4" fill="#1F1D1B" stroke="#57534E" stroke-width="1.4"/>
+<text x="510.7" y="896.5" font-size="12.5" fill="#9AA6B5">not connected</text>
+</svg>

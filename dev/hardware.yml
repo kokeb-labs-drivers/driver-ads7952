@@ -1,0 +1,154 @@
+---
+# The chip's hardware in one file: package, pins, the driver hook of each pin, the blocks inside, and a reference
+# circuit. `kokeb-docs figures` draws the pinout, the block diagram and the circuit from it, `kokeb-docs gen` writes
+# the pin and parts tables on docs/hardware.md, and `kokeb-docs hardware --check` validates it.
+# Schema: docs/chip-diagrams.md in kokeb-labs/ci-tools. Every fact cites the datasheet in docs/datasheets.yml
+# (section and printed page); anything the datasheet does not state carries `unverified`.
+schema: 1
+chip: ADS7952
+
+refs:
+  pinout: {doc: ds, section: "6 Pin Configuration and Functions", page: 5}
+  analog: {doc: ds, section: "6 Pin Configuration and Functions, Pin Functions: TSSOP Packages", page: 6}
+  digital: {doc: ds, section: "6 Pin Configuration and Functions, Pin Functions: TSSOP Packages", page: 7}
+  roc: {doc: ds, section: "7.3 Recommended Operating Conditions", page: 10}
+  blocks: {doc: ds, section: "8.2 Functional Block Diagram", page: 29}
+  reference: {doc: ds, section: "8.3.1 Reference", page: 29}
+  gpio: {doc: ds, section: "8.5.2 GPIO Registers, Table 11", page: 42}
+  input: {doc: ds, section: "9.1 Application Information", page: 46}
+  app: {doc: ds, section: "9.1.1 Analog Input, Figure 60", page: 46}
+  supply: {doc: ds, section: "10 Power Supply Recommendations", page: 51}
+
+# The ADS7952 in the 38-pin TSSOP (DBT). The 32-pin VQFN (RHB) numbers the pins differently and brings out GPIO0
+# only (section 6).
+package:
+  type: TSSOP-38
+  pins: 38
+  ref: pinout
+
+hooks:
+  - {id: transfer, call: "Transfer()", kind: spi, source: inc/ads7952_spi_interface.hpp, symbol: Transfer}
+
+pins:
+  - {number: 1, name: GPIO2, type: digital-io, domain: +VBD,
+     function: "GPIO2, or the range input: high selects Range 2, low Range 1", ref: digital}
+  - {number: 2, name: GPIO3, type: digital-io, domain: +VBD,
+     function: "GPIO3, or the power-down input, active low", ref: digital}
+  - {number: 3, name: REFM, type: analog, domain: +VA, function: "Reference ground", ref: analog}
+  - {number: 4, name: REFP, type: analog, domain: +VA,
+     function: "Reference input, 2.5 V external reference; 10 µF ceramic to REFM, close to the pins", ref: reference}
+  - {number: 5, name: +VA, type: power, domain: +VA,
+     function: "Analog supply, 2.7 V to 5.25 V; 1 µF ceramic at the pin", ref: supply}
+  - {number: 6, name: AGND, type: ground, function: Analog ground, ref: digital}
+  - {number: 7, name: MXO, type: analog, domain: +VA, function: "Multiplexer output; to AINP, directly or through a buffer",
+     ref: app}
+  - {number: 8, name: AINP, type: analog, domain: +VA, function: "ADC input", ref: analog}
+  - {number: 9, name: AINM, type: analog, domain: +VA, function: "ADC input ground", ref: analog}
+  - {number: 10, name: AGND, type: ground, function: Analog ground, ref: digital}
+  - {number: 11, name: NC, type: nc, function: "Not connected inside; must not float", unused: Connect to ground,
+     ref: digital}
+  - {number: 12, name: NC, type: nc, function: "Not connected inside; must not float", unused: Connect to ground,
+     ref: digital}
+  - {number: 13, name: NC, type: nc, function: "Not connected inside; must not float", unused: Connect to ground,
+     ref: digital}
+  - {number: 14, name: NC, type: nc, function: "Not connected inside; must not float", unused: Connect to ground,
+     ref: digital}
+  - {number: 15, name: CH11, type: analog, domain: +VA, function: "Analog input, channel 11", ref: analog}
+  - {number: 16, name: CH10, type: analog, domain: +VA, function: "Analog input, channel 10", ref: analog}
+  - {number: 17, name: CH9, type: analog, domain: +VA, function: "Analog input, channel 9", ref: analog}
+  - {number: 18, name: CH8, type: analog, domain: +VA, function: "Analog input, channel 8", ref: analog}
+  - {number: 19, name: AGND, type: ground, function: Analog ground, ref: digital}
+  - {number: 20, name: AGND, type: ground, function: Analog ground, ref: digital}
+  - {number: 21, name: CH7, type: analog, domain: +VA, function: "Analog input, channel 7", ref: analog}
+  - {number: 22, name: CH6, type: analog, domain: +VA, function: "Analog input, channel 6", ref: analog}
+  - {number: 23, name: CH5, type: analog, domain: +VA, function: "Analog input, channel 5", ref: analog}
+  - {number: 24, name: CH4, type: analog, domain: +VA, function: "Analog input, channel 4", ref: analog}
+  - {number: 25, name: CH3, type: analog, domain: +VA, function: "Analog input, channel 3", ref: analog}
+  - {number: 26, name: CH2, type: analog, domain: +VA, function: "Analog input, channel 2", ref: analog}
+  - {number: 27, name: CH1, type: analog, domain: +VA, function: "Analog input, channel 1", ref: analog}
+  - {number: 28, name: CH0, type: analog, domain: +VA, function: "Analog input, channel 0", ref: analog}
+  - {number: 29, name: +VA, type: power, domain: +VA,
+     function: "Analog supply, 2.7 V to 5.25 V; 1 µF ceramic at the pin", ref: supply}
+  - {number: 30, name: AGND, type: ground, function: Analog ground, ref: digital}
+  - {number: 31, name: CS, type: bus, domain: +VBD,
+     function: "Chip select, active low; each falling edge samples the input and starts a frame", hook: transfer,
+     ref: digital}
+  - {number: 32, name: SCLK, type: bus, domain: +VBD, function: "Serial clock, up to 20 MHz", hook: transfer, ref: roc}
+  - {number: 33, name: SDI, type: bus, domain: +VBD, function: "Serial data in (MOSI): the 16-bit command word",
+     hook: transfer, ref: digital}
+  - {number: 34, name: SDO, type: bus, domain: +VBD, function: "Serial data out (MISO): the 16-bit reply",
+     hook: transfer, ref: digital}
+  - {number: 35, name: BDGND, type: ground, function: Digital ground, ref: digital}
+  - {number: 36, name: +VBD, type: power, domain: +VBD,
+     function: "Digital I/O supply, 1.7 V to +VA; 1 µF ceramic at the pin", ref: supply}
+  - {number: 37, name: GPIO0, type: digital-io, domain: +VBD,
+     function: "GPIO0, or the alarm output (high or low, or high only), active high", ref: digital}
+  - {number: 38, name: GPIO1, type: digital-io, domain: +VBD, function: "GPIO1, or the low alarm output, active high",
+     ref: digital}
+
+block_diagram:
+  ref: blocks
+  blocks:
+    - {id: mux, label: Input multiplexer, detail: "12 channels, one to MXO", at: [0, 0], tone: teal,
+       pins: [CH0, CH1, CH2, CH3, CH4, CH5, CH6, CH7, CH8, CH9, CH10, CH11, MXO]}
+    - {id: adc, label: 12-bit SAR ADC, detail: "1 MSPS, Range 1 or 2", at: [1, 0], tone: violet,
+       pins: [AINP, AINM, REFP, REFM, +VA, AGND, SDO]}
+    - {id: ctrl, label: Control logic and sequencing, detail: "SPI frame, modes, GPIO", at: [0, 1], tone: blue,
+       pins: [CS, SCLK, SDI, GPIO0, GPIO1, GPIO2, GPIO3, +VBD, BDGND]}
+    - {id: compare, label: Compare, detail: "result against thresholds", at: [1, 1], tone: amber}
+    - {id: alarm, label: Alarm thresholds, detail: "high and low per channel", at: [1, 2], tone: amber}
+  links:
+    - {from: ctrl, to: mux, label: channel}
+    - {from: ctrl, to: adc, label: convert}
+    - {from: adc, to: compare, label: result}
+    - {from: alarm, to: compare}
+    - {from: compare, to: ctrl, label: alarm}
+
+circuits:
+  - id: typical
+    title: Typical application
+    description: >-
+      Figure 60: MXO shorted to AINP, an external 2.5 V reference on REFP with 10 µF to REFM, and the SPI lines to
+      the host. Each supply pin has its 1 µF capacitor (section 10); each used input has 150 pF to ground against
+      the multiplexer's charge kick (section 9.1) and a source of 50 Ω or less.
+    ref: app
+    parts:
+      - {id: U1, kind: chip}
+      - id: U2
+        kind: mcu
+        label: MCU
+        pins:
+          - {name: SCK, label: SPI SCK}
+          - {name: MOSI, label: SPI MOSI}
+          - {name: MISO, label: SPI MISO}
+          - {name: CS, label: GPIO / CS}
+          - VDD
+          - GND
+      - id: U3
+        kind: ic
+        label: REF5025
+        ref: app
+        pins: [VIN, OUT, GND]
+        unverified: "Figure 60 shows only the reference's output; its supply and decoupling are the reference's own"
+      - {id: C1, kind: capacitor, value: 10 µF, ref: reference}
+      - {id: C2, kind: capacitor, value: 1 µF, ref: supply}
+      - {id: C3, kind: capacitor, value: 1 µF, ref: supply}
+      - {id: C4, kind: capacitor, value: 150 pF, ref: input}
+      - {id: C5, kind: capacitor, value: 150 pF, ref: input}
+    nets:
+      - {name: "+5V", kind: supply, nodes: [U1.+VA, C2.1, U3.VIN],
+         unverified: "example +VA; the datasheet allows 2.7 V to 5.25 V"}
+      - {name: "+3V3", kind: supply, nodes: [U1.+VBD, C3.1, U2.VDD],
+         unverified: "example +VBD; the datasheet allows 1.7 V to +VA"}
+      - {name: GND, kind: ground,
+         nodes: [U1.AGND, U1.BDGND, U1.AINM, U1.REFM, U1.NC, C1.2, C2.2, C3.2, C4.2, C5.2, U2.GND, U3.GND]}
+      - {name: VREF, nodes: [U3.OUT, U1.REFP, C1.1]}
+      - {name: MXO, nodes: [U1.MXO, U1.AINP]}
+      - {name: CH0, nodes: [U1.CH0, C4.1]}
+      - {name: CH1, nodes: [U1.CH1, C5.1]}
+      - {name: SCLK, nodes: [U1.SCLK, U2.SCK]}
+      - {name: SDI, nodes: [U1.SDI, U2.MOSI]}
+      - {name: SDO, nodes: [U1.SDO, U2.MISO]}
+      - {name: CS, nodes: [U1.CS, U2.CS]}
+    unused: [U1.CH2, U1.CH3, U1.CH4, U1.CH5, U1.CH6, U1.CH7, U1.CH8, U1.CH9, U1.CH10, U1.CH11, U1.GPIO0, U1.GPIO1,
+             U1.GPIO2, U1.GPIO3]

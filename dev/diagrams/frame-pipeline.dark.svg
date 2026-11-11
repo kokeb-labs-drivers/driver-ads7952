@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="768" viewBox="0 0 1200 768" role="img" aria-labelledby="frame-pipeline-title frame-pipeline-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="frame-pipeline-title">A result comes back two frames after its channel</title>
+<desc id="frame-pipeline-desc">Two timing grids of 16-bit frames. Manual: a Manual word selects channel 4 in frame N, the multiplexer acquires it in frame N + 1 and its result comes back in frame N + 2. Auto-1: the Auto-1 word restarts the sequence 2, 5, 6 in frame N, and from frame N + 2 on every Auto-1 word returns the next channel.</desc>
+<rect x="0.5" y="0.5" width="1199" height="767" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="44" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#F8D27A">ARCHITECTURE</text>
+<text x="32" y="77.3" font-size="26" font-weight="700" fill="#E8EDF3">A result comes back two frames after its channel</text>
+<text x="32" y="103.8" font-size="15" fill="#9AA6B5">One column per frame. The amber replies are the ones the driver returns; the grey ones it skips.</text>
+<rect x="32" y="119.8" width="1136" height="1" fill="#252F3C"/>
+<rect x="222" y="190.8" width="178" height="46" rx="6" fill="#2A2113" stroke="#F4B942" stroke-width="1.2"/>
+<rect x="412" y="190.8" width="178" height="46" rx="6" fill="#2A2113" stroke="#F4B942" stroke-width="1.2"/>
+<rect x="602" y="190.8" width="178" height="46" rx="6" fill="#2A2113" stroke="#F4B942" stroke-width="1.2"/>
+<rect x="222" y="248.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="412" y="248.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="602" y="248.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="222" y="306.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="412" y="306.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="602" y="306.8" width="178" height="46" rx="6" fill="#2C2310" stroke="#FBBF24" stroke-width="1.2"/>
+<rect x="222" y="441.8" width="178" height="46" rx="6" fill="#2A2113" stroke="#F4B942" stroke-width="1.2"/>
+<rect x="412" y="441.8" width="178" height="46" rx="6" fill="#2A2113" stroke="#F4B942" stroke-width="1.2"/>
+<rect x="602" y="441.8" width="178" height="46" rx="6" fill="#2A2113" stroke="#F4B942" stroke-width="1.2"/>
+<rect x="792" y="441.8" width="178" height="46" rx="6" fill="#2A2113" stroke="#F4B942" stroke-width="1.2"/>
+<rect x="982" y="441.8" width="178" height="46" rx="6" fill="#2A2113" stroke="#F4B942" stroke-width="1.2"/>
+<rect x="222" y="499.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="412" y="499.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="602" y="499.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="792" y="499.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="982" y="499.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="222" y="557.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="412" y="557.8" width="178" height="46" rx="6" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="602" y="557.8" width="178" height="46" rx="6" fill="#2C2310" stroke="#FBBF24" stroke-width="1.2"/>
+<rect x="792" y="557.8" width="178" height="46" rx="6" fill="#2C2310" stroke="#FBBF24" stroke-width="1.2"/>
+<rect x="982" y="557.8" width="178" height="46" rx="6" fill="#2C2310" stroke="#FBBF24" stroke-width="1.2"/>
+<rect x="32" y="627.8" width="1136" height="79.3" rx="10" fill="#2A2113" stroke="#6B5424" stroke-width="1"/>
+<text x="32" y="152.8" font-size="15" font-weight="700" fill="#E8EDF3">Manual: ReadChannel(4), 3 frames (1 when channel 4 is already selected)</text>
+<text x="311" y="180.8" font-size="12" text-anchor="middle" fill="#9AA6B5">frame N</text>
+<text x="501" y="180.8" font-size="12" text-anchor="middle" fill="#9AA6B5">frame N + 1</text>
+<text x="691" y="180.8" font-size="12" text-anchor="middle" fill="#9AA6B5">frame N + 2</text>
+<text x="32" y="218.5" font-size="13" font-weight="600" fill="#E8EDF3">SDI: the driver sends</text>
+<text x="311" y="218.5" font-size="13" font-weight="600" text-anchor="middle" fill="#F8D27A">Manual, CH4</text>
+<text x="501" y="218.5" font-size="13" font-weight="600" text-anchor="middle" fill="#F8D27A">continue</text>
+<text x="691" y="218.5" font-size="13" font-weight="600" text-anchor="middle" fill="#F8D27A">Manual, CH4</text>
+<text x="32" y="276.5" font-size="13" font-weight="600" fill="#E8EDF3">Multiplexer acquires</text>
+<text x="311" y="276.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CHy</text>
+<text x="501" y="276.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CH4</text>
+<text x="691" y="276.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CH4</text>
+<text x="32" y="334.5" font-size="13" font-weight="600" fill="#E8EDF3">SDO: the reply</text>
+<text x="311" y="334.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CHx</text>
+<text x="501" y="334.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CHy</text>
+<text x="691" y="334.5" font-size="13" font-weight="600" text-anchor="middle" fill="#FDE68A">CH4</text>
+<text x="32" y="403.8" font-size="15" font-weight="700" fill="#E8EDF3">Auto-1, channels 2, 5, 6: ReadAuto1(), 3 + 2 frames to enter, then 3</text>
+<text x="311" y="431.8" font-size="12" text-anchor="middle" fill="#9AA6B5">frame N</text>
+<text x="501" y="431.8" font-size="12" text-anchor="middle" fill="#9AA6B5">frame N + 1</text>
+<text x="691" y="431.8" font-size="12" text-anchor="middle" fill="#9AA6B5">frame N + 2</text>
+<text x="881" y="431.8" font-size="12" text-anchor="middle" fill="#9AA6B5">frame N + 3</text>
+<text x="1071" y="431.8" font-size="12" text-anchor="middle" fill="#9AA6B5">frame N + 4</text>
+<text x="32" y="469.5" font-size="13" font-weight="600" fill="#E8EDF3">SDI: the driver sends</text>
+<text x="311" y="469.5" font-size="13" font-weight="600" text-anchor="middle" fill="#F8D27A">Auto-1, restart</text>
+<text x="501" y="469.5" font-size="13" font-weight="600" text-anchor="middle" fill="#F8D27A">continue</text>
+<text x="691" y="469.5" font-size="13" font-weight="600" text-anchor="middle" fill="#F8D27A">Auto-1</text>
+<text x="881" y="469.5" font-size="13" font-weight="600" text-anchor="middle" fill="#F8D27A">Auto-1</text>
+<text x="1071" y="469.5" font-size="13" font-weight="600" text-anchor="middle" fill="#F8D27A">Auto-1</text>
+<text x="32" y="527.5" font-size="13" font-weight="600" fill="#E8EDF3">Multiplexer acquires</text>
+<text x="311" y="527.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CHy</text>
+<text x="501" y="527.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CH2</text>
+<text x="691" y="527.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CH5</text>
+<text x="881" y="527.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CH6</text>
+<text x="1071" y="527.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CH2</text>
+<text x="32" y="585.5" font-size="13" font-weight="600" fill="#E8EDF3">SDO: the reply</text>
+<text x="311" y="585.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CHx</text>
+<text x="501" y="585.5" font-size="13" font-weight="600" text-anchor="middle" fill="#E2E8F0">CHy</text>
+<text x="691" y="585.5" font-size="13" font-weight="600" text-anchor="middle" fill="#FDE68A">CH2</text>
+<text x="881" y="585.5" font-size="13" font-weight="600" text-anchor="middle" fill="#FDE68A">CH5</text>
+<text x="1071" y="585.5" font-size="13" font-weight="600" text-anchor="middle" fill="#FDE68A">CH6</text>
+<text x="46" y="654.5" font-size="15" font-weight="700" fill="#F8D27A">Keyed on the address</text>
+<text x="46" y="672.3" font-size="13" fill="#F8D27A">Every reply carries its channel address in DO15:12. The driver checks it on every result it returns, so a lost frame, a reset chip or a dead SDI line is an error, never a result</text>
+<text x="46" y="691.2" font-size="13" fill="#F8D27A">for the wrong channel.</text>
+<rect x="32" y="722.5" width="14" height="14" rx="4" fill="#2A2113" stroke="#F4B942" stroke-width="1.4"/>
+<text x="54" y="734.2" font-size="12.5" fill="#9AA6B5">word on SDI</text>
+<rect x="154.7" y="722.5" width="14" height="14" rx="4" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<text x="176.7" y="734.2" font-size="12.5" fill="#9AA6B5">acquired, or a reply skipped</text>
+<rect x="375.8" y="722.5" width="14" height="14" rx="4" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<text x="397.8" y="734.2" font-size="12.5" fill="#9AA6B5">reply returned</text>
+</svg>
