@@ -1,0 +1,2112 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="C++20 driver for the TI ADS7950, ADS7951, ADS7952 and ADS7953 12-bit SPI SAR ADCs.">
+      
+      
+      
+        <link rel="canonical" href="https://kokeb-labs-drivers.github.io/driver-ads7952/latest/hardware/">
+      
+      
+        <link rel="prev" href="../platforms/">
+      
+      
+        <link rel="next" href="../architecture/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/kokeb/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Hardware - ADS7952 Driver</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M0%208a8%208%200%201%201%2016%200A8%208%200%200%201%200%208m8-6.5a6.5%206.5%200%201%200%200%2013%206.5%206.5%200%200%200%200-13M6.5%207.75A.75.75%200%200%201%207.25%207h1a.75.75%200%200%201%20.75.75v2.75h.25a.75.75%200%200%201%200%201.5h-2a.75.75%200%200%201%200-1.5h.25v-2h-.25a.75.75%200%200%201-.75-.75M8%206a1%201%200%201%201%200-2%201%201%200%200%201%200%202%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201.5c-2.363%200-4%201.69-4%203.75%200%20.984.424%201.625.984%202.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621%201.49a.75.75%200%200%201-1.484.211c-.04-.282-.163-.547-.37-.847a9%209%200%200%200-.542-.68q-.126-.149-.268-.32C3.201%207.75%202.5%206.766%202.5%205.25%202.5%202.31%204.863%200%208%200s5.5%202.31%205.5%205.25c0%201.516-.701%202.5-1.328%203.259q-.142.172-.268.319c-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751%200%200%201-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848q.113-.133.213-.253c.561-.679.985-1.32.985-2.304%200-2.06-1.637-3.75-4-3.75M5.75%2012h4.5a.75.75%200%200%201%200%201.5h-4.5a.75.75%200%200%201%200-1.5M6%2015.25a.75.75%200%200%201%20.75-.75h2.5a.75.75%200%200%201%200%201.5h-2.5a.75.75%200%200%201-.75-.75%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M6.457%201.047c.659-1.234%202.427-1.234%203.086%200l6.082%2011.378A1.75%201.75%200%200%201%2014.082%2015H1.918a1.75%201.75%200%200%201-1.543-2.575Zm1.763.707a.25.25%200%200%200-.44%200L1.698%2013.132a.25.25%200%200%200%20.22.368h12.164a.25.25%200%200%200%20.22-.368Zm.53%203.996v2.5a.75.75%200%200%201-1.5%200v-2.5a.75.75%200%200%201%201.5%200M9%2011a1%201%200%201%201-2%200%201%201%200%200%201%202%200%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M9.504.43a1.516%201.516%200%200%201%202.437%201.713L10.415%205.5h2.123c1.57%200%202.346%201.909%201.22%203.004l-7.34%207.142a1.25%201.25%200%200%201-.871.354h-.302a1.25%201.25%200%200%201-1.157-1.723L5.633%2010.5H3.462c-1.57%200-2.346-1.909-1.22-3.004zm1.047%201.074L3.286%208.571A.25.25%200%200%200%203.462%209H6.75a.75.75%200%200%201%20.694%201.034l-1.713%204.188%206.982-6.793A.25.25%200%200%200%2012.538%207H9.25a.75.75%200%200%201-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005%200-.009.004%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5%205.782V2.5h-.25a.75.75%200%200%201%200-1.5h6.5a.75.75%200%200%201%200%201.5H11v3.282l3.666%205.76C15.619%2013.04%2014.543%2015%2012.767%2015H3.233c-1.776%200-2.852-1.96-1.899-3.458Zm-2.4%206.565a.75.75%200%200%200%20.633%201.153h9.534a.75.75%200%200%200%20.633-1.153L12.225%2010.5h-8.45ZM9.5%202.5h-3V6c0%20.143-.04.283-.117.403L4.73%209h6.54L9.617%206.403A.75.75%200%200%201%209.5%206Z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M1.75%202.5h10.5a.75.75%200%200%201%200%201.5H1.75a.75.75%200%200%201%200-1.5m4%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5m0%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5M2.5%207.75v6a.75.75%200%200%201-1.5%200v-6a.75.75%200%200%201%201.5%200%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+  <link rel="stylesheet" href="../assets/kokeb/kokeb.css">
+
+    
+      
+    
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/kokeb/fonts.css">
+  <noscript><link rel="stylesheet" href="../assets/kokeb/fonts.css"></noscript>
+
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  
+  
+  <meta name="theme-color" content="#0e1726" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b2140" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kokeb Labs">
+  <meta property="og:title" content="Hardware - ADS7952 Driver">
+  <meta property="og:description" content="C++20 driver for the TI ADS7950, ADS7951, ADS7952 and ADS7953 12-bit SPI SAR ADCs.">
+  <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-ads7952/latest/hardware/">
+  <meta name="twitter:card" content="summary">
+  <script>
+(function () {
+  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
+  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
+      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
+  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
+  var stub = {
+    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
+    render: function (id, text) {
+      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
+      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
+      if (el) el.setAttribute("data-kb-mermaid", "");
+      return near(el).then(load).then(function (m) { return m.render(id, text); });
+    }
+  };
+  function load() {
+    return loading || (loading = new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = SRC;
+      s.integrity = SRI;
+      s.crossOrigin = "anonymous";
+      s.onload = function () {
+        real = window.mermaid;
+        window.mermaid = stub;
+        real.initialize(config);
+        resolve(real);
+      };
+      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
+      document.head.appendChild(s);
+    }));
+  }
+  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
+  function watch() {
+    if (io) io.disconnect();
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
+      });
+    }, { rootMargin: ahead ? "100% 0px" : "0px" });
+    waiting.forEach(function (w) { io.observe(w.el); });
+  }
+  function release(which) {
+    waiting = waiting.filter(function (w) {
+      if (!which(w)) return true;
+      io.unobserve(w.el);
+      w.go();
+      return false;
+    });
+  }
+  function near(el) {
+    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
+    return new Promise(function (resolve) {
+      waiting.push({ el: el, go: resolve });
+      if (io) io.observe(el); else watch();
+    });
+  }
+  function engaged() {
+    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
+    ahead = true;
+    if (io) watch();
+  }
+  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
+  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
+  window.mermaid = stub;
+})();
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hardware" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You are reading the documentation of an older version.
+  <a href="https://kokeb-labs-drivers.github.io/driver-ads7952/"><strong>Go to the latest version.</strong></a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ADS7952 Driver" class="md-header__button md-logo" aria-label="ADS7952 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          
+          <a class="kb-org" href="https://kokeb-labs.github.io/" title="All Kokeb Labs documentation">Kokeb Labs</a>
+          <span class="kb-org__sep" aria-hidden="true">/</span>
+          <span class="md-ellipsis">
+            ADS7952 Driver
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hardware
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Follow the system theme"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Follow the system theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kokeb-labs-drivers/driver-ads7952" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-ads7952
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../quickstart/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-guide/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ADS7952 Driver" class="md-nav__button md-logo" aria-label="ADS7952 Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    ADS7952 Driver
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kokeb-labs-drivers/driver-ads7952" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-ads7952
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Get started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platforms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platforms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The family
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bus-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bus settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The frame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#program-registers-and-their-reset-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Program registers and their reset values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alarms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alarms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../architecture/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-reference/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The family
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bus-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bus settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The frame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#program-registers-and-their-reset-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Program registers and their reset values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alarms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alarms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/edit/main/docs/hardware.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="hardware">Hardware<a class="headerlink" href="#hardware" title="Permanent link">&para;</a></h1>
+<p>The ADS7950, ADS7951, ADS7952 and ADS7953: pins, bus settings, the frame, the modes, the program registers and
+power, as the driver uses them. Values are from the datasheet; when your schematic disagrees on pin numbers, the
+schematic wins.</p>
+<!-- generated: datasheet-refs -->
+<details class="abstract">
+<summary>Datasheet sections this page relies on</summary>
+<p>From Texas Instruments SLAS605 C:</p>
+<ul>
+<li>The family, its channel counts and resolutions: 1 Features; 3 Description; 5 Device Comparison Table, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1">p. 1</a></li>
+<li>Pins, packages and the GPIOs each package brings out: 6 Pin Configuration and Functions, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=5">p. 5</a></li>
+<li>Absolute limits of the inputs and supplies: 7.1 Absolute Maximum Ratings, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=10">p. 10</a></li>
+<li>Supplies, reference and SCLK limits: 7.3 Recommended Operating Conditions, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=10">p. 10</a></li>
+<li>Input ranges, power-up time and the invalid first conversion: 7.6 Electrical Characteristics (ADS7950 to ADS7953), <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=12">p. 12</a></li>
+<li>Serial timing, CS high time and the 16-clock frame: 7.9 Timing Requirements; Figures 1 and 2, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=17">p. 17</a></li>
+<li>Frame, reply word, GPIO refresh and alarm timing: 8.1 Overview, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=28">p. 28</a></li>
+<li>The external reference and its 10 µF capacitor: 8.3.1 Reference, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=29">p. 29</a></li>
+<li>Channel sequencing modes and the program registers' reset values: 8.4.1 Channel Sequencing Modes; 8.4.2 Device Programming and Mode Control, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=29">p. 29</a></li>
+<li>Manual mode and the two-frame read latency: 8.4.4 Operating in Manual Mode, Figures 50 and 51, Table 1, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=31">p. 31</a></li>
+<li>Auto-1 mode and its program register: 8.4.5 Operating in Auto-1 Mode, Figures 52 to 54, Tables 2 to 4, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=34">p. 34</a></li>
+<li>Auto-2 mode and its program register: 8.4.6 Operating in Auto-2 Mode, Figures 55 to 57, Tables 5 and 6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=38">p. 38</a></li>
+<li>The "continue" word: 8.4.7 Continued Operation in a Selected Mode, Table 7, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=41">p. 41</a></li>
+<li>GPIO program register and the register reset: 8.5.2 GPIO Registers, Figure 58, Table 11, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=42">p. 42</a></li>
+<li>Alarm thresholds: 8.5.3 Alarm Thresholds for GPIO Pins, Figure 59, Tables 12 and 13, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=43">p. 43</a></li>
+<li>Analog input, source impedance and MXO to AINP: 9.1.1 Analog Input, Figures 60 and 61, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=46">p. 46</a></li>
+<li>Supply range, decoupling and +VA at or above +VBD: 10 Power Supply Recommendations, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=51">p. 51</a></li>
+</ul>
+<p>All of them, with the driver API for each: <a href="../datasheet/">Datasheet map</a>.</p>
+</details>
+<!-- /generated -->
+
+<h2 id="the-family">The family<a class="headerlink" href="#the-family" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Channels</th>
+<th>Resolution</th>
+<th>Supported</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADS7950, ADS7951, ADS7952, ADS7953</td>
+<td>4, 8, 12, 16</td>
+<td>12 bits</td>
+<td>Yes: <code>Config::variant</code></td>
+</tr>
+<tr>
+<td>ADS7954, ADS7955, ADS7956, ADS7957</td>
+<td>4, 8, 12, 16</td>
+<td>10 bits</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ADS7958, ADS7959, ADS7960, ADS7961</td>
+<td>4, 8, 12, 16</td>
+<td>8 bits</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>All twelve share the frame, the modes and the registers and are pin compatible within a package size (section 5).
+The 10- and 8-bit parts put fewer result bits in DO11:00 and compare their alarm thresholds differently (Table 13);
+the driver handles the 12-bit members only. The class is named after the ADS7952, the part it was written for.</p>
+<h2 id="pins">Pins<a class="headerlink" href="#pins" title="Permanent link">&para;</a></h2>
+<p>The ADS7952 in the 38-pin TSSOP (DBT); the other parts and the 32-pin VQFN (RHB) use other numbers (section 6). The
+pinout, the block diagram, the circuit and the two tables on this page are drawn from
+<a href="../hardware.yml"><code>docs/hardware.yml</code></a>.</p>
+<figure class="kb-figure">
+<img src="../diagrams/chip-pinout.svg#only-light" alt="Pinout of the ADS7952 in TSSOP-38, top view: 38 pins, each with its name, its electrical type as a colour and the driver hook that uses it." width="760" height="931"><img src="../diagrams/chip-pinout.dark.svg#only-dark" alt="Pinout of the ADS7952 in TSSOP-38, top view: 38 pins, each with its name, its electrical type as a colour and the driver hook that uses it." width="760" height="931">
+<figcaption>ADS7952 pinout, TSSOP-38</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The ADS7952 seen from the top, in its TSSOP-38 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<!-- generated: chip-pins -->
+<p>TSSOP-38, 38 pins (6 Pin Configuration and Functions, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=5">p. 5</a>).</p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Name</th>
+<th>Type (domain)</th>
+<th>Function</th>
+<th>Driver hook</th>
+<th>If unused</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>GPIO2</code></td>
+<td>digital in/out (+VBD)</td>
+<td>GPIO2, or the range input: high selects Range 2, low Range 1</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>GPIO3</code></td>
+<td>digital in/out (+VBD)</td>
+<td>GPIO3, or the power-down input, active low</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>REFM</code></td>
+<td>analog (+VA)</td>
+<td>Reference ground</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>REFP</code></td>
+<td>analog (+VA)</td>
+<td>Reference input, 2.5 V external reference; 10 µF ceramic to REFM, close to the pins</td>
+<td>-</td>
+<td>-</td>
+<td>8.3.1, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=29">p. 29</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>+VA</code></td>
+<td>power (+VA)</td>
+<td>Analog supply, 2.7 V to 5.25 V; 1 µF ceramic at the pin</td>
+<td>-</td>
+<td>-</td>
+<td>10, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=51">p. 51</a></td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>AGND</code></td>
+<td>ground</td>
+<td>Analog ground</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>MXO</code></td>
+<td>analog (+VA)</td>
+<td>Multiplexer output; to AINP, directly or through a buffer</td>
+<td>-</td>
+<td>-</td>
+<td>9.1.1, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=46">p. 46</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>AINP</code></td>
+<td>analog (+VA)</td>
+<td>ADC input</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>AINM</code></td>
+<td>analog (+VA)</td>
+<td>ADC input ground</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>AGND</code></td>
+<td>ground</td>
+<td>Analog ground</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>NC</code></td>
+<td>not connected</td>
+<td>Not connected inside; must not float</td>
+<td>-</td>
+<td>Connect to ground</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>NC</code></td>
+<td>not connected</td>
+<td>Not connected inside; must not float</td>
+<td>-</td>
+<td>Connect to ground</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>NC</code></td>
+<td>not connected</td>
+<td>Not connected inside; must not float</td>
+<td>-</td>
+<td>Connect to ground</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>NC</code></td>
+<td>not connected</td>
+<td>Not connected inside; must not float</td>
+<td>-</td>
+<td>Connect to ground</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>CH11</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 11</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>CH10</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 10</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>CH9</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 9</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>CH8</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 8</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>AGND</code></td>
+<td>ground</td>
+<td>Analog ground</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>AGND</code></td>
+<td>ground</td>
+<td>Analog ground</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>CH7</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 7</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>CH6</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 6</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>CH5</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 5</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>CH4</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 4</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>25</td>
+<td><code>CH3</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 3</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>26</td>
+<td><code>CH2</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 2</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>27</td>
+<td><code>CH1</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 1</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>28</td>
+<td><code>CH0</code></td>
+<td>analog (+VA)</td>
+<td>Analog input, channel 0</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=6">p. 6</a></td>
+</tr>
+<tr>
+<td>29</td>
+<td><code>+VA</code></td>
+<td>power (+VA)</td>
+<td>Analog supply, 2.7 V to 5.25 V; 1 µF ceramic at the pin</td>
+<td>-</td>
+<td>-</td>
+<td>10, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=51">p. 51</a></td>
+</tr>
+<tr>
+<td>30</td>
+<td><code>AGND</code></td>
+<td>ground</td>
+<td>Analog ground</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>31</td>
+<td><code>CS</code></td>
+<td>bus (+VBD)</td>
+<td>Chip select, active low; each falling edge samples the input and starts a frame</td>
+<td><code>Transfer()</code></td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>32</td>
+<td><code>SCLK</code></td>
+<td>bus (+VBD)</td>
+<td>Serial clock, up to 20 MHz</td>
+<td><code>Transfer()</code></td>
+<td>-</td>
+<td>7.3, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=10">p. 10</a></td>
+</tr>
+<tr>
+<td>33</td>
+<td><code>SDI</code></td>
+<td>bus (+VBD)</td>
+<td>Serial data in (MOSI): the 16-bit command word</td>
+<td><code>Transfer()</code></td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>34</td>
+<td><code>SDO</code></td>
+<td>bus (+VBD)</td>
+<td>Serial data out (MISO): the 16-bit reply</td>
+<td><code>Transfer()</code></td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>35</td>
+<td><code>BDGND</code></td>
+<td>ground</td>
+<td>Digital ground</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>36</td>
+<td><code>+VBD</code></td>
+<td>power (+VBD)</td>
+<td>Digital I/O supply, 1.7 V to +VA; 1 µF ceramic at the pin</td>
+<td>-</td>
+<td>-</td>
+<td>10, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=51">p. 51</a></td>
+</tr>
+<tr>
+<td>37</td>
+<td><code>GPIO0</code></td>
+<td>digital in/out (+VBD)</td>
+<td>GPIO0, or the alarm output (high or low, or high only), active high</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+<tr>
+<td>38</td>
+<td><code>GPIO1</code></td>
+<td>digital in/out (+VBD)</td>
+<td>GPIO1, or the low alarm output, active high</td>
+<td>-</td>
+<td>-</td>
+<td>6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=7">p. 7</a></td>
+</tr>
+</tbody>
+</table>
+<p>Source of this table and of the chip figures: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>.</p>
+<!-- /generated -->
+
+<p>The GPIOs are not port hooks: the driver sets and reads them through the SPI frame (<code>GpioConfig</code>,
+<code>SetGpioOutputs()</code>, <code>ReadGpio()</code>), so the table shows no hook for them. The VQFN packages bring out GPIO0 only; set
+<code>Config::package = Package::Vqfn</code> and the driver programs the missing GPIO1 to GPIO3 as outputs, as Table 11
+requires.</p>
+<h2 id="inside-the-chip">Inside the chip<a class="headerlink" href="#inside-the-chip" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="../diagrams/chip-blocks.svg#only-light" alt="Block diagram of the ADS7952: its function blocks, how they connect and which package pins reach each block." width="1200" height="1029" loading="lazy"><img src="../diagrams/chip-blocks.dark.svg#only-dark" alt="Block diagram of the ADS7952: its function blocks, how they connect and which package pins reach each block." width="1200" height="1029" loading="lazy">
+<figcaption>Inside the ADS7952</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The ADS7952's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="typical-application">Typical application<a class="headerlink" href="#typical-application" title="Permanent link">&para;</a></h2>
+<p>Figure 60 with what sections 9.1 and 10 add: MXO shorted to AINP, a 2.5 V reference on REFP with 10 µF to REFM, 1 µF
+at each supply pin and 150 pF from each used input to ground. The unused inputs and GPIOs are left out of the
+circuit; the NC pins go to ground, as section 6 requires.</p>
+<figure class="kb-figure">
+<img src="../diagrams/chip-circuit-typical.svg#only-light" alt="Schematic of the ADS7952 typical application: the chip with U2 MCU, U3 REF5025, C1 capacitor 10 µF, C2 capacitor 1 µF, C3 capacitor 1 µF, C4 capacitor 150 pF, C5 capacitor 150 pF; the MCU wires carry the port hooks Transfer()." width="1088" height="1181" loading="lazy"><img src="../diagrams/chip-circuit-typical.dark.svg#only-dark" alt="Schematic of the ADS7952 typical application: the chip with U2 MCU, U3 REF5025, C1 capacitor 10 µF, C2 capacitor 1 µF, C3 capacitor 1 µF, C4 capacitor 150 pF, C5 capacitor 150 pF; the MCU wires carry the port hooks Transfer()." width="1088" height="1181" loading="lazy">
+<figcaption>ADS7952: Typical application</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<!-- generated: chip-parts -->
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Kind</th>
+<th>Value</th>
+<th>Connects</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U2</td>
+<td>MCU</td>
+<td>-</td>
+<td>VDD: +3V3, GND: GND, SCK: SCLK, MOSI: SDI, MISO: SDO, CS: CS</td>
+<td>9.1.1, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=46">p. 46</a></td>
+</tr>
+<tr>
+<td>U3</td>
+<td>REF5025</td>
+<td>- (not confirmed: Figure 60 shows only the reference's output; its supply and decoupling are the reference's own)</td>
+<td>VIN: +5V, GND: GND, OUT: VREF</td>
+<td>9.1.1, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=46">p. 46</a></td>
+</tr>
+<tr>
+<td>C1</td>
+<td>capacitor</td>
+<td>10 µF</td>
+<td>GND, VREF</td>
+<td>8.3.1, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=29">p. 29</a></td>
+</tr>
+<tr>
+<td>C2</td>
+<td>capacitor</td>
+<td>1 µF</td>
+<td>+5V, GND</td>
+<td>10, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=51">p. 51</a></td>
+</tr>
+<tr>
+<td>C3</td>
+<td>capacitor</td>
+<td>1 µF</td>
+<td>+3V3, GND</td>
+<td>10, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=51">p. 51</a></td>
+</tr>
+<tr>
+<td>C4</td>
+<td>capacitor</td>
+<td>150 pF</td>
+<td>GND, CH0</td>
+<td>9.1, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=46">p. 46</a></td>
+</tr>
+<tr>
+<td>C5</td>
+<td>capacitor</td>
+<td>150 pF</td>
+<td>GND, CH1</td>
+<td>9.1, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=46">p. 46</a></td>
+</tr>
+</tbody>
+</table>
+<p>Export a circuit for a schematic or PCB tool: <code>kokeb-docs hardware --kicad-netlist OUT.net --circuit typical</code>.</p>
+<!-- /generated -->
+
+<h2 id="bus-settings">Bus settings<a class="headerlink" href="#bus-settings" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mode</td>
+<td>0: SDI latched on the rising edge, SDO changes on the falling edge (Figure 2)</td>
+</tr>
+<tr>
+<td>f<sub>SCLK</sub> max</td>
+<td>20 MHz at any +VBD (section 7.9)</td>
+</tr>
+<tr>
+<td>t<sub>w1</sub>, CS high min</td>
+<td>20 ns</td>
+</tr>
+<tr>
+<td>Frame</td>
+<td>Exactly 16 clocks with CS low; CS may go high only after the 16<sup>th</sup> (section 8.1)</td>
+</tr>
+<tr>
+<td>Transfer from the driver</td>
+<td>Always 2 bytes, one frame; CS must toggle between frames</td>
+</tr>
+</tbody>
+</table>
+<p>The SCLK rate sets the timing of the analog side: the multiplexer switches on the second falling edge of a frame and the
+next channel acquires from the 14<sup>th</sup> rising edge to the next CS falling edge (section 8.1). A slow clock and gaps between
+frames give a high-impedance source more time to settle. The acquisition time is 325 ns minimum (section 7.6), and
+with MXO shorted to AINP the source impedance should be 50 Ω or less, since a higher one slows settling after a
+channel change (section 9.1.1). To check your input network, read the same inputs at your SCLK and at 1 MHz and
+compare the means: a difference of more than 1 to 2 LSB calls for a lower source impedance or a buffer between MXO
+and AINP (section 9.2.2).</p>
+<h2 id="the-frame">The frame<a class="headerlink" href="#the-frame" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="../diagrams/frame-pipeline.svg#only-light" alt="Two timing grids of 16-bit frames. Manual: a Manual word selects channel 4 in frame N, the multiplexer acquires it in frame N + 1 and its result comes back in frame N + 2. Auto-1: the Auto-1 word restarts the sequence 2, 5, 6 in frame N, and from frame N + 2 on every Auto-1 word returns the next channel." width="1200" height="768" loading="lazy"><img src="../diagrams/frame-pipeline.dark.svg#only-dark" alt="Two timing grids of 16-bit frames. Manual: a Manual word selects channel 4 in frame N, the multiplexer acquires it in frame N + 1 and its result comes back in frame N + 2. Auto-1: the Auto-1 word restarts the sequence 2, 5, 6 in frame N, and from frame N + 2 on every Auto-1 word returns the next channel." width="1200" height="768" loading="lazy">
+<figcaption>A result comes back two frames after its channel</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each column is one 16-bit frame, CS low for 16 SCLK cycles, left to right in time. In each panel the top row is the word the driver sends on SDI, the middle row the channel the multiplexer acquires during that frame, and the bottom row the reply on SDO: the conversion of the channel acquired in the frame before, sampled at this frame's CS falling edge, tagged with its address in DO15:12. In Manual mode (top) ReadChannel(4) selects channel 4 with a Manual word, sends a "continue" word and then the Manual word for channel 4 again (it carries the range once more), and keeps the third reply, whose address must be 4; the two replies before it still belong to the previous channel. In Auto-1 (bottom), entering the mode restarts the sequence at its first channel: with channels 2, 5 and 6 programmed, the first result arrives two frames after the Auto-1 word, and from then on every Auto-1 word without restart (DI11 = 1, the range again) returns the next channel of the sequence, so a pass costs one frame per channel. The timing is the datasheet's Figures 51 and 53; the frame counts come from ReadChannel(), readSelected(), scan() and collect() in src/ads7952.ipp.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>select()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>selectChecked()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>readSelected()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>scan()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a> <code>kContinue</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/a1b977597782bde428df5cce1eaf763a6ef25dbb/docs/diagrams/figures/frame-pipeline.py"><code>docs/diagrams/figures/frame-pipeline.py</code></a>.</p>
+</details>
+<p>Each frame is one 16-bit word in and one out, MSB first. The word in (DI15:00) has its command in DI15:12:</p>
+<table>
+<thead>
+<tr>
+<th>DI15:12</th>
+<th>Word</th>
+<th>Driver use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0000</td>
+<td>Continue in the current mode; DI11:00 ignored (Table 7)</td>
+<td>Every frame that only reads</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>Manual mode, next channel in DI10:07 (Table 1)</td>
+<td><code>ReadChannel()</code>, <code>ReadChannels()</code>, the identity check</td>
+</tr>
+<tr>
+<td>0010, 0011</td>
+<td>Auto-1, Auto-2 mode (Tables 2, 5)</td>
+<td><code>ReadAuto1()</code>, <code>ReadAuto2()</code></td>
+</tr>
+<tr>
+<td>0100</td>
+<td>GPIO program register (Table 11)</td>
+<td>Start-up reset, <code>GpioConfig</code></td>
+</tr>
+<tr>
+<td>1000</td>
+<td>Auto-1 program: the mask follows in the next frame (Table 3)</td>
+<td><code>SetAuto1Channels()</code></td>
+</tr>
+<tr>
+<td>1001</td>
+<td>Auto-2 program: last channel in DI09:06 (Table 6)</td>
+<td><code>SetAuto2LastChannel()</code></td>
+</tr>
+<tr>
+<td>11bb</td>
+<td>Alarm program, group bb; thresholds follow (Table 13)</td>
+<td><code>SetAlarmThresholds()</code></td>
+</tr>
+</tbody>
+</table>
+<p>In a mode word, DI11 = 1 makes the chip take DI06:00 (DI10:00 in the Auto modes); with DI11 = 0 it keeps the previous
+values. DI10 restarts an Auto sequence; DI06 is the range; DI05 powers down; DI04 makes the next reply carry the GPIO
+levels instead of the channel address; DI03:00 are the GPIO output levels. The driver always sends DI11 = 1 with the
+configured range and levels, and DI04 = DI05 = 0 except where a call needs them.</p>
+<p>The word out has the channel address in DO15:12 and the 12-bit result, straight binary, in DO11:00
+(<code>reg::ReplyAddress()</code>, <code>reg::ReplyCode()</code>). It is the conversion of the input sampled at that frame's CS falling
+edge, which the multiplexer acquired during the frame before, which the frame before that chose: <strong>a channel chosen
+in frame N comes back in frame N + 2</strong> (Figure 51). A range written in frame N applies from the same result. The
+first conversion after power-up or a reset is invalid (section 7.6).</p>
+<h2 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Channels</th>
+<th>Frames per result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual</td>
+<td>The one each word names</td>
+<td>3 for a new channel, then 1 for each repeat</td>
+</tr>
+<tr>
+<td>Auto-1</td>
+<td>The channels of a 16-bit mask, ascending, wrapping</td>
+<td>1, after 2 to enter</td>
+</tr>
+<tr>
+<td>Auto-2</td>
+<td>Channel 0 up to a last channel, wrapping</td>
+<td>1, after 2 to enter</td>
+</tr>
+</tbody>
+</table>
+<p>Entering an Auto mode from another mode restarts its sequence (sections 8.4.5 and 8.4.6). Writing the Auto-1 mask
+while in Auto-1 moves the chip on to the next enabled channel of the new mask; writing the Auto-2 last channel while
+in Auto-2 restarts it at channel 0. The chip keeps converting in its mode while a program register is written, and
+its replies stay valid.</p>
+<h2 id="program-registers-and-their-reset-values">Program registers and their reset values<a class="headerlink" href="#program-registers-and-their-reset-values" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Reset value</th>
+<th><code>Config</code> field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mode control</td>
+<td>Manual, channel 0, Range 1, GPIO outputs low</td>
+<td><code>range</code>, <code>gpio.output_levels</code></td>
+</tr>
+<tr>
+<td>Auto-1 mask</td>
+<td>Every channel (0x000F, 0x00FF, 0x0FFF, 0xFFFF)</td>
+<td><code>auto1_channels</code></td>
+</tr>
+<tr>
+<td>Auto-2 last channel</td>
+<td>The last channel (3, 7, 11, 15)</td>
+<td><code>auto2_last_channel</code></td>
+</tr>
+<tr>
+<td>GPIO</td>
+<td>Every pin an input, no function</td>
+<td><code>gpio</code></td>
+</tr>
+<tr>
+<td>Alarm thresholds</td>
+<td>High all ones, low all zeros: no alarm</td>
+<td><code>alarms</code></td>
+</tr>
+</tbody>
+</table>
+<p>DI09 of the GPIO program word resets every register "in the next CS frame" (Table 11): <code>EnsureInitialized()</code> uses it
+as the chip's software reset, then writes every register. The chip has no way to read a register back.</p>
+<h2 id="alarms">Alarms<a class="headerlink" href="#alarms" title="Permanent link">&para;</a></h2>
+<p>Each channel has a high and a low threshold of 10 bits, compared with the upper 10 bits of each result (Table 13):
+the two lowest bits of a code do not count. GPIO0 can be the "high or low" or the high alarm output and GPIO1 the low
+alarm output (TSSOP only), active high, set on the 12<sup>th</sup> SCLK of the frame that converts the channel and cleared on
+the 10<sup>th</sup> SCLK of the next (section 8.1). Programming a group of four channels takes the group frame, one frame per
+threshold and one frame to leave the sequence.</p>
+<h2 id="power">Power<a class="headerlink" href="#power" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+VA</td>
+<td>2.7 V to 5.25 V</td>
+</tr>
+<tr>
+<td>+VBD</td>
+<td>1.7 V to +VA</td>
+</tr>
+<tr>
+<td>VREF</td>
+<td>2.0 V to 3.0 V, 2.5 V nominal; lower than 2.4 V costs noise (section 7.6)</td>
+</tr>
+<tr>
+<td>Range 2</td>
+<td>0 to 2 x VREF, only while 2 x VREF &lt;= +VA (section 7.6): <code>Validate()</code> checks it with <code>vref_mv</code> and <code>va_min_mv</code>, the lowest +VA the board guarantees</td>
+</tr>
+<tr>
+<td>Inputs</td>
+<td>-0.3 V to +VA + 0.3 V, absolute (section 7.1)</td>
+</tr>
+<tr>
+<td>Decoupling</td>
+<td>1 µF ceramic at each supply pin; 10 µF ceramic from REFP to REFM, next to the pins (sections 8.3.1, 10)</td>
+</tr>
+<tr>
+<td>Power-down</td>
+<td>DI05 = 1: down at the end of the next frame (section 8.3.2); about 1 µA</td>
+</tr>
+<tr>
+<td>Power-up</td>
+<td>1 µs, then one invalid conversion (section 7.6)</td>
+</tr>
+</tbody>
+</table>
+<p>Choosing VREF and the range for a supply, the scale monitor, ratiometric sensors and the layout rules: <a href="../reference-and-supplies/">Reference,
+range and supplies</a>.</p>
+<p><code>Deinitialize()</code> powers the chip down. <code>EnsureInitialized()</code> wakes it through the reset, waits <code>kPowerUpUs</code> with the
+port's <code>DelayUs()</code> and discards the invalid conversion.</p>
+<!-- generated: datasheet-card -->
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Revision</th>
+<th>Get it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Datasheet: ADS79xx 12-, 10-, 8-Bit, 1-MSPS, 16-, 12-, 8-, 4-Channel, Single-Ended, Serial Interface ADCs (Texas Instruments SLAS605)</td>
+<td>C, 2018-07</td>
+<td><a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf">PDF</a> · <a href="https://www.ti.com/product/ADS7952">vendor page</a></td>
+</tr>
+</tbody>
+</table>
+<p>Written against these revisions; the SHA-256 of each file is in <a href="../datasheets.yml"><code>docs/datasheets.yml</code></a>. Where each part
+of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p>
+<!-- /generated -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../platforms/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Platforms">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Platforms
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Architecture
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright kb-footer">
+  <nav class="kb-footer__links" aria-label="Kokeb Labs">
+    <a href="https://kokeb-labs.github.io/">Kokeb Labs docs</a>
+    <a href="https://github.com/kokeb-labs-drivers">GitHub organisation</a>
+    
+      <a href="https://github.com/kokeb-labs-drivers/driver-ads7952">Source</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/issues">Report an issue</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/main/LICENSE">License</a>
+    
+  </nav>
+  
+    <div class="md-copyright__highlight">Copyright (c) 2026 The driver-ads7952 authors</div>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/kokeb-labs-drivers" target="_blank" rel="noopener" title="Kokeb Labs on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.prune", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../search/main.js"></script>
+      
+    
+  </body>
+</html>
