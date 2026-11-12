@@ -1235,59 +1235,59 @@ with the Kconfig, version, install, Doxygen, host-example, compile-fail and fuzz
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/test_ads7952.cpp"><code>tests/test_ads7952.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/test_ads7952.cpp"><code>tests/test_ads7952.cpp</code></a></td>
 <td>The lifecycle (no I/O before the start, the reset and the frames of the start, a retried start, a chip left inside a program sequence, restart from power-down), <code>Validate()</code>, the identity check against every bus fault and on every variant, Manual reads and their frame counts, pipelined lists, Auto-1 and Auto-2 scans (entry, the running sequence, a pass starting anywhere, a lost mask, a brown-out), <code>SetRange()</code> and the skipped reply, program registers with and without <code>Verify::ReadBack</code>, alarms and alarm pins, GPIOs and their read-back, <code>ApplyConfig()</code> before and after the start, logging</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/test_bus_faults.cpp"><code>tests/test_bus_faults.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/test_bus_faults.cpp"><code>tests/test_bus_faults.cpp</code></a></td>
 <td>Every frame of every operation, <code>EnsureInitialized()</code> included, fails in turn, before and after the chip took it; each returns <code>Bus</code> and the next read works; every frame of a read is lost in turn and none yields another channel's result; the repairs after a failed mask or alarm frame</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/fuzz/fuzz_ads7952.cpp"><code>tests/fuzz/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/fuzz/fuzz_ads7952.cpp"><code>tests/fuzz/</code></a></td>
 <td>The fuzz target; CTest replays its corpus (<code>ads7952_fuzz_ads7952_corpus</code>), see below</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/test_errors.cpp"><code>tests/test_errors.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/test_errors.cpp"><code>tests/test_errors.cpp</code></a></td>
 <td>Every chip-specific value (16 to 22) and <code>Unsupported</code> are returned by a real call</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/test_reset.cpp"><code>tests/test_reset.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/test_reset.cpp"><code>tests/test_reset.cpp</code></a></td>
 <td>A reset the chip does on its own mid-session (<code>brownout_before_frame</code>, with the conversion in flight kept or lost): the model reloads the reset values and gives one invalid result; <code>DeviceReset</code> from a read, a select, a list, an Auto-1 scan and <code>CheckScale()</code>; the driver uninitialised after every mismatch; <code>ApplyConfig()</code> writing every register on every part; the GPIO0 alarm re-armed</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/test_version.cpp"><code>tests/test_version.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/test_version.cpp"><code>tests/test_version.cpp</code></a></td>
 <td>The version getters follow the generated header (also against a 9.8.7 probe)</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/test_kconfig.cpp"><code>tests/test_kconfig.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/test_kconfig.cpp"><code>tests/test_kconfig.cpp</code></a></td>
 <td><code>KconfigDefaults()</code> with and without <code>CONFIG_</code> values</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/compile_fail/port_without_delay.cpp"><code>tests/compile_fail/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/compile_fail/port_without_delay.cpp"><code>tests/compile_fail/</code></a></td>
 <td>Code that must not compile, each for its <code>EXPECT:</code> diagnostic: a port without <code>DelayUs()</code>, a <code>void Transfer()</code>, a <code>Transfer()</code> with a narrowed length or without <code>noexcept</code>, a <code>DelayUs(uint16_t)</code>, a <code>Log()</code> without <code>noexcept</code>, a class that is not a port</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/mock_ads7952.hpp"><code>tests/mock_ads7952.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/mock_ads7952.hpp"><code>tests/mock_ads7952.hpp</code></a></td>
 <td>The chip model, with its own frame format; the mock ports over it are in <code>mock_ads7952_bus.hpp</code></td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/test_model.cpp"><code>tests/test_model.cpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/test_model.cpp"><code>tests/test_model.cpp</code></a></td>
 <td>The model's frame format, reset values, channel counts and timing against the driver's, with <code>static_assert</code></td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/check_version_copy.cmake"><code>tests/check_version_copy.cmake</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/check_version_copy.cmake"><code>tests/check_version_copy.cmake</code></a></td>
 <td><code>_config/Doxyfile</code> carries the CMake version</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/examples/host/README.md"><code>examples/host/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/examples/host/README.md"><code>examples/host/</code></a></td>
 <td>The host example, built with the test flags and run (<code>ads7952_host_example</code>)</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/check_install.cmake"><code>tests/check_install.cmake</code></a></td>
-<td>Installs into a scratch prefix and builds <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/install_consumer/CMakeLists.txt"><code>tests/install_consumer/</code></a> with <code>find_package(ads7952)</code></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/check_install.cmake"><code>tests/check_install.cmake</code></a></td>
+<td>Installs into a scratch prefix and builds <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/install_consumer/CMakeLists.txt"><code>tests/install_consumer/</code></a> with <code>find_package(ads7952)</code></td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/check_doxygen.cmake"><code>tests/check_doxygen.cmake</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/check_doxygen.cmake"><code>tests/check_doxygen.cmake</code></a></td>
 <td>Doxygen with <code>_config/Doxyfile</code> and warnings as errors, when <code>doxygen</code> is installed</td>
 </tr>
 </tbody>
@@ -1295,11 +1295,11 @@ with the Kconfig, version, install, Doxygen, host-example, compile-fail and fuzz
 <p>The model does not reproduce the chip's analog or electrical behaviour, and two points the datasheet leaves open
 are modelled the conservative way: see <a href="../limitations/">Status and limitations</a>.</p>
 <h3 id="the-model-stands-alone">The model stands alone<a class="headerlink" href="#the-model-stands-alone" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/mock_ads7952.hpp"><code>tests/mock_ads7952.hpp</code></a> is written from the datasheet, not from the driver: it does
+<p><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/mock_ads7952.hpp"><code>tests/mock_ads7952.hpp</code></a> is written from the datasheet, not from the driver: it does
 not include <code>ads7952_registers.hpp</code> or <code>ads7952_types.hpp</code>. Its command codes, bit positions, reset values, channel
 counts and power-up time are its own (namespace <code>ads7952_test::chip</code>, each with the datasheet section), so a wrong
 constant in the driver cannot hide behind the same wrong constant in the model (handbook KB-TST-030).
-<a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/test_model.cpp"><code>tests/test_model.cpp</code></a> compares the two at compile time:</p>
+<a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/test_model.cpp"><code>tests/test_model.cpp</code></a> compares the two at compile time:</p>
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Command words, DI15:12 (Tables 1, 2, 3, 5, 6, 11, 13).</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">static_assert</span><span class="p">(</span><span class="n">chip</span><span class="o">::</span><span class="n">kCommandShift</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">reg</span><span class="o">::</span><span class="n">kCommandShift</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">chip</span><span class="o">::</span><span class="n">kContinue</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">reg</span><span class="o">::</span><span class="n">kContinue</span><span class="w"> </span><span class="o">&amp;&amp;</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">              </span><span class="n">chip</span><span class="o">::</span><span class="n">kManual</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">reg</span><span class="o">::</span><span class="n">kManual</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">chip</span><span class="o">::</span><span class="n">kAuto1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">reg</span><span class="o">::</span><span class="n">kAuto1</span><span class="w"> </span><span class="o">&amp;&amp;</span>
@@ -1349,7 +1349,7 @@ otherwise compiles C++ in a newer GNU dialect. The tests and fuzzers build with 
 (<code>_GLIBCXX_ASSERTIONS</code>, libc++ hardening), so an out-of-range span access traps.</p>
 <h2 id="fuzz-tests">Fuzz tests<a class="headerlink" href="#fuzz-tests" title="Permanent link">&para;</a></h2>
 <p>Everything the driver receives comes from MISO, so MISO is what a noisy cable, an unplugged board or a broken chip
-controls. <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/fuzz/fuzz_ads7952.cpp"><code>tests/fuzz/fuzz_ads7952.cpp</code></a> lets libFuzzer choose the part, the
+controls. <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/fuzz/fuzz_ads7952.cpp"><code>tests/fuzz/fuzz_ads7952.cpp</code></a> lets libFuzzer choose the part, the
 package and a configuration (sometimes for another part, sometimes invalid), then up to 64 driver calls, and on every
 transfer what the bus does: pass the model's reply, fail the transfer, lose it (the chip never sees it, MISO floats),
 flip bits of the reply or replace it. Between calls it changes the board: MISO floating, stuck low, a fixed word,
@@ -1384,13 +1384,13 @@ next Manual word as its mask. The driver now repeats the mask frame after a fail
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>./build-fuzz/tests/fuzz/fuzz_ads7952<span class="w"> </span>-max_total_time<span class="o">=</span><span class="m">300</span><span class="w"> </span>tests/fuzz/corpus/fuzz_ads7952
 </span></code></pre></div>
 <p>The same file also builds without libFuzzer as <code>fuzz_replay_fuzz_ads7952</code>, and CTest replays every input in
-<a href="https://github.com/kokeb-labs-drivers/driver-ads7952/tree/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/fuzz/corpus/fuzz_ads7952"><code>tests/fuzz/corpus/fuzz_ads7952/</code></a> on GCC and Clang: the seeds, and every input
+<a href="https://github.com/kokeb-labs-drivers/driver-ads7952/tree/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/fuzz/corpus/fuzz_ads7952"><code>tests/fuzz/corpus/fuzz_ads7952/</code></a> on GCC and Clang: the seeds, and every input
 that ever broke a promise (<code>regress-*</code>), so a fixed bug stays fixed. CI fuzzes for 120 s on every pull request
 (job <code>Host quality / fuzz</code>). After the fixes, local runs of 5 and 25 minutes broke no promise.</p>
 <h2 id="quality-gates">Quality gates<a class="headerlink" href="#quality-gates" title="Permanent link">&para;</a></h2>
 <p>The <code>Host quality</code> job measures the library code, <code>inc/</code> and <code>src/</code> only (tests and examples are left out), and
 fails when a value is over the limits of this repository's assurance level, <code>high</code> (set in
-<a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/.kokeb/handbook.yml"><code>.kokeb/handbook.yml</code></a>, defined by the handbook's ADR-0020):</p>
+<a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/.kokeb/handbook.yml"><code>.kokeb/handbook.yml</code></a>, defined by the handbook's ADR-0020):</p>
 <table>
 <thead>
 <tr>
@@ -1466,16 +1466,16 @@ fails when a value is over the limits of this repository's assurance level, <cod
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-san<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-san<span class="w"> </span>--output-on-failure
 </span></code></pre></div>
 <p>The fuzz gate runs locally as shown in <a href="#fuzz-tests">Fuzz tests</a>.</p>
-<p>clang-tidy 20 (<a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/_config/.clang-tidy"><code>_config/.clang-tidy</code></a>: bugprone, CERT, clang-analyzer,
+<p>clang-tidy 20 (<a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/_config/.clang-tidy"><code>_config/.clang-tidy</code></a>: bugprone, CERT, clang-analyzer,
 cppcoreguidelines, modernize, performance, portability and readability, each disabled check with its reason) and
 cppcheck (strict) run in the <code>C++ lint</code> and <code>Repository checks</code> jobs and fail on any finding.</p>
 <h2 id="documentation-snippets">Documentation snippets<a class="headerlink" href="#documentation-snippets" title="Permanent link">&para;</a></h2>
-<p>Every C++ block on this site is included from <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/tests/docs/my_port.hpp"><code>tests/docs/</code></a>, which the host build
+<p>Every C++ block on this site is included from <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/tests/docs/my_port.hpp"><code>tests/docs/</code></a>, which the host build
 compiles (target <code>ads7952_doc_snippets</code>) with the driver instantiated over the documented port. A change to
 the API that breaks a page breaks the build first. The README's example is a generated copy of the same file;
 <code>kokeb-docs check</code> fails when it drifts.</p>
 <h2 id="ci-workflows">CI workflows<a class="headerlink" href="#ci-workflows" title="Permanent link">&para;</a></h2>
-<p>Everything runs from <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/.github/workflows/ci.yml"><code>ci.yml</code></a>, which calls one workflow file per check and ends in
+<p>Everything runs from <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/.github/workflows/ci.yml"><code>ci.yml</code></a>, which calls one workflow file per check and ends in
 the <code>CI gate</code> job, the single required check (<code>CI gate / gate</code>).</p>
 <table>
 <thead>

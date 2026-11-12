@@ -1086,7 +1086,7 @@
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
 <h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
 <table>
@@ -1100,17 +1100,17 @@
 <tbody>
 <tr>
 <td>Core</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></td>
 <td>Lifecycle, reset and identity check, the frame pipeline (mode, selected channel, replies in flight), address checks, program sequences and their repair, errors</td>
 </tr>
 <tr>
 <td>Types and frame format</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952_types.hpp"><code>inc/ads7952_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952_types.hpp"><code>inc/ads7952_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a></td>
 <td><code>Error</code>, <code>Result&lt;T&gt;</code>, <code>Variant</code>, <code>Package</code>, <code>Range</code>, <code>Verify</code>, <code>GpioConfig</code>, <code>AlarmThreshold</code>, <code>Bank</code>, <code>Config</code>; the command words and the reply fields</td>
 </tr>
 <tr>
 <td>Port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></td>
 <td>The CRTP base, the <code>SpiPort</code> concept, <code>detail::FrameBus</code> (one 16-bit frame per transfer, MSB first)</td>
 </tr>
 <tr>
@@ -1120,7 +1120,7 @@
 </tr>
 <tr>
 <td>Kconfig layer</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952_kconfig.hpp"><code>inc/ads7952_kconfig.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952_kconfig.hpp"><code>inc/ads7952_kconfig.hpp</code></a></td>
 <td>Optional: a <code>Config</code> from ESP-IDF menuconfig</td>
 </tr>
 </tbody>
@@ -1134,7 +1134,7 @@
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Each column is one 16-bit frame, CS low for 16 SCLK cycles, left to right in time. In each panel the top row is the word the driver sends on SDI, the middle row the channel the multiplexer acquires during that frame, and the bottom row the reply on SDO: the conversion of the channel acquired in the frame before, sampled at this frame's CS falling edge, tagged with its address in DO15:12. In Manual mode (top) ReadChannel(4) selects channel 4 with a Manual word, sends a "continue" word and then the Manual word for channel 4 again (it carries the range once more), and keeps the third reply, whose address must be 4; the two replies before it still belong to the previous channel. In Auto-1 (bottom), entering the mode restarts the sequence at its first channel: with channels 2, 5 and 6 programmed, the first result arrives two frames after the Auto-1 word, and from then on every Auto-1 word without restart (DI11 = 1, the range again) returns the next channel of the sequence, so a pass costs one frame per channel. The timing is the datasheet's Figures 51 and 53; the frame counts come from ReadChannel(), readSelected(), scan() and collect() in src/ads7952.ipp.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>select()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>selectChecked()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>readSelected()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>scan()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a> <code>kContinue</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/docs/diagrams/figures/frame-pipeline.py"><code>docs/diagrams/figures/frame-pipeline.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>select()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>selectChecked()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>readSelected()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>scan()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a> <code>kContinue</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/docs/diagrams/figures/frame-pipeline.py"><code>docs/diagrams/figures/frame-pipeline.py</code></a>.</p>
 </details>
 <p>The chip answers each frame with the result of the channel the frame before last chose (Figures 51 and 53). The core
 keeps three facts so that each call sends the fewest frames and returns only results that belong to it: the mode the
@@ -1191,19 +1191,19 @@ reply's address is always checked against the channel it must carry.</p>
 <tbody>
 <tr>
 <td>The public API</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a></td>
 </tr>
 <tr>
 <td>How a call is implemented</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></td>
 </tr>
 <tr>
 <td>Command words and reply fields</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a></td>
 </tr>
 <tr>
 <td>The port contract and the frame</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></td>
 </tr>
 </tbody>
 </table>

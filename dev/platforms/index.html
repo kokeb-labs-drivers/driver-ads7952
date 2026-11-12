@@ -1067,15 +1067,15 @@ optional pieces around it, and only <code>examples/&lt;platform&gt;/</code> hold
 <tbody>
 <tr>
 <td>Host (Linux, macOS, Windows)</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/examples/host/host_ads7952_port.hpp"><code>examples/host/host_ads7952_port.hpp</code></a> (simulated chip)</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/examples/host/README.md"><code>examples/host/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/examples/host/host_ads7952_port.hpp"><code>examples/host/host_ads7952_port.hpp</code></a> (simulated chip)</td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/examples/host/README.md"><code>examples/host/</code></a></td>
 <td>Plain CMake</td>
 <td>yes, run as a test</td>
 </tr>
 <tr>
 <td>ESP32 (ESP-IDF)</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/examples/esp32/main/esp32_ads7952_port.hpp"><code>examples/esp32/main/esp32_ads7952_port.hpp</code></a></td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/examples/esp32/README.md"><code>examples/esp32/</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/examples/esp32/main/esp32_ads7952_port.hpp"><code>examples/esp32/main/esp32_ads7952_port.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/examples/esp32/README.md"><code>examples/esp32/</code></a></td>
 <td>Root <code>CMakeLists.txt</code> under <code>ESP_PLATFORM</code> (component)</td>
 <td>yes</td>
 </tr>
@@ -1094,7 +1094,7 @@ repository as a component (a repository scaffolded without the ESP32 platform ad
 template when it needs it). Zephyr modules, Arduino library manifests and PlatformIO manifests are added only when a
 product needs them, and an example is added only together with a CI job that builds it.</p>
 <h2 id="add-a-platform">Add a platform<a class="headerlink" href="#add-a-platform" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/b2e9e4c1f496ca71a5db3623e6d79d806093ec55/.claude/skills/add-port/SKILL.md"><code>add-port</code> skill</a> has
+<p>The <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/75336fbe3799393ad23aee2daf1e63a78236ef99/.claude/skills/add-port/SKILL.md"><code>add-port</code> skill</a> has
 the details per MCU. In short:</p>
 <ol>
 <li>Create <code>examples/&lt;platform&gt;/</code> with the port (<code>&lt;platform&gt;_ads7952_port.hpp</code>), a small example program and a
