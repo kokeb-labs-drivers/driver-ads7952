@@ -59,15 +59,15 @@ SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequence
 ## Where it is used
 
 <!-- generated: chip-uses -->
-- PLC and industrial PC inputs (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
-- Optical line card monitoring (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
-- Medical instrumentation (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
-- Digital power supplies (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
-- Multichannel signal monitoring (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
-- High-speed data acquisition (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
-- High-speed closed-loop systems (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
+- PLC and industrial PC inputs
+- Optical line card monitoring
+- Medical instrumentation
+- Digital power supplies
+- Multichannel signal monitoring
+- High-speed data acquisition
+- High-speed closed-loop systems
 
-Uses named by the datasheet (1 Features, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1)).
+Uses named by the datasheet (2 Applications, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1)).
 <!-- /generated -->
 
 ## Inside the chip
@@ -172,19 +172,20 @@ Step by step, from a bare chip to the first result: [Quickstart](quickstart.md).
 <!-- generated: chip-coverage -->
 | Capability | What the chip does | Driver API | Registers | Status | Datasheet |
 | --- | --- | --- | --- | --- | --- |
-| [Manual mode](api-guide.md) | Converts the channel each frame names; the result comes two frames later, tagged with its channel | `ReadChannel`, `ReadChannels` | `kManual`, `kProgramEnable` | Supported | 8.4.4, [p. 31](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=31) |
-| [Auto-1 sequence](api-guide.md) | Scans a programmed list of channels in ascending order, one per frame | `SetAuto1Channels`, `ReadAuto1` | `kAuto1`, `kAuto1Program` | Supported | 8.4.5, [p. 34](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=34) |
-| [Auto-2 sequence](api-guide.md) | Scans from channel 0 up to a programmed last channel, one per frame | `SetAuto2LastChannel`, `ReadAuto2` | `kAuto2`, `kAuto2Program` | Supported | 8.4.6, [p. 38](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=38) |
-| [Input range](configuration.md) | Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts | `SetRange`, `Range`, `ToMicrovolts` | `kRangeTwoVref`, `kGpio2Range` | Supported | 8.4.4, [p. 33](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=33) |
-| [Alarm thresholds](api-guide.md) | A high and a low threshold per channel, signalled on GPIO0 and GPIO1 | `SetAlarmThresholds`, `AlarmThreshold` | `kAlarmProgramGroup0`, `kAlarmHigh` | Supported | 8.5.3, [p. 43](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=43) |
-| [GPIOs](api-guide.md) | Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames | `SetGpioOutputs`, `ReadGpio` | `kGpioProgram`, `kGpioReadout`, `kGpioDataMask` | Supported | 8.5.2, [p. 42](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=42) |
-| [Power-down](api-guide.md) | Powers the chip down at the end of a frame, by command or by the GPIO3 input | `Deinitialize` | `kPowerDown`, `kGpio3PowerDown` | Supported | 8.3.2, [p. 29](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=29) |
-| [Reset and checks](contract.md) | Resets every register by command, waits the power-up time and checks that the chip answers | `EnsureInitialized`, `CheckScale` | `kGpioResetAll` | Supported | 8.4.3, [p. 30](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=30) |
+| [Manual mode](api-guide.md) | Converts the channel each frame names; the result comes two frames later, tagged with its channel | `ReadChannel`, `ReadChannels` | `Mode Control 0001` (`kManual`), `DI11 program` (`kProgramEnable`) | Supported | 8.4.4, [p. 31](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=31) |
+| [Auto-1 sequence](api-guide.md) | Scans a programmed list of channels in ascending order, one per frame | `SetAuto1Channels`, `ReadAuto1` | `Mode Control 0010` (`kAuto1`), `Auto-1 Program` (`kAuto1Program`) | Supported | 8.4.5, [p. 34](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=34) |
+| [Auto-2 sequence](api-guide.md) | Scans from channel 0 up to a programmed last channel, one per frame | `SetAuto2LastChannel`, `ReadAuto2` | `Mode Control 0011` (`kAuto2`), `Auto-2 Program` (`kAuto2Program`) | Supported | 8.4.6, [p. 38](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=38) |
+| [Input range](configuration.md) | Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts | `SetRange`, `Range`, `ToMicrovolts` | `DI06 range` (`kRangeTwoVref`), `GPIO Program DI07` (`kGpio2Range`) | Supported | 8.4.4, [p. 33](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=33) |
+| [Alarm thresholds](api-guide.md) | A high and a low threshold per channel, signalled on GPIO0 and GPIO1 | `SetAlarmThresholds`, `AlarmThreshold` | `Alarm Program` (`kAlarmProgramGroup0`), `DI13 high or low` (`kAlarmHigh`) | Supported | 8.5.3, [p. 43](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=43) |
+| [GPIOs](api-guide.md) | Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames | `SetGpioOutputs`, `ReadGpio` | `GPIO Program` (`kGpioProgram`), `DI04 GPIO read` (`kGpioReadout`), `DI03-00 GPIO data` (`kGpioDataMask`) | Supported | 8.5.2, [p. 42](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=42) |
+| [Power-down](api-guide.md) | Powers the chip down at the end of a frame, by command or by the GPIO3 input | `Deinitialize` | `DI05 power down` (`kPowerDown`), `GPIO Program DI08` (`kGpio3PowerDown`) | Supported | 8.3.2, [p. 29](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=29) |
+| [Reset and checks](contract.md) | Resets every register by command, waits the power-up time and checks that the chip answers | `EnsureInitialized`, `CheckScale` | `GPIO Program DI09` (`kGpioResetAll`) | Supported | 8.4.3, [p. 30](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=30) |
 
 **Supported**: the driver covers it and a host test checks it.
 
 From [`docs/hardware.yml`](hardware.yml); `kokeb-docs hardware --check` confirms that every API name is in
-`inc/ads7952.hpp`, `inc/ads7952_types.hpp` and every register in `inc/ads7952_registers.hpp`.
+`inc/ads7952.hpp`, `inc/ads7952_types.hpp` and every register (the header constant in brackets, where the header spells
+it otherwise) in `inc/ads7952_registers.hpp`.
 <!-- /generated -->
 
 The driver has no platform code. You give it a small class that brings the bus up and moves one 16-bit frame at a
