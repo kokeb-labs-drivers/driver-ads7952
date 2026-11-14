@@ -11,6 +11,18 @@
       "inc/ads7952_spi_interface.hpp"
     ]
   },
+  "chip-capabilities": {
+    "title": "What the ADS7952 does",
+    "alt": "Capability map of the ADS7952: Manual mode (supported): Converts the channel each frame names; the result comes two frames later, tagged with its channel; Auto-1 sequence (supported): Scans a programmed list of channels in ascending order, one per frame; Auto-2 sequence (supported): Scans from channel 0 up to a programmed last channel, one per frame; Input range (supported): Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts; Alarm thresholds (supported): A high and a low threshold per channel, signalled on GPIO0 and GPIO1; GPIOs (supported): Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames; Power-down (supported): Powers the chip down at the end of a frame, by command or by the GPIO3 input; Reset and checks (supported): Resets every register by command, waits the power-up time and checks that the chip answers.",
+    "description": "Each card is one function of the ADS7952: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/ads7952_spi_interface.hpp"
+    ]
+  },
   "chip-circuit-typical": {
     "title": "ADS7952: Typical application",
     "alt": "Schematic of the ADS7952 typical application: the chip with U2 MCU, U3 REF5025, C1 capacitor 10 µF, C2 capacitor 1 µF, C3 capacitor 1 µF, C4 capacitor 150 pF, C5 capacitor 150 pF; the MCU wires carry the port hooks Transfer().",
@@ -23,12 +35,48 @@
       "inc/ads7952_spi_interface.hpp"
     ]
   },
+  "chip-frame-spi": {
+    "title": "ADS7952: SPI frame",
+    "alt": "SPI frame of the ADS7952, 16 bits, most significant bit first. Manual: mode (bits 15 to 12), program (bit 11), channel (bits 10 to 7), range (bit 6), power down (bit 5), GPIO read (bit 4), GPIO data (bits 3 to 0); Reply: channel address (bits 15 to 12), 12-bit result (bits 11 to 0). Below, the SPI mode 0 waveform of one transfer in the same bit grid.",
+    "description": "One SPI frame of the ADS7952, 16 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/ads7952_spi_interface.hpp"
+    ]
+  },
+  "chip-hero": {
+    "title": "ADS7952",
+    "alt": "Overview of the ADS7952, a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequences. A MCU talks to it over SPI; it drives GPIO0 to GPIO3; it reads back Analog inputs, External reference. Headline figures: 12 x 12-bit single-ended inputs, one ADC; 1 MSPS sample rate; 20 MHz SPI clock, one 16-bit frame per sample; 2.7 to 5.25 V analog supply; I/O 1.7 to 5.25 V; 0 to 2 x VREF input range, or 0 to VREF; 1 µA power-down current.",
+    "description": "The ADS7952 in the middle, drawn as its TSSOP-38 package. On the left the MCU that runs the driver, joined to it by SPI. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/ads7952_spi_interface.hpp"
+    ]
+  },
   "chip-pinout": {
     "title": "ADS7952 pinout, TSSOP-38",
     "alt": "Pinout of the ADS7952 in TSSOP-38, top view: 38 pins, each with its name, its electrical type as a colour and the driver hook that uses it.",
     "description": "The ADS7952 seen from the top, in its TSSOP-38 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.",
     "profile": "detail",
     "width": 760,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/ads7952_spi_interface.hpp"
+    ]
+  },
+  "chip-wiring-typical": {
+    "title": "Wiring: Typical application",
+    "alt": "Wiring of the ADS7952 for the Typical application: MCU SPI SCK to SCLK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU GPIO / CS to CS (Transfer()); REFP to REF5025 OUT. Supplies, grounds and the support parts are listed under the drawing.",
+    "description": "The MCU on the left, the ADS7952 in the middle, the blocks it drives on the right. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "profile": "overview",
+    "width": 1200,
     "source": "docs/hardware.yml",
     "sources": [
       "docs/hardware.yml",

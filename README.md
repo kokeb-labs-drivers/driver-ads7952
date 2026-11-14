@@ -1,5 +1,11 @@
 # ADS7952 Driver
 
+<!-- generated: chip-summary -->
+The **ADS7952** is a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit
+SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequences (1 Features, [p.
+1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1)).
+<!-- /generated -->
+
 C++20 driver for the TI ADS7950, ADS7951, ADS7952 and ADS7953 12-bit SPI SAR ADCs.
 
 [![CI](https://github.com/kokeb-labs-drivers/driver-ads7952/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kokeb-labs-drivers/driver-ads7952/actions/workflows/ci.yml)
@@ -9,34 +15,215 @@ C++20 driver for the TI ADS7950, ADS7951, ADS7952 and ADS7953 12-bit SPI SAR ADC
 **Documentation: [`docs/`](docs/index.md)**, with the API reference built by Doxygen ([how](docs/api-reference.md)).
 The site at <https://kokeb-labs-drivers.github.io/driver-ads7952/> opens when the repository is public.
 
-The ADS7952 converts twelve analog inputs to 12 bits, one per 16-bit SPI frame, at up to 1 MSPS: a bank of pressure
-gauges, supply rails, temperature sensors. This driver resets the chip and checks that it really answers before it
-trusts the bus, reads one channel, a list or a whole programmed sequence with the fewest frames the chip allows, keys
-every result on the channel address in its reply, and sets the range, the alarms and the GPIOs. It runs on any MCU:
-you give it a small class that moves one frame on your SPI bus and waits, and it does the rest.
-
-<!-- figure: driver-layers -->
+<!-- figure: chip-hero -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/driver-layers.dark.svg">
-  <img src="docs/diagrams/driver-layers.svg"
-    alt="Layer diagram: your application calls the ADS7952 core, which sends register reads and writes
-    through the SPI port contract to the port class you write, which drives the chip; the core and the
-    contract are the same on every MCU.">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/chip-hero.dark.svg">
+  <img src="docs/diagrams/chip-hero.svg"
+    alt="Overview of the ADS7952, a 12-channel, 12-bit SAR analog-to-digital converter that samples one
+    single-ended input per 16-bit SPI frame at up to 1 MSPS, in a manual order or in one of two
+    automatic sequences. A MCU talks to it over SPI; it drives GPIO0 to GPIO3; it reads back Analog
+    inputs, External reference. Headline figures: 12 x 12-bit single-ended inputs, one ADC; 1 MSPS
+    sample rate; 20 MHz SPI clock, one 16-bit frame per sample; 2.7 to 5.25 V analog supply; I/O 1.7 to
+    5.25 V; 0 to 2 x VREF input range, or 0 to VREF; 1 µA power-down current.">
 </picture>
 <!-- /figure -->
 
-## At a glance
+## What it does
+
+<!-- figure: chip-capabilities -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/chip-capabilities.dark.svg">
+  <img src="docs/diagrams/chip-capabilities.svg"
+    alt="Capability map of the ADS7952: Manual mode (supported): Converts the channel each frame names; the
+    result comes two frames later, tagged with its channel; Auto-1 sequence (supported): Scans a
+    programmed list of channels in ascending order, one per frame; Auto-2 sequence (supported): Scans
+    from channel 0 up to a programmed last channel, one per frame; Input range (supported): Selects 0 to
+    VREF or 0 to 2 x VREF, and converts codes to microvolts; Alarm thresholds (supported): A high and a
+    low threshold per channel, signalled on GPIO0 and GPIO1; GPIOs (supported): Four pins on TSSOP, one
+    on VQFN, each an input or an output, read and written with the frames; Power-down (supported):
+    Powers the chip down at the end of a frame, by command or by the GPIO3 input; Reset and checks
+    (supported): Resets every register by command, waits the power-up time and checks that the chip
+    answers.">
+</picture>
+<!-- /figure -->
+
+## Where it is used
+
+<!-- generated: chip-uses -->
+- PLC and industrial PC inputs (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
+- Optical line card monitoring (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
+- Medical instrumentation (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
+- Digital power supplies (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
+- Multichannel signal monitoring (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
+- High-speed data acquisition (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
+- High-speed closed-loop systems (2, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1))
+
+Uses named by the datasheet (1 Features, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1)).
+<!-- /generated -->
+
+## Inside the chip
+
+<!-- figure: chip-blocks -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/chip-blocks.dark.svg">
+  <img src="docs/diagrams/chip-blocks.svg"
+    alt="Block diagram of the ADS7952: its function blocks, how they connect and which package pins reach
+    each block.">
+</picture>
+<!-- /figure -->
+
+## Pins and wiring
+
+<!-- figure: chip-pinout -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/chip-pinout.dark.svg">
+  <img src="docs/diagrams/chip-pinout.svg"
+    alt="Pinout of the ADS7952 in TSSOP-38, top view: 38 pins, each with its name, its electrical type as a
+    colour and the driver hook that uses it.">
+</picture>
+<!-- /figure -->
+
+<!-- figure: chip-wiring-typical -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/chip-wiring-typical.dark.svg">
+  <img src="docs/diagrams/chip-wiring-typical.svg"
+    alt="Wiring of the ADS7952 for the Typical application: MCU SPI SCK to SCLK (Transfer()); MCU SPI MOSI to
+    SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU GPIO / CS to CS (Transfer()); REFP to
+    REF5025 OUT. Supplies, grounds and the support parts are listed under the drawing.">
+</picture>
+<!-- /figure -->
+
+| MCU | ADS7952 |
+| --- | --- |
+| SPI SCLK, MOSI, MISO | SCLK (pin 32), SDI (pin 33), SDO (pin 34) |
+| Chip select | CS (pin 31): low for one 16-bit frame, high between frames |
+| MCU I/O supply | +VBD (pin 36), 1.7 V to +VA |
+| 2.7 V to 5.25 V, a 2.5 V reference | +VA (pins 5, 29); REFP, REFM (pins 4, 3) with 10 µF between them |
+| | MXO (pin 7) to AINP (pin 8), AINM (pin 9) to ground; the inputs on CH0 to CH11 |
+
+<!-- generated: chip-card -->
+| | | Datasheet |
+| --- | --- | --- |
+| **Package** | TSSOP-38 | 6, [p. 5](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=5) |
+| **Pins** | 38 | 6, [p. 5](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=5) |
+| **Supply +VA** | 2.7 V to 5.25 V | 7.3, [p. 10](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=10) |
+| **Supply +VBD** | 1.7 V to 5.25 V | 1, [p. 1](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1) |
+
+From [`docs/hardware.yml`](docs/hardware.yml); pins, circuits and the block diagram: [Hardware](docs/hardware.md).
+<!-- /generated -->
+
+<!-- figure: chip-frame-spi -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/chip-frame-spi.dark.svg">
+  <img src="docs/diagrams/chip-frame-spi.svg"
+    alt="SPI frame of the ADS7952, 16 bits, most significant bit first. Manual: mode (bits 15 to 12), program
+    (bit 11), channel (bits 10 to 7), range (bit 6), power down (bit 5), GPIO read (bit 4), GPIO data
+    (bits 3 to 0); Reply: channel address (bits 15 to 12), 12-bit result (bits 11 to 0). Below, the SPI
+    mode 0 waveform of one transfer in the same bit grid.">
+</picture>
+<!-- /figure -->
+
+## Quick start
+
+**1. Wire it** as in [Pins and wiring](#pins-and-wiring).
+
+**2. Write the port**: a class with `EnsureInitialized()` (bring the bus up), `Transfer()` (one 16-bit frame with CS
+low) and `DelayUs()`, about 25 lines on most SDKs. [Porting](docs/porting.md) has the contract and a complete
+example.
+
+**3. Read a channel:**
+
+<!-- generated: quickstart-code -->
+```cpp
+#include "ads7952.hpp"
+
+int read_input_3(MyPort& port, uint32_t& microvolts) {
+  ads7952::ADS7952<MyPort> adc(port); // no I/O yet; Config{} is an ADS7952 at its reset state
+
+  if (auto r = adc.EnsureInitialized(); !r) { // 1. bus up, reset, registers, identity check
+    return static_cast<int>(r.error);         //    Bus, NoDevice or DeviceIdMismatch: check wiring
+  }
+  const auto code = adc.ReadChannel(3); // 2. Manual mode: select, acquire, convert
+  if (!code) {
+    return static_cast<int>(code.error); //    ChannelMismatch: a reply for another channel
+  }
+  microvolts = adc.ToMicrovolts(code.value); // 3. 0 to VREF, one LSB = VREF / 4096
+  return 0;
+}
+```
+<!-- /generated -->
+
+`EnsureInitialized()` is the only call that starts the driver, and the only one that probes: the constructor clocks
+nothing, so a board can build it at boot and probe later, when the analog board is plugged in. Every other call returns
+`Error::NotInitialized` until the probe has succeeded.
+
+## Driver coverage
+
+<!-- generated: chip-coverage -->
+| Capability | What the chip does | Driver API | Registers | Status | Datasheet |
+| --- | --- | --- | --- | --- | --- |
+| [Manual mode](docs/api-guide.md) | Converts the channel each frame names; the result comes two frames later, tagged with its channel | `ReadChannel`, `ReadChannels` | `kManual`, `kProgramEnable` | Supported | 8.4.4, [p. 31](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=31) |
+| [Auto-1 sequence](docs/api-guide.md) | Scans a programmed list of channels in ascending order, one per frame | `SetAuto1Channels`, `ReadAuto1` | `kAuto1`, `kAuto1Program` | Supported | 8.4.5, [p. 34](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=34) |
+| [Auto-2 sequence](docs/api-guide.md) | Scans from channel 0 up to a programmed last channel, one per frame | `SetAuto2LastChannel`, `ReadAuto2` | `kAuto2`, `kAuto2Program` | Supported | 8.4.6, [p. 38](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=38) |
+| [Input range](docs/configuration.md) | Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts | `SetRange`, `Range`, `ToMicrovolts` | `kRangeTwoVref`, `kGpio2Range` | Supported | 8.4.4, [p. 33](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=33) |
+| [Alarm thresholds](docs/api-guide.md) | A high and a low threshold per channel, signalled on GPIO0 and GPIO1 | `SetAlarmThresholds`, `AlarmThreshold` | `kAlarmProgramGroup0`, `kAlarmHigh` | Supported | 8.5.3, [p. 43](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=43) |
+| [GPIOs](docs/api-guide.md) | Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames | `SetGpioOutputs`, `ReadGpio` | `kGpioProgram`, `kGpioReadout`, `kGpioDataMask` | Supported | 8.5.2, [p. 42](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=42) |
+| [Power-down](docs/api-guide.md) | Powers the chip down at the end of a frame, by command or by the GPIO3 input | `Deinitialize` | `kPowerDown`, `kGpio3PowerDown` | Supported | 8.3.2, [p. 29](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=29) |
+| [Reset and checks](docs/contract.md) | Resets every register by command, waits the power-up time and checks that the chip answers | `EnsureInitialized`, `CheckScale` | `kGpioResetAll` | Supported | 8.4.3, [p. 30](https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=30) |
+
+**Supported**: the driver covers it and a host test checks it.
+
+From [`docs/hardware.yml`](docs/hardware.yml); `kokeb-docs hardware --check` confirms that every API name is in
+`inc/ads7952.hpp`, `inc/ads7952_types.hpp` and every register in `inc/ads7952_registers.hpp`.
+<!-- /generated -->
+
+This driver resets the chip and checks that it really answers before it trusts the bus, reads one channel, a list or a
+whole programmed sequence with the fewest frames the chip allows, keys every result on the channel address in its reply,
+and sets the range, the alarms and the GPIOs. It runs on any MCU: you give it a small class that moves one frame on your
+SPI bus and waits, and it does the rest.
 
 | | |
 | --- | --- |
 | **Chips** | TI ADS7950 (4 channels), ADS7951 (8), ADS7952 (12), ADS7953 (16); 12 bits; TSSOP or VQFN. The 10- and 8-bit ADS7954 to ADS7961 are not supported |
-| **Converts** | 0 to VREF or 0 to 2 x VREF with an external 2.0 V to 3.0 V reference; up to 1 MSPS |
 | **Bus** | SPI mode 0, up to 20 MHz; one 16-bit frame per conversion, the result two frames after its channel |
-| **Modes** | Manual (a channel per frame), Auto-1 (a programmed list), Auto-2 (channel 0 to a last channel) |
-| **Extras** | Two alarm thresholds per channel on GPIO0 and GPIO1; four GPIOs on TSSOP; power-down |
 | **Driver** | Header-only C++20; no heap, exceptions, RTTI or virtual calls; every call returns `Result<T>` |
 | **Runs on** | Any MCU with SPI and a C++20 compiler; examples for ESP32 (ESP-IDF) and the host |
 | **Status** | 0.1.0, **not verified on hardware**: host-tested against a protocol model of the chip and fuzzed; the bench steps are in [limitations](docs/limitations.md) |
+
+- Starts the chip from a known state: ends any program sequence an earlier failure left open, resets every register
+  through the GPIO program register, writes the configuration.
+- Checks the chip before trusting it: selects a channel, keeps it, selects one whose address differs in every bit,
+  and demands those addresses back two frames later. A MISO line stuck low or high, a fixed reply word, an echo and an
+  SDI line that never reaches the chip all fail: a chip without SDI stays on channel 0, its reset state (datasheet
+  sections 8.4.1, 8.4.7), so a probe of channel 0 alone would pass.
+- Tracks the frame pipeline: a repeated Manual channel costs one frame, a running Auto-1 or Auto-2 scan one frame per
+  channel, a list `n + 2` frames. Every result is keyed on the address in its reply (`ChannelMismatch`,
+  `SequenceMismatch`), never inferred from frame counting.
+- Detects a reset behind its back where the replies show it: a reply from channel 0, the power-on channel, where it
+  expects another is `DeviceReset`, and after it (or any mismatch) the driver is uninitialised until
+  `EnsureInitialized()` programs the chip again. `ApplyConfig()` writes every register, never a difference from its
+  own copy.
+- Sends the range and GPIO levels with every mode word, the read frame of `ReadChannel()` included, so a chip reset
+  behind its back gets them back at once; skips the reply converted in the old range after `SetRange()`.
+- Sends only what the datasheet needs by default: the read-backs the chip allows (GPIO levels, the scanned sequence)
+  are opt-in, per call.
+- Programs the Auto-1 and Auto-2 sequences, the alarm thresholds and the GPIOs, and repairs a program sequence a
+  failed frame left open, so the chip never takes the next command as data.
+
+## Documentation
+
+| Page | Read it when you want to |
+| --- | --- |
+| [Quickstart](docs/quickstart.md) | Go from a bare chip to its first result on your MCU |
+| [Hardware](docs/hardware.md) | Wire it, pick the clock, understand the frame, the modes and the registers |
+| [Porting](docs/porting.md) | Write the port class for your MCU's SDK |
+| [API guide](docs/api-guide.md) | Use each call: start, read, scan, range, alarms, GPIOs, use it from a handler, handle errors |
+| [Configuration](docs/configuration.md) | Choose the part, the range, the sequences, the GPIOs and the alarms |
+| [Troubleshooting](docs/troubleshooting.md) | Find the cause of an error from the replies |
+| [Contract](docs/contract.md) | Know exactly what the driver promises, needs and returns, frame by frame |
+| [Status and limitations](docs/limitations.md) | Decide whether it is ready for your use: what is and is not verified, each design choice with its datasheet section, and the bench steps |
+| [Datasheet map](docs/datasheet.md) | Find the datasheet section behind each part of the driver |
+| [API reference](docs/api-reference.md) | Look up a class or member (Doxygen; built by CI and locally) |
 
 ## Datasheet
 
@@ -82,70 +269,6 @@ git, CMake 3.16+ and a C++20 compiler (GCC 10+, Clang 13+ or MSVC 2022).
 
 To run the whole test suite instead: `cmake -S . -B build -DADS7952_BUILD_TESTS=ON && cmake --build build && ctest
 --test-dir build`.
-
-## Use it on your MCU
-
-**1. Wire it** (TSSOP-38; [Hardware](docs/hardware.md) for the other parts and packages):
-
-| MCU | ADS7952 |
-| --- | --- |
-| SPI SCLK, MOSI, MISO | SCLK (pin 32), SDI (pin 33), SDO (pin 34) |
-| Chip select | CS (pin 31): low for one 16-bit frame, high between frames |
-| MCU I/O supply | +VBD (pin 36), 1.7 V to +VA |
-| 2.7 V to 5.25 V, a 2.5 V reference | +VA (pins 5, 29); REFP, REFM (pins 4, 3) with 10 µF between them |
-| | MXO (pin 7) to AINP (pin 8), AINM (pin 9) to ground; the inputs on CH0 to CH11 |
-
-**2. Write the port**: a class with `EnsureInitialized()` (bring the bus up), `Transfer()` (one 16-bit frame with CS
-low) and `DelayUs()`, about 25 lines on most SDKs. [Porting](docs/porting.md) has the contract and a complete
-example.
-
-**3. Read a channel:**
-
-<!-- generated: quickstart-code -->
-```cpp
-#include "ads7952.hpp"
-
-int read_input_3(MyPort& port, uint32_t& microvolts) {
-  ads7952::ADS7952<MyPort> adc(port); // no I/O yet; Config{} is an ADS7952 at its reset state
-
-  if (auto r = adc.EnsureInitialized(); !r) { // 1. bus up, reset, registers, identity check
-    return static_cast<int>(r.error);         //    Bus, NoDevice or DeviceIdMismatch: check wiring
-  }
-  const auto code = adc.ReadChannel(3); // 2. Manual mode: select, acquire, convert
-  if (!code) {
-    return static_cast<int>(code.error); //    ChannelMismatch: a reply for another channel
-  }
-  microvolts = adc.ToMicrovolts(code.value); // 3. 0 to VREF, one LSB = VREF / 4096
-  return 0;
-}
-```
-<!-- /generated -->
-
-`EnsureInitialized()` is the only call that starts the driver, and the only one that probes: the constructor clocks
-nothing, so a board can build it at boot and probe later, when the analog board is plugged in. Every other call returns
-`Error::NotInitialized` until the probe has succeeded.
-
-## What it does
-
-- Starts the chip from a known state: ends any program sequence an earlier failure left open, resets every register
-  through the GPIO program register, writes the configuration.
-- Checks the chip before trusting it: selects a channel, keeps it, selects one whose address differs in every bit,
-  and demands those addresses back two frames later. A MISO line stuck low or high, a fixed reply word, an echo and an
-  SDI line that never reaches the chip all fail: a chip without SDI stays on channel 0, its reset state (datasheet
-  sections 8.4.1, 8.4.7), so a probe of channel 0 alone would pass.
-- Tracks the frame pipeline: a repeated Manual channel costs one frame, a running Auto-1 or Auto-2 scan one frame per
-  channel, a list `n + 2` frames. Every result is keyed on the address in its reply (`ChannelMismatch`,
-  `SequenceMismatch`), never inferred from frame counting.
-- Detects a reset behind its back where the replies show it: a reply from channel 0, the power-on channel, where it
-  expects another is `DeviceReset`, and after it (or any mismatch) the driver is uninitialised until
-  `EnsureInitialized()` programs the chip again. `ApplyConfig()` writes every register, never a difference from its
-  own copy.
-- Sends the range and GPIO levels with every mode word, the read frame of `ReadChannel()` included, so a chip reset
-  behind its back gets them back at once; skips the reply converted in the old range after `SetRange()`.
-- Sends only what the datasheet needs by default: the read-backs the chip allows (GPIO levels, the scanned sequence)
-  are opt-in, per call.
-- Programs the Auto-1 and Auto-2 sequences, the alarm thresholds and the GPIOs, and repairs a program sequence a
-  failed frame left open, so the chip never takes the next command as data.
 
 ## Add it to your project
 
@@ -204,21 +327,6 @@ Pick the row that matches your build; each is a few steps, and [Installation](do
    ```
 
 The target is `ads7952::ads7952` every way, so switching later changes nothing else.
-
-## Documentation
-
-| Page | Read it when you want to |
-| --- | --- |
-| [Quickstart](docs/quickstart.md) | Go from a bare chip to its first result on your MCU |
-| [Hardware](docs/hardware.md) | Wire it, pick the clock, understand the frame, the modes and the registers |
-| [Porting](docs/porting.md) | Write the port class for your MCU's SDK |
-| [API guide](docs/api-guide.md) | Use each call: start, read, scan, range, alarms, GPIOs, use it from a handler, handle errors |
-| [Configuration](docs/configuration.md) | Choose the part, the range, the sequences, the GPIOs and the alarms |
-| [Troubleshooting](docs/troubleshooting.md) | Find the cause of an error from the replies |
-| [Contract](docs/contract.md) | Know exactly what the driver promises, needs and returns, frame by frame |
-| [Status and limitations](docs/limitations.md) | Decide whether it is ready for your use: what is and is not verified, each design choice with its datasheet section, and the bench steps |
-| [Datasheet map](docs/datasheet.md) | Find the datasheet section behind each part of the driver |
-| [API reference](docs/api-reference.md) | Look up a class or member (Doxygen; built by CI and locally) |
 
 ## Tests and quality
 

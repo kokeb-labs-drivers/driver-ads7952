@@ -18,6 +18,16 @@ refs:
   input: {doc: ds, section: "9.1 Application Information", page: 46}
   app: {doc: ds, section: "9.1.1 Analog Input, Figure 60", page: 46}
   supply: {doc: ds, section: "10 Power Supply Recommendations", page: 51}
+  features: {doc: ds, section: "1 Features", page: 1}
+  uses: {doc: ds, section: "2 Applications", page: 1}
+  power: {doc: ds, section: "8.3.2 Power Saving", page: 29}
+  powerup: {doc: ds, section: "8.4.3 Device Power-Up Sequence", page: 30}
+  manual: {doc: ds, section: "8.4.4 Operating in Manual Mode", page: 31}
+  manual_word: {doc: ds, section: "8.4.4 Operating in Manual Mode, Table 1", page: 33}
+  auto1: {doc: ds, section: "8.4.5 Operating in Auto-1 Mode", page: 34}
+  auto2: {doc: ds, section: "8.4.6 Operating in Auto-2 Mode", page: 38}
+  output: {doc: ds, section: "8.5.1 Digital Output, Table 8", page: 41}
+  alarms: {doc: ds, section: "8.5.3 Alarm Thresholds for GPIO Pins", page: 43}
 
 # The ADS7952 in the 38-pin TSSOP (DBT). The 32-pin VQFN (RHB) numbers the pins differently and brings out GPIO0
 # only (section 6).
@@ -25,6 +35,107 @@ package:
   type: TSSOP-38
   pins: 38
   ref: pinout
+
+supply:
+  - {name: +VA, min_v: 2.7, max_v: 5.25, ref: roc}
+  - {name: +VBD, min_v: 1.7, max_v: 5.25, ref: features}
+
+# The chip-first README: what the chip is and does, where it is used, how the driver covers it and what one SPI
+# frame carries. `kokeb-docs figures` draws chip-hero, chip-capabilities and chip-frame-spi from it, `kokeb-docs gen`
+# the README's chip-summary, chip-uses and chip-coverage regions. The chip has no addressed registers: each frame
+# is a command word, so the `registers` of a capability name the command words of inc/ads7952_registers.hpp.
+overview:
+  summary: >-
+    a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit SPI frame at
+    up to 1 MSPS, in a manual order or in one of two automatic sequences
+  category: 12-channel 12-bit SAR ADC
+  ref: features
+  applications:
+    - {label: PLC and industrial PC inputs, ref: uses}
+    - {label: Optical line card monitoring, ref: uses}
+    - {label: Medical instrumentation, ref: uses}
+    - {label: Digital power supplies, ref: uses}
+    - {label: Multichannel signal monitoring, ref: uses}
+    - {label: High-speed data acquisition, ref: uses}
+    - {label: High-speed closed-loop systems, ref: uses}
+  specs:
+    - {value: "12 x 12-bit", label: "single-ended inputs, one ADC", ref: features}
+    - {value: "1 MSPS", label: "sample rate", ref: features}
+    - {value: "20 MHz", label: "SPI clock, one 16-bit frame per sample", ref: roc}
+    - {value: "2.7 to 5.25 V", label: "analog supply; I/O 1.7 to 5.25 V", ref: features}
+    - {value: "0 to 2 x VREF", label: "input range, or 0 to VREF", ref: features}
+    - {value: "1 µA", label: "power-down current", ref: features}
+  system:
+    host: MCU
+    bus: SPI
+    drives:
+      - {label: GPIO0 to GPIO3, detail: "outputs, or the alarm outputs on GPIO0 and GPIO1", ref: gpio}
+    senses:
+      - {label: Analog inputs, detail: "12 channels through one multiplexer", ref: input}
+      - {label: External reference, detail: "2.0 V to 3.0 V on REFP", ref: reference}
+
+# Headers the capability `api` and `registers` names are checked against.
+driver:
+  api: [inc/ads7952.hpp, inc/ads7952_types.hpp]
+  registers: [inc/ads7952_registers.hpp]
+
+capabilities:
+  - {id: manual, title: Manual mode, icon: analog, status: supported, ref: manual, docs: api-guide.md,
+     what: "Converts the channel each frame names; the result comes two frames later, tagged with its channel",
+     api: [ReadChannel, ReadChannels], registers: [kManual, kProgramEnable]}
+  - {id: auto1, title: Auto-1 sequence, icon: table, status: supported, ref: auto1, docs: api-guide.md,
+     what: "Scans a programmed list of channels in ascending order, one per frame",
+     api: [SetAuto1Channels, ReadAuto1], registers: [kAuto1, kAuto1Program]}
+  - {id: auto2, title: Auto-2 sequence, icon: steps, status: supported, ref: auto2, docs: api-guide.md,
+     what: "Scans from channel 0 up to a programmed last channel, one per frame",
+     api: [SetAuto2LastChannel, ReadAuto2], registers: [kAuto2, kAuto2Program]}
+  - {id: range, title: Input range, icon: gauge, status: supported, ref: manual_word, docs: configuration.md,
+     what: "Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts",
+     api: [SetRange, Range, ToMicrovolts], registers: [kRangeTwoVref, kGpio2Range]}
+  - {id: alarms, title: Alarm thresholds, icon: alert, status: supported, ref: alarms, docs: api-guide.md,
+     what: "A high and a low threshold per channel, signalled on GPIO0 and GPIO1",
+     api: [SetAlarmThresholds, AlarmThreshold], registers: [kAlarmProgramGroup0, kAlarmHigh]}
+  - {id: gpio, title: GPIOs, icon: switch, status: supported, ref: gpio, docs: api-guide.md,
+     what: "Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames",
+     api: [SetGpioOutputs, ReadGpio], registers: [kGpioProgram, kGpioReadout, kGpioDataMask]}
+  - {id: power, title: Power-down, icon: sleep, status: supported, ref: power, docs: api-guide.md,
+     what: "Powers the chip down at the end of a frame, by command or by the GPIO3 input",
+     api: [Deinitialize], registers: [kPowerDown, kGpio3PowerDown]}
+  - {id: reset, title: Reset and checks, icon: tag, status: supported, ref: powerup, docs: contract.md,
+     what: "Resets every register by command, waits the power-up time and checks that the chip answers",
+     api: [EnsureInitialized, CheckScale], registers: [kGpioResetAll]}
+
+# One SPI frame of the ADS7952. A frame is always 16 bits: the SDI word programs the frame after next, the SDO word
+# carries the result of the channel selected two frames before.
+frames:
+  - id: spi
+    title: SPI frame
+    description: Every conversion is one 16-bit frame with CS low; SDI here is the Manual-mode word, SDO the result.
+    bits: 16
+    ref: manual_word
+    rows:
+      - label: Manual
+        sub: "SDI, DI15:12 = 0001"
+        fields:
+          - {name: mode, bits: [15, 12], tone: amber}
+          - {name: program, bits: 11, tone: violet, short: P}
+          - {name: channel, bits: [10, 7], tone: blue}
+          - {name: range, bits: 6, tone: teal, short: R}
+          - {name: power down, bits: 5, tone: rose, short: PD}
+          - {name: GPIO read, bits: 4, tone: slate, short: G}
+          - {name: GPIO data, bits: [3, 0], tone: green, short: GPIO}
+      - label: Reply
+        sub: "SDO, DI04 = 0"
+        fields:
+          - {name: channel address, bits: [15, 12], tone: blue, short: addr}
+          - {name: 12-bit result, bits: [11, 0], tone: green}
+    waveform:
+      spi_mode: 0
+      select: CS
+      clock: SCLK
+      lanes:
+        - {name: SDI, row: Manual}
+        - {name: SDO, row: Reply}
 
 hooks:
   - {id: transfer, call: "Transfer()", kind: spi, source: inc/ads7952_spi_interface.hpp, symbol: Transfer}
