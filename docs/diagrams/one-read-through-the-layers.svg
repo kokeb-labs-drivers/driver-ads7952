@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="689" height="695" viewBox="0 0 689 695" role="img" aria-labelledby="one-read-through-the-layers-title one-read-through-the-layers-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="one-read-through-the-layers-title">One read through the layers</title>
+<desc id="one-read-through-the-layers-desc">A channel read through the layers: the first ReadChannel sends a select word and two continue words through your port to get the result, and a repeat read of the same channel needs one continue word.</desc>
+<defs><marker id="one-read-through-the-layers-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7C8798"/></marker></defs>
+<rect x="0.5" y="0.5" width="688" height="694" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="54.8" font-size="26" font-weight="700" fill="#0E1726">One read through the layers</text>
+<rect x="32" y="70.8" width="625" height="1" fill="#E2E7EE"/>
+<path d="M104.6 144.8 L104.6 698.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M299.4 144.8 L299.4 698.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M584.4 144.8 L584.4 698.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M108.6 180.8 L295.4 180.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M303.4 224.8 L580.4 224.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M580.4 268.8 L303.4 268.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M303.4 312.8 L580.4 312.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M580.4 356.8 L303.4 356.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M303.4 400.8 L580.4 400.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M580.4 444.8 L303.4 444.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M295.4 488.8 L108.6 488.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M108.6 532.8 L295.4 532.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M303.4 576.8 L580.4 576.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M580.4 620.8 L303.4 620.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<path d="M295.4 664.8 L108.6 664.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-read-through-the-layers-arrow-rail)"/>
+<rect x="39.6" y="88.8" width="130" height="52" rx="10" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="39.6" y="96.8" width="4" height="36" rx="2" fill="#A21CAF"/>
+<rect x="214.8" y="88.8" width="169.2" height="52" rx="10" fill="#EAF7EF" stroke="#15803D" stroke-width="1.4"/>
+<rect x="214.8" y="96.8" width="4" height="36" rx="2" fill="#15803D"/>
+<rect x="519.4" y="88.8" width="130" height="52" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="519.4" y="96.8" width="4" height="36" rx="2" fill="#0B7A72"/>
+<text x="107.6" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#86198F">Your code</text>
+<text x="302.4" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#14532D">ADS7952&lt;Port&gt;</text>
+<text x="587.4" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#0B5F59">Your port</text>
+<rect x="146.6" y="156.8" width="110.7" height="20" rx="10" fill="#FFFFFF"/>
+<text x="202" y="171.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">ReadChannel(4)</text>
+<rect x="307.4" y="200.8" width="269" height="20" rx="10" fill="#FFFFFF"/>
+<text x="441.9" y="215.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(0x1A00: Manual, DI11, channel 4)</text>
+<rect x="340.9" y="244.8" width="202" height="20" rx="10" fill="#FFFFFF"/>
+<text x="441.9" y="259.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true, reply of an earlier channel</text>
+<rect x="350.9" y="288.8" width="181.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="441.9" y="303.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(0x0000: continue)</text>
+<rect x="322.9" y="332.8" width="237.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="441.9" y="347.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true, reply acquired before the select</text>
+<rect x="350.9" y="376.8" width="181.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="441.9" y="391.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(0x0000: continue)</text>
+<rect x="331.3" y="420.8" width="221.1" height="20" rx="10" fill="#FFFFFF"/>
+<text x="441.9" y="435.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true, 0x4xxx: address 4, the result</text>
+<rect x="112.6" y="464.8" width="178.8" height="20" rx="10" fill="#FFFFFF"/>
+<text x="202" y="479.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Result&lt;uint16_t&gt;{code, Ok}</text>
+<rect x="146.6" y="508.8" width="110.7" height="20" rx="10" fill="#FFFFFF"/>
+<text x="202" y="523.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">ReadChannel(4)</text>
+<rect x="350.9" y="552.8" width="181.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="441.9" y="567.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Transfer(0x0000: continue)</text>
+<rect x="397.6" y="596.8" width="88.5" height="20" rx="10" fill="#FFFFFF"/>
+<text x="441.9" y="611.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">true, 0x4xxx</text>
+<rect x="112.6" y="640.8" width="178.8" height="20" rx="10" fill="#FFFFFF"/>
+<text x="202" y="655.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">Result&lt;uint16_t&gt;{code, Ok}</text>
+</svg>

@@ -57,24 +57,14 @@ reply's address is always checked against the channel it must carry.
 
 ## One read through the layers
 
-```mermaid
-sequenceDiagram
-    participant App as Your code
-    participant Core as ADS7952<Port>
-    participant Port as Your port
-    App->>Core: ReadChannel(4)
-    Core->>Port: Transfer(0x1A00: Manual, DI11, channel 4)
-    Port-->>Core: true, reply of an earlier channel
-    Core->>Port: Transfer(0x0000: continue)
-    Port-->>Core: true, reply acquired before the select
-    Core->>Port: Transfer(0x0000: continue)
-    Port-->>Core: true, 0x4xxx: address 4, the result
-    Core-->>App: Result<uint16_t>{code, Ok}
-    App->>Core: ReadChannel(4)
-    Core->>Port: Transfer(0x0000: continue)
-    Port-->>Core: true, 0x4xxx
-    Core-->>App: Result<uint16_t>{code, Ok}
-```
+<!-- figure: one-read-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/one-read-through-the-layers.dark.svg">
+  <img src="diagrams/one-read-through-the-layers.svg"
+    alt="A channel read through the layers: the first ReadChannel sends a select word and two continue words
+    through your port to get the result, and a repeat read of the same channel needs one continue word.">
+</picture>
+<!-- /figure -->
 
 A scan is drawn on the [API guide](api-guide.md#scan-a-sequence-the-hot-path): after the entry, one Auto-1 word
 (DI11 = 1, no restart) per channel.
