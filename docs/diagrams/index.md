@@ -102,3 +102,20 @@ Drawn from:
 - `readSelected()` in [`src/ads7952.ipp`](../../src/ads7952.ipp)
 - `scan()` in [`src/ads7952.ipp`](../../src/ads7952.ipp)
 - `kContinue` in [`inc/ads7952_registers.hpp`](../../inc/ads7952_registers.hpp)
+
+## One read through the layers
+
+<!-- figure: one-read-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="one-read-through-the-layers.dark.svg">
+  <img src="one-read-through-the-layers.svg"
+    alt="A channel read through the layers: the first ReadChannel sends a select word and two continue words
+    through your port to get the result, and a repeat read of the same channel needs one continue word.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/one-read-through-the-layers.seq.yml`](../model/one-read-through-the-layers.seq.yml)
+
+Drawn from:
+
+- [`docs/model/one-read-through-the-layers.seq.yml`](../model/one-read-through-the-layers.seq.yml)

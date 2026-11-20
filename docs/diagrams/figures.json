@@ -61,5 +61,22 @@
       "src/ads7952.ipp:scan()",
       "inc/ads7952_registers.hpp:kContinue"
     ]
+  },
+  "one-read-through-the-layers": {
+    "title": "One read through the layers",
+    "alt": "A channel read through the layers: the first ReadChannel sends a select word and two continue words through your port to get the result, and a repeat read of the same channel needs one continue word.",
+    "description": "Participants, left to right: Your code, ADS7952<Port> and Your port. The steps run from top to bottom. Your code sends ReadChannel(4) to ADS7952<Port>. ADS7952<Port> sends Transfer(0x1A00: Manual, DI11, channel 4) to Your port. Your port returns true, reply of an earlier channel to ADS7952<Port>. ADS7952<Port> sends Transfer(0x0000: continue) to Your port. Your port returns true, reply acquired before the select to ADS7952<Port>. ADS7952<Port> sends Transfer(0x0000: continue) to Your port. Your port returns true, 0x4xxx: address 4, the result to ADS7952<Port>. ADS7952<Port> returns Result<uint16_t>{code, Ok} to Your code. Your code sends ReadChannel(4) to ADS7952<Port>. ADS7952<Port> sends Transfer(0x0000: continue) to Your port. Your port returns true, 0x4xxx to ADS7952<Port>. ADS7952<Port> returns Result<uint16_t>{code, Ok} to Your code.",
+    "profile": "detail",
+    "width": 689,
+    "source": "docs/model/one-read-through-the-layers.seq.yml",
+    "sources": [
+      "docs/model/one-read-through-the-layers.seq.yml"
+    ],
+    "kind": "seq",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": false,
+    "font": ""
   }
 }
