@@ -1,0 +1,276 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="1819" viewBox="0 0 640 1819" role="img" aria-labelledby="spi-timing-title spi-timing-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" class="fk">
+<title id="spi-timing-title">SPI timing of one frame</title>
+<desc id="spi-timing-desc">SPI timing of the ADS7952 in mode 0: CS low frames a 16-clock word, SDI is read on each rising SCLK edge, SDO changes on each falling edge and is released after the 16th, with the setup, hold, delay and quiet times of the datasheet.</desc>
+<style>
+.fk{--fk-blue-strong:#2563EB;--fk-blue-text:#1E429F;--fk-blue-tint:#EAF2FF;--fk-brand-text:#7A360E;--fk-canvas:#FFFFFF;--fk-frame:#E2E7EE;--fk-hair:#E2E7EE;--fk-ink:#0E1726;--fk-ink2:#2B3442;--fk-muted:#566070;--fk-paper:#F5F7FA;--fk-rail:#7C8798;--fk-slate-soft:#CBD5E1;--fk-slate-strong:#64748B;--fk-slate-text:#334155;--fk-slate-tint:#F1F4F8;--fk-teal-strong:#0B7A72;--fk-teal-text:#0B5F59;--fk-teal-tint:#E6F6F4;}
+@media (prefers-color-scheme:dark){.fk{--fk-blue-strong:#60A5FA;--fk-blue-text:#BFDBFE;--fk-blue-tint:#13233A;--fk-brand-text:#F8D27A;--fk-canvas:#0E131A;--fk-frame:#283241;--fk-hair:#252F3C;--fk-ink:#E8EDF3;--fk-ink2:#D2DAE4;--fk-muted:#9AA6B5;--fk-paper:#18202B;--fk-rail:#6C7889;--fk-slate-soft:#3A4656;--fk-slate-strong:#94A3B8;--fk-slate-text:#E2E8F0;--fk-slate-tint:#1B232E;--fk-teal-strong:#2BB3A3;--fk-teal-text:#A7F3E6;--fk-teal-tint:#0F2A28;}}
+:root[data-theme="dark"] .fk,[data-md-color-scheme="slate"] .fk{--fk-blue-strong:#60A5FA;--fk-blue-text:#BFDBFE;--fk-blue-tint:#13233A;--fk-brand-text:#F8D27A;--fk-canvas:#0E131A;--fk-frame:#283241;--fk-hair:#252F3C;--fk-ink:#E8EDF3;--fk-ink2:#D2DAE4;--fk-muted:#9AA6B5;--fk-paper:#18202B;--fk-rail:#6C7889;--fk-slate-soft:#3A4656;--fk-slate-strong:#94A3B8;--fk-slate-text:#E2E8F0;--fk-slate-tint:#1B232E;--fk-teal-strong:#2BB3A3;--fk-teal-text:#A7F3E6;--fk-teal-tint:#0F2A28;}
+:root[data-theme="light"] .fk,[data-md-color-scheme="default"] .fk{--fk-blue-strong:#2563EB;--fk-blue-text:#1E429F;--fk-blue-tint:#EAF2FF;--fk-brand-text:#7A360E;--fk-canvas:#FFFFFF;--fk-frame:#E2E7EE;--fk-hair:#E2E7EE;--fk-ink:#0E1726;--fk-ink2:#2B3442;--fk-muted:#566070;--fk-paper:#F5F7FA;--fk-rail:#7C8798;--fk-slate-soft:#CBD5E1;--fk-slate-strong:#64748B;--fk-slate-text:#334155;--fk-slate-tint:#F1F4F8;--fk-teal-strong:#0B7A72;--fk-teal-text:#0B5F59;--fk-teal-tint:#E6F6F4;}
+.fk-f-blue-strong{fill:var(--fk-blue-strong)}.fk-s-blue-strong{stroke:var(--fk-blue-strong)}
+.fk-f-blue-text{fill:var(--fk-blue-text)}.fk-s-blue-text{stroke:var(--fk-blue-text)}
+.fk-f-blue-tint{fill:var(--fk-blue-tint)}.fk-s-blue-tint{stroke:var(--fk-blue-tint)}
+.fk-f-brand-text{fill:var(--fk-brand-text)}.fk-s-brand-text{stroke:var(--fk-brand-text)}
+.fk-f-canvas{fill:var(--fk-canvas)}.fk-s-canvas{stroke:var(--fk-canvas)}
+.fk-f-frame{fill:var(--fk-frame)}.fk-s-frame{stroke:var(--fk-frame)}
+.fk-f-hair{fill:var(--fk-hair)}.fk-s-hair{stroke:var(--fk-hair)}
+.fk-f-ink{fill:var(--fk-ink)}.fk-s-ink{stroke:var(--fk-ink)}
+.fk-f-ink2{fill:var(--fk-ink2)}.fk-s-ink2{stroke:var(--fk-ink2)}
+.fk-f-muted{fill:var(--fk-muted)}.fk-s-muted{stroke:var(--fk-muted)}
+.fk-f-paper{fill:var(--fk-paper)}.fk-s-paper{stroke:var(--fk-paper)}
+.fk-f-rail{fill:var(--fk-rail)}.fk-s-rail{stroke:var(--fk-rail)}
+.fk-f-slate-soft{fill:var(--fk-slate-soft)}.fk-s-slate-soft{stroke:var(--fk-slate-soft)}
+.fk-f-slate-strong{fill:var(--fk-slate-strong)}.fk-s-slate-strong{stroke:var(--fk-slate-strong)}
+.fk-f-slate-text{fill:var(--fk-slate-text)}.fk-s-slate-text{stroke:var(--fk-slate-text)}
+.fk-f-slate-tint{fill:var(--fk-slate-tint)}.fk-s-slate-tint{stroke:var(--fk-slate-tint)}
+.fk-f-teal-strong{fill:var(--fk-teal-strong)}.fk-s-teal-strong{stroke:var(--fk-teal-strong)}
+.fk-f-teal-text{fill:var(--fk-teal-text)}.fk-s-teal-text{stroke:var(--fk-teal-text)}
+.fk-f-teal-tint{fill:var(--fk-teal-tint)}.fk-s-teal-tint{stroke:var(--fk-teal-tint)}
+@media (forced-colors:active){.fk text{fill:CanvasText}.fk rect,.fk circle{fill:Canvas;stroke:CanvasText}.fk path{stroke:CanvasText}.fk marker path{fill:CanvasText;stroke:none}}
+</style>
+<defs><marker id="spi-timing-arrow-ink2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fk-f-ink2"/></marker></defs>
+<rect x="0.5" y="0.5" width="639" height="1818" rx="16" class="fk-f-canvas fk-s-frame"/>
+<text x="32" y="44.4" font-size="13" font-weight="700" letter-spacing="1.2" class="fk-f-brand-text">ON THE BUS</text>
+<text x="32" y="76.2" font-size="24" font-weight="700" class="fk-f-ink">SPI timing of one frame</text>
+<text x="32" y="102.7" font-size="15" class="fk-f-muted">SPI mode 0 (CPOL 0, CPHA 0). Datasheet: 7.9 Timing Requirements, p. 17;</text>
+<text x="32" y="124.5" font-size="15" class="fk-f-muted">8.1 Overview, p. 28.</text>
+<rect x="32" y="140.4" width="576" height="1" class="fk-f-hair"/>
+<path d="M124.7 218.6 L124.7 270.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M179.8 218.6 L179.8 270.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M491.9 218.6 L491.9 270.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M565.3 218.6 L565.3 270.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M216.5 300.9 L216.5 353" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M234.9 300.9 L234.9 353" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M234.9 300.9 L234.9 387.2" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M253.2 300.9 L253.2 387.2" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M161.4 417.2 L161.4 469.4" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M179.8 417.2 L179.8 469.4" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M179.8 417.2 L179.8 503.6" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M198.1 417.2 L198.1 503.6" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M124.7 533.7 L124.7 585.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M143.1 533.7 L143.1 585.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M198.1 533.7 L198.1 585.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M216.5 533.7 L216.5 585.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M455.1 533.7 L455.1 585.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M473.5 533.7 L473.5 585.9" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M473.5 533.7 L473.5 620" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M565.3 533.7 L565.3 620" fill="none" stroke-width="1" stroke-dasharray="3 3" class="fk-s-rail"/>
+<path d="M88 200.6 L88 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M124.7 200.6 L124.7 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M161.4 200.6 L161.4 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M198.1 200.6 L198.1 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M234.9 200.6 L234.9 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M271.6 200.6 L271.6 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M308.3 200.6 L308.3 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M345 200.6 L345 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M381.7 200.6 L381.7 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M418.4 200.6 L418.4 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M455.1 200.6 L455.1 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M491.9 200.6 L491.9 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M528.6 200.6 L528.6 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M565.3 200.6 L565.3 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M602 200.6 L602 620" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 666.2 L608 666.2" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 760 L608 760" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 853.9 L608 853.9" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 947.7 L608 947.7" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1041.6 L608 1041.6" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1135.4 L608 1135.4" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1229.3 L608 1229.3" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1302.1 L608 1302.1" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1375 L608 1375" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1468.8 L608 1468.8" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1541.6 L608 1541.6" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1614.5 L608 1614.5" fill="none" stroke-width="1" class="fk-s-hair"/>
+<path d="M32 1687.3 L608 1687.3" fill="none" stroke-width="1" class="fk-s-hair"/>
+<rect x="88" y="404.2" width="73.4" height="26" rx="0" class="fk-f-paper"/>
+<rect x="455.1" y="404.2" width="146.9" height="26" rx="0" class="fk-f-paper"/>
+<path d="M162.4 191.6 L162.4 186.6 L454.1 186.6 L454.1 191.6" fill="none" stroke-width="1.4" class="fk-s-slate-strong"/>
+<path d="M88 205.6 L124.7 205.6 L124.7 205.6 L124.7 231.6 L491.9 231.6 L491.9 231.6 L491.9 205.6 L565.3 205.6 L565.3 205.6 L565.3 231.6 L602 231.6" fill="none" stroke-width="2" class="fk-s-ink2"/>
+<path d="M125.7 266.9 L178.8 266.9" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)" class="fk-s-ink2"/>
+<path d="M492.9 266.9 L564.3 266.9" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)" class="fk-s-ink2"/>
+<path d="M88 313.9 L161.4 313.9 L179.8 313.9 L179.8 313.9 L179.8 287.9 L198.1 287.9 L198.1 287.9 L198.1 313.9 L216.5 313.9 L216.5 313.9 L216.5 287.9 L234.9 287.9 L234.9 287.9 L234.9 313.9 L253.2 313.9 L253.2 313.9 L253.2 287.9 L271.6 287.9 L271.6 287.9 L271.6 313.9 L289.9 313.9 L289.9 313.9 L289.9 287.9 L308.3 287.9 L345 287.9 L345 287.9 L345 313.9 L363.4 313.9 L363.4 313.9 L363.4 287.9 L381.7 287.9 L381.7 287.9 L381.7 313.9 L400.1 313.9 L400.1 313.9 L400.1 287.9 L418.4 287.9 L418.4 287.9 L418.4 313.9 L436.8 313.9 L436.8 313.9 L436.8 287.9 L455.1 287.9 L455.1 287.9 L455.1 313.9 L602 313.9" fill="none" stroke-width="2" class="fk-s-ink2"/>
+<path d="M216.5 349 L234.9 349" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M216.5 345 L216.5 353" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M234.9 345 L234.9 353" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M234.9 383.2 L253.2 383.2" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M234.9 379.2 L234.9 387.2" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M253.2 379.2 L253.2 387.2" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M88 411.2 L95 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M88 418.2 L102 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M88 425.2 L109 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M90 430.2 L116 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M97 430.2 L123 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M104 430.2 L130 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M111 430.2 L137 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M118 430.2 L144 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M125 430.2 L151 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M132 430.2 L158 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M139 430.2 L161.4 407.8" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M146 430.2 L161.4 414.8" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M153 430.2 L161.4 421.8" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M160 430.2 L161.4 428.8" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M88 404.2 L161.4 404.2" fill="none" stroke-width="1.6" class="fk-s-ink2"/>
+<path d="M88 430.2 L161.4 430.2" fill="none" stroke-width="1.6" class="fk-s-ink2"/>
+<path d="M308.3 404.2 L345 404.2" fill="none" stroke-width="1.6" class="fk-s-ink2"/>
+<path d="M308.3 430.2 L345 430.2" fill="none" stroke-width="1.6" class="fk-s-ink2"/>
+<path d="M455.1 411.2 L462.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M455.1 418.2 L469.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M455.1 425.2 L476.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M457.1 430.2 L483.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M464.1 430.2 L490.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M471.1 430.2 L497.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M478.1 430.2 L504.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M485.1 430.2 L511.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M492.1 430.2 L518.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M499.1 430.2 L525.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M506.1 430.2 L532.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M513.1 430.2 L539.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M520.1 430.2 L546.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M527.1 430.2 L553.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M534.1 430.2 L560.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M541.1 430.2 L567.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M548.1 430.2 L574.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M555.1 430.2 L581.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M562.1 430.2 L588.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M569.1 430.2 L595.1 404.2" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M576.1 430.2 L602 404.4" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M583.1 430.2 L602 411.4" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M590.1 430.2 L602 418.4" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M597.1 430.2 L602 425.4" fill="none" stroke-width="1" class="fk-s-rail"/>
+<path d="M455.1 404.2 L602 404.2" fill="none" stroke-width="1.6" class="fk-s-ink2"/>
+<path d="M455.1 430.2 L602 430.2" fill="none" stroke-width="1.6" class="fk-s-ink2"/>
+<path d="M161.4 465.4 L179.8 465.4" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M161.4 461.4 L161.4 469.4" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M179.8 461.4 L179.8 469.4" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M179.8 499.6 L198.1 499.6" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M179.8 495.6 L179.8 503.6" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M198.1 495.6 L198.1 503.6" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M88 533.7 L124.7 533.7" fill="none" stroke-width="2" class="fk-s-rail"/>
+<path d="M308.3 520.7 L345 520.7" fill="none" stroke-width="1.6" class="fk-s-ink2"/>
+<path d="M308.3 546.7 L345 546.7" fill="none" stroke-width="1.6" class="fk-s-ink2"/>
+<path d="M455.1 533.7 L565.3 533.7" fill="none" stroke-width="2" class="fk-s-rail"/>
+<path d="M124.7 581.9 L143.1 581.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M124.7 577.9 L124.7 585.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M143.1 577.9 L143.1 585.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M198.1 581.9 L216.5 581.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M198.1 577.9 L198.1 585.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M216.5 577.9 L216.5 585.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M455.1 581.9 L473.5 581.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M455.1 577.9 L455.1 585.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M473.5 577.9 L473.5 585.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M474.5 616 L564.3 616" fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-timing-arrow-ink2)" marker-start="url(#spi-timing-arrow-ink2)" class="fk-s-ink2"/>
+<path d="M161.4 417.2 L166.4 404.2 L193.1 404.2 L198.1 417.2 L193.1 430.2 L166.4 430.2 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M198.1 417.2 L203.1 404.2 L229.9 404.2 L234.9 417.2 L229.9 430.2 L203.1 430.2 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M234.9 417.2 L239.9 404.2 L266.6 404.2 L271.6 417.2 L266.6 430.2 L239.9 430.2 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M271.6 417.2 L276.6 404.2 L303.3 404.2 L308.3 417.2 L303.3 430.2 L276.6 430.2 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M345 417.2 L350 404.2 L376.7 404.2 L381.7 417.2 L376.7 430.2 L350 430.2 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M381.7 417.2 L386.7 404.2 L413.4 404.2 L418.4 417.2 L413.4 430.2 L386.7 430.2 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M418.4 417.2 L423.4 404.2 L450.1 404.2 L455.1 417.2 L450.1 430.2 L423.4 430.2 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-blue-tint fk-s-blue-strong"/>
+<path d="M124.7 533.7 L129.7 520.7 L193.1 520.7 L198.1 533.7 L193.1 546.7 L129.7 546.7 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-teal-tint fk-s-teal-strong"/>
+<path d="M198.1 533.7 L203.1 520.7 L229.9 520.7 L234.9 533.7 L229.9 546.7 L203.1 546.7 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-teal-tint fk-s-teal-strong"/>
+<path d="M234.9 533.7 L239.9 520.7 L266.6 520.7 L271.6 533.7 L266.6 546.7 L239.9 546.7 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-teal-tint fk-s-teal-strong"/>
+<path d="M271.6 533.7 L276.6 520.7 L303.3 520.7 L308.3 533.7 L303.3 546.7 L276.6 546.7 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-teal-tint fk-s-teal-strong"/>
+<path d="M345 533.7 L350 520.7 L376.7 520.7 L381.7 533.7 L376.7 546.7 L350 546.7 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-teal-tint fk-s-teal-strong"/>
+<path d="M381.7 533.7 L386.7 520.7 L413.4 520.7 L418.4 533.7 L413.4 546.7 L386.7 546.7 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-teal-tint fk-s-teal-strong"/>
+<path d="M418.4 533.7 L423.4 520.7 L450.1 520.7 L455.1 533.7 L450.1 546.7 L423.4 546.7 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-teal-tint fk-s-teal-strong"/>
+<path d="M565.3 533.7 L570.3 520.7 L597 520.7 L602 533.7 L597 546.7 L570.3 546.7 Z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="fk-f-teal-tint fk-s-teal-strong"/>
+<rect x="32" y="1701.3" width="576" height="86.8" rx="10" stroke-width="1" class="fk-f-slate-tint fk-s-slate-soft"/>
+<text x="308.3" y="175.8" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-slate-text">16 clocks, MSB first</text>
+<text x="32" y="224.1" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">CS</text>
+<text x="152.2" y="253.9" font-size="14" font-weight="700" text-anchor="middle" class="fk-f-ink">tsu1</text>
+<text x="528.6" y="253.9" font-size="14" font-weight="700" text-anchor="middle" class="fk-f-ink">tw1</text>
+<text x="32" y="306.2" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">SCLK</text>
+<rect x="322.6" y="283.9" width="8" height="34" rx="0" class="fk-f-canvas"/>
+<path d="M319.6 316.9 L325.6 284.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M327.6 316.9 L333.6 284.9" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<text x="240.9" y="354.1" font-size="14" font-weight="700" class="fk-f-ink">twh</text>
+<text x="259.2" y="388.3" font-size="14" font-weight="700" class="fk-f-ink">twl</text>
+<text x="32" y="422.6" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">SDI</text>
+<text x="179.8" y="422.3" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">15</text>
+<text x="216.5" y="422.3" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">14</text>
+<text x="253.2" y="422.3" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">13</text>
+<text x="289.9" y="422.3" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">12</text>
+<text x="363.4" y="422.3" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">2</text>
+<text x="400.1" y="422.3" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">1</text>
+<text x="436.8" y="422.3" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-blue-text">0</text>
+<rect x="322.6" y="400.2" width="8" height="34" rx="0" class="fk-f-canvas"/>
+<path d="M319.6 433.2 L325.6 401.2" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M327.6 433.2 L333.6 401.2" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<text x="185.8" y="470.5" font-size="14" font-weight="700" class="fk-f-ink">tsu2</text>
+<text x="204.1" y="504.7" font-size="14" font-weight="700" class="fk-f-ink">th2</text>
+<text x="32" y="539" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">SDO</text>
+<text x="161.4" y="538.7" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-teal-text">15</text>
+<text x="216.5" y="538.7" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-teal-text">14</text>
+<text x="253.2" y="538.7" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-teal-text">13</text>
+<text x="289.9" y="538.7" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-teal-text">12</text>
+<text x="363.4" y="538.7" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-teal-text">2</text>
+<text x="400.1" y="538.7" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-teal-text">1</text>
+<text x="436.8" y="538.7" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-teal-text">0</text>
+<text x="583.6" y="538.7" font-size="14" font-weight="600" text-anchor="middle" class="fk-f-teal-text">15</text>
+<rect x="322.6" y="516.7" width="8" height="34" rx="0" class="fk-f-canvas"/>
+<path d="M319.6 549.7 L325.6 517.7" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<path d="M327.6 549.7 L333.6 517.7" fill="none" stroke-width="1.4" class="fk-s-ink2"/>
+<text x="149.1" y="586.9" font-size="14" font-weight="700" class="fk-f-ink">td1</text>
+<text x="222.5" y="586.9" font-size="14" font-weight="700" class="fk-f-ink">td2</text>
+<text x="479.5" y="586.9" font-size="14" font-weight="700" class="fk-f-ink">td3</text>
+<text x="519.4" y="603.2" font-size="14" font-weight="700" text-anchor="middle" class="fk-f-ink">tq</text>
+<text x="32" y="650.5" font-size="17" font-weight="700" class="fk-f-ink">Timing values</text>
+<text x="32" y="686.9" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">tsu1</text>
+<text x="608" y="686.9" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 8 ns</text>
+<text x="32" y="707.2" font-size="15" class="fk-f-ink2">Setup time from CS low to the first rising SCLK edge. At +VBD = 1.8 V; 6 ns</text>
+<text x="32" y="728.2" font-size="15" class="fk-f-ink2">at 3 V, 4 ns at 5 V</text>
+<text x="32" y="748.3" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="780.8" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">td1</text>
+<text x="608" y="780.8" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">max 38 ns</text>
+<text x="32" y="801" font-size="15" class="fk-f-ink2">Delay from CS low to the first data bit (DO15) on SDO. At +VBD = 1.8 V; 27</text>
+<text x="32" y="822" font-size="15" class="fk-f-ink2">ns at 3 V, 17 ns at 5 V</text>
+<text x="32" y="842.2" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="874.6" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">td2</text>
+<text x="608" y="874.6" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">max 35 ns</text>
+<text x="32" y="894.9" font-size="15" class="fk-f-ink2">Delay from a falling SCLK edge to the next SDO bit valid. At +VBD = 1.8 V;</text>
+<text x="32" y="915.9" font-size="15" class="fk-f-ink2">27 ns at 3 V, 17 ns at 5 V</text>
+<text x="32" y="936" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="968.5" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">th1</text>
+<text x="608" y="968.5" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 3 ns</text>
+<text x="32" y="988.7" font-size="15" class="fk-f-ink2">Hold time of the SDO bit after a falling SCLK edge. At +VBD = 5 V; 5 ns at 3</text>
+<text x="32" y="1009.7" font-size="15" class="fk-f-ink2">V, 7 ns at 1.8 V</text>
+<text x="32" y="1029.9" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="1062.3" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">tsu2</text>
+<text x="608" y="1062.3" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 4 ns</text>
+<text x="32" y="1082.6" font-size="15" class="fk-f-ink2">Setup time of SDI before a rising SCLK edge. At +VBD = 5 V; 3 ns at 3 V, 2</text>
+<text x="32" y="1103.6" font-size="15" class="fk-f-ink2">ns at 1.8 V</text>
+<text x="32" y="1123.7" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="1156.2" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">th2</text>
+<text x="608" y="1156.2" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 12 ns</text>
+<text x="32" y="1176.4" font-size="15" class="fk-f-ink2">Hold time of SDI after a rising SCLK edge. At +VBD = 1.8 V; 10 ns at 3 V, 6 ns</text>
+<text x="32" y="1197.4" font-size="15" class="fk-f-ink2">at 5 V</text>
+<text x="32" y="1217.6" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="1250" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">twh</text>
+<text x="608" y="1250" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 20 ns</text>
+<text x="32" y="1270.3" font-size="15" class="fk-f-ink2">SCLK high time</text>
+<text x="32" y="1290.4" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="1322.9" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">twl</text>
+<text x="608" y="1322.9" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 20 ns</text>
+<text x="32" y="1343.1" font-size="15" class="fk-f-ink2">SCLK low time</text>
+<text x="32" y="1363.3" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="1395.7" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">td3</text>
+<text x="608" y="1395.7" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">max 26 ns</text>
+<text x="32" y="1416" font-size="15" class="fk-f-ink2">Delay from the 16th falling SCLK edge to SDO released. At +VBD = 1.8 V; 22</text>
+<text x="32" y="1437" font-size="15" class="fk-f-ink2">ns at 3 V, 13 ns at 5 V</text>
+<text x="32" y="1457.1" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="1489.5" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">tq</text>
+<text x="608" y="1489.5" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 40 ns</text>
+<text x="32" y="1509.8" font-size="15" class="fk-f-ink2">Quiet time from SDO released to the start of the next conversion</text>
+<text x="32" y="1530" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="1562.4" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">tw1</text>
+<text x="608" y="1562.4" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">min 20 ns</text>
+<text x="32" y="1582.6" font-size="15" class="fk-f-ink2">CS high time between two frames</text>
+<text x="32" y="1602.8" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="32" y="1635.2" font-size="15" font-weight="700" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" class="fk-f-ink">fSCLK</text>
+<text x="608" y="1635.2" font-size="15" font-weight="700" text-anchor="end" class="fk-f-ink">max 20 MHz</text>
+<text x="32" y="1655.5" font-size="15" class="fk-f-ink2">SCLK frequency</text>
+<text x="32" y="1675.6" font-size="14" class="fk-f-muted">Datasheet 7.9 Timing Requirements, p. 17</text>
+<text x="46" y="1729.8" font-size="17" font-weight="700" class="fk-f-slate-text">Notes</text>
+<text x="46" y="1750.2" font-size="15" class="fk-f-slate-text">Each +VBD column of 7.9 covers a band: 1.8 V is 1.7 V to 1.9 V, 3 V is 2.7</text>
+<text x="46" y="1771.9" font-size="15" class="fk-f-slate-text">V to 3.6 V, 5 V is 4.75 V to 5.25 V; outputs with a 50 pF load.</text>
+</svg>

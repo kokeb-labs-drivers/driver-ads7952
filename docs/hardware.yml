@@ -74,7 +74,7 @@ overview:
       - {label: GPIO0 to GPIO3, detail: "outputs, or the alarm outputs on GPIO0 and GPIO1", ref: gpio}
     senses:
       - {label: Analog inputs, detail: "12 channels through one multiplexer", ref: input}
-      - {label: External reference, detail: "2.0 V to 3.0 V on REFP", ref: reference}
+      - {label: External reference, detail: "2.0 V to 3.0 V on REFP", ref: roc}
 
 # Headers the capability `api` and `registers` names are checked against.
 driver:

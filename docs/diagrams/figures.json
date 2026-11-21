@@ -126,5 +126,22 @@
     "adaptive": true,
     "twin": false,
     "font": ""
+  },
+  "spi-timing": {
+    "title": "SPI timing of one frame",
+    "alt": "SPI timing of the ADS7952 in mode 0: CS low frames a 16-clock word, SDI is read on each rising SCLK edge, SDO changes on each falling edge and is released after the 16th, with the setup, hold, delay and quiet times of the datasheet.",
+    "description": "The four lanes are CS, SCLK, SDI and SDO, left to right in time. The falling edge of CS samples the input and puts DO15 on SDO; SCLK idles low, the chip reads DI15 to DI0 on SDI at the rising edges and shifts DO14 to DO0 out on SDO after the falling edges (each slot shows its bit number), with clocks 5 to 13 left out. After the 16th falling edge SDO is released, CS goes high for at least tw1 and the next falling edge of CS starts the next frame. The table gives each interval with its datasheet value.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/spi-timing.timing.yml",
+    "sources": [
+      "docs/model/spi-timing.timing.yml"
+    ],
+    "kind": "timing",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": true,
+    "font": ""
   }
 }

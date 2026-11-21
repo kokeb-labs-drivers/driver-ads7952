@@ -206,3 +206,21 @@ Hardware description: [`docs/model/one-read-through-the-layers.seq.yml`](../mode
 Drawn from:
 
 - [`docs/model/one-read-through-the-layers.seq.yml`](../model/one-read-through-the-layers.seq.yml)
+
+## SPI timing of one frame
+
+<!-- figure: spi-timing -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="spi-timing.dark.svg">
+  <img src="spi-timing.svg"
+    alt="SPI timing of the ADS7952 in mode 0: CS low frames a 16-clock word, SDI is read on each rising SCLK
+    edge, SDO changes on each falling edge and is released after the 16th, with the setup, hold, delay
+    and quiet times of the datasheet.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/spi-timing.timing.yml`](../model/spi-timing.timing.yml)
+
+Drawn from:
+
+- [`docs/model/spi-timing.timing.yml`](../model/spi-timing.timing.yml)
