@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the TI ADS7950, ADS7951, ADS7952 and ADS7953 12-bit SPI SAR ADCs.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-ads7952/latest/datasheet/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -1101,14 +1037,14 @@ are the datasheet's own (the printed page numbers).</p>
 <td>7.9 Timing Requirements; Figures 1 and 2</td>
 <td><a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=17">p. 17</a></td>
 <td><code>SpiInterface</code>, <code>kFrameBytes</code></td>
-<td><a href="../porting/">Porting</a>, <a href="../hardware/">Hardware</a></td>
+<td><a href="../porting/">Porting</a>, <a href="../hardware/">Hardware</a>, <a href="../bus/">On the bus</a></td>
 </tr>
 <tr>
 <td>Frame, reply word, GPIO refresh and alarm timing</td>
 <td>8.1 Overview</td>
 <td><a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=28">p. 28</a></td>
 <td><code>reg::ReplyAddress()</code>, <code>reg::ReplyCode()</code>, <code>SetGpioOutputs()</code></td>
-<td><a href="../hardware/">Hardware</a>, <a href="../architecture/">Architecture</a>, <a href="../contract/">Contract</a></td>
+<td><a href="../hardware/">Hardware</a>, <a href="../architecture/">Architecture</a>, <a href="../contract/">Contract</a>, <a href="../bus/">On the bus</a></td>
 </tr>
 <tr>
 <td>The external reference and its 10 µF capacitor</td>

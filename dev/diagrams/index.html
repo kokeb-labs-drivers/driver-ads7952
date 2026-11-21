@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the TI ADS7950, ADS7951, ADS7952 and ADS7953 12-bit SPI SAR ADCs.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-ads7952/latest/diagrams/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -957,6 +893,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-the-ads7952-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the ADS7952 does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ads7952-typical-application" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -968,10 +915,43 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ads7952-spi-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADS7952: SPI frame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ads7952" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADS7952
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ads7952-pinout-tssop-38" class="md-nav__link">
     <span class="md-ellipsis">
       
         ADS7952 pinout, TSSOP-38
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-typical-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring: Typical application
       
     </span>
   </a>
@@ -1005,6 +985,17 @@
     <span class="md-ellipsis">
       
         One read through the layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-timing-of-one-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SPI timing of one frame
       
     </span>
   </a>
@@ -1051,13 +1042,30 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The ADS7952's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="what-the-ads7952-does">What the ADS7952 does<a class="headerlink" href="#what-the-ads7952-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-capabilities.svg#only-light" alt="Capability map of the ADS7952: Manual mode (supported): Converts the channel each frame names; the result comes two frames later, tagged with its channel; Auto-1 sequence (supported): Scans a programmed list of channels in ascending order, one per frame; Auto-2 sequence (supported): Scans from channel 0 up to a programmed last channel, one per frame; Input range (supported): Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts; Alarm thresholds (supported): A high and a low threshold per channel, signalled on GPIO0 and GPIO1; GPIOs (supported): Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames; Power-down (supported): Powers the chip down at the end of a frame, by command or by the GPIO3 input; Reset and checks (supported): Resets every register by command, waits the power-up time and checks that the chip answers." width="1200" height="1002" loading="lazy"><img src="chip-capabilities.dark.svg#only-dark" alt="Capability map of the ADS7952: Manual mode (supported): Converts the channel each frame names; the result comes two frames later, tagged with its channel; Auto-1 sequence (supported): Scans a programmed list of channels in ascending order, one per frame; Auto-2 sequence (supported): Scans from channel 0 up to a programmed last channel, one per frame; Input range (supported): Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts; Alarm thresholds (supported): A high and a low threshold per channel, signalled on GPIO0 and GPIO1; GPIOs (supported): Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames; Power-down (supported): Powers the chip down at the end of a frame, by command or by the GPIO3 input; Reset and checks (supported): Resets every register by command, waits the power-up time and checks that the chip answers." width="1200" height="1002" loading="lazy">
+<figcaption>What the ADS7952 does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the ADS7952: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="ads7952-typical-application">ADS7952: Typical application<a class="headerlink" href="#ads7952-typical-application" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1068,13 +1076,47 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="ads7952-spi-frame">ADS7952: SPI frame<a class="headerlink" href="#ads7952-spi-frame" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-frame-spi.svg#only-light" alt="SPI frame of the ADS7952, 16 bits, most significant bit first. Manual: mode (bits 15 to 12), program (bit 11), channel (bits 10 to 7), range (bit 6), power down (bit 5), GPIO read (bit 4), GPIO data (bits 3 to 0); Reply: channel address (bits 15 to 12), 12-bit result (bits 11 to 0). Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="664" loading="lazy"><img src="chip-frame-spi.dark.svg#only-dark" alt="SPI frame of the ADS7952, 16 bits, most significant bit first. Manual: mode (bits 15 to 12), program (bit 11), channel (bits 10 to 7), range (bit 6), power down (bit 5), GPIO read (bit 4), GPIO data (bits 3 to 0); Reply: channel address (bits 15 to 12), 12-bit result (bits 11 to 0). Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="664" loading="lazy">
+<figcaption>ADS7952: SPI frame</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One SPI frame of the ADS7952, 16 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="ads7952">ADS7952<a class="headerlink" href="#ads7952" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-hero.svg#only-light" alt="Overview of the ADS7952, a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequences. A MCU talks to it over SPI; it drives GPIO0 to GPIO3; it reads back Analog inputs, External reference. Headline figures: 12 x 12-bit single-ended inputs, one ADC; 1 MSPS sample rate; 20 MHz SPI clock, one 16-bit frame per sample; 2.7 to 5.25 V analog supply; I/O 1.7 to 5.25 V; 0 to 2 x VREF input range, or 0 to VREF; 1 µA power-down current." width="1200" height="842" loading="lazy"><img src="chip-hero.dark.svg#only-dark" alt="Overview of the ADS7952, a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequences. A MCU talks to it over SPI; it drives GPIO0 to GPIO3; it reads back Analog inputs, External reference. Headline figures: 12 x 12-bit single-ended inputs, one ADC; 1 MSPS sample rate; 20 MHz SPI clock, one 16-bit frame per sample; 2.7 to 5.25 V analog supply; I/O 1.7 to 5.25 V; 0 to 2 x VREF input range, or 0 to VREF; 1 µA power-down current." width="1200" height="842" loading="lazy">
+<figcaption>ADS7952</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The ADS7952 in the middle, drawn as its TSSOP-38 package. On the left the MCU that runs the driver, joined to it by SPI. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="ads7952-pinout-tssop-38">ADS7952 pinout, TSSOP-38<a class="headerlink" href="#ads7952-pinout-tssop-38" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1085,13 +1127,30 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The ADS7952 seen from the top, in its TSSOP-38 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="wiring-typical-application">Wiring: Typical application<a class="headerlink" href="#wiring-typical-application" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-wiring-typical.svg#only-light" alt="Wiring of the ADS7952 for the Typical application: MCU SPI SCK to SCLK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU GPIO / CS to CS (Transfer()); REFP to REF5025 OUT. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="852" loading="lazy"><img src="chip-wiring-typical.dark.svg#only-dark" alt="Wiring of the ADS7952 for the Typical application: MCU SPI SCK to SCLK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU GPIO / CS to CS (Transfer()); REFP to REF5025 OUT. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="852" loading="lazy">
+<figcaption>Wiring: Typical application</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the ADS7952 in the middle, the blocks it drives on the right. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="the-layers-one-of-them-yours">The layers, one of them yours<a class="headerlink" href="#the-layers-one-of-them-yours" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1102,13 +1161,13 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
-<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a></p>
+<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a></p>
 <p>Drawn from:</p>
 <ul>
-<li><code>public calls</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a></li>
-<li><code>SpiInterface</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
+<li><code>public calls</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952.hpp"><code>inc/ads7952.hpp</code></a></li>
+<li><code>SpiInterface</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="a-result-comes-back-two-frames-after-its-channel">A result comes back two frames after its channel<a class="headerlink" href="#a-result-comes-back-two-frames-after-its-channel" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1119,16 +1178,16 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Each column is one 16-bit frame, CS low for 16 SCLK cycles, left to right in time. In each panel the top row is the word the driver sends on SDI, the middle row the channel the multiplexer acquires during that frame, and the bottom row the reply on SDO: the conversion of the channel acquired in the frame before, sampled at this frame's CS falling edge, tagged with its address in DO15:12. In Manual mode (top) ReadChannel(4) selects channel 4 with a Manual word, sends a "continue" word and then the Manual word for channel 4 again (it carries the range once more), and keeps the third reply, whose address must be 4; the two replies before it still belong to the previous channel. In Auto-1 (bottom), entering the mode restarts the sequence at its first channel: with channels 2, 5 and 6 programmed, the first result arrives two frames after the Auto-1 word, and from then on every Auto-1 word without restart (DI11 = 1, the range again) returns the next channel of the sequence, so a pass costs one frame per channel. The timing is the datasheet's Figures 51 and 53; the frame counts come from ReadChannel(), readSelected(), scan() and collect() in src/ads7952.ipp.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>select()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>selectChecked()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>readSelected()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>scan()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a> <code>kContinue</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/docs/diagrams/figures/frame-pipeline.py"><code>docs/diagrams/figures/frame-pipeline.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>select()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>selectChecked()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>readSelected()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/src/ads7952.ipp"><code>src/ads7952.ipp</code></a> <code>scan()</code>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a> <code>kContinue</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/docs/diagrams/figures/frame-pipeline.py"><code>docs/diagrams/figures/frame-pipeline.py</code></a>.</p>
 </details>
-<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/docs/diagrams/figures/frame-pipeline.py"><code>docs/diagrams/figures/frame-pipeline.py</code></a></p>
+<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/docs/diagrams/figures/frame-pipeline.py"><code>docs/diagrams/figures/frame-pipeline.py</code></a></p>
 <p>Drawn from:</p>
 <ul>
-<li><code>select()</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></li>
-<li><code>selectChecked()</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></li>
-<li><code>readSelected()</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></li>
-<li><code>scan()</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></li>
-<li><code>kContinue</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a></li>
+<li><code>select()</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></li>
+<li><code>selectChecked()</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></li>
+<li><code>readSelected()</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></li>
+<li><code>scan()</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/src/ads7952.ipp"><code>src/ads7952.ipp</code></a></li>
+<li><code>kContinue</code> in <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_registers.hpp"><code>inc/ads7952_registers.hpp</code></a></li>
 </ul>
 <h2 id="one-read-through-the-layers">One read through the layers<a class="headerlink" href="#one-read-through-the-layers" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1145,6 +1204,22 @@ committed figure no longer matches the code. Each figure below lists the files i
 <p>Drawn from:</p>
 <ul>
 <li><a href="../model/one-read-through-the-layers.seq.yml"><code>docs/model/one-read-through-the-layers.seq.yml</code></a></li>
+</ul>
+<h2 id="spi-timing-of-one-frame">SPI timing of one frame<a class="headerlink" href="#spi-timing-of-one-frame" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="spi-timing.svg#only-light" alt="SPI timing of the ADS7952 in mode 0: CS low frames a 16-clock word, SDI is read on each rising SCLK edge, SDO changes on each falling edge and is released after the 16th, with the setup, hold, delay and quiet times of the datasheet." width="640" height="1819" loading="lazy"><img src="spi-timing.dark.svg#only-dark" alt="SPI timing of the ADS7952 in mode 0: CS low frames a 16-clock word, SDI is read on each rising SCLK edge, SDO changes on each falling edge and is released after the 16th, with the setup, hold, delay and quiet times of the datasheet." width="640" height="1819" loading="lazy">
+<figcaption>SPI timing of one frame</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The four lanes are CS, SCLK, SDI and SDO, left to right in time. The falling edge of CS samples the input and puts DO15 on SDO; SCLK idles low, the chip reads DI15 to DI0 on SDI at the rising edges and shifts DO14 to DO0 out on SDO after the falling edges (each slot shows its bit number), with clocks 5 to 13 left out. After the 16<sup>th</sup> falling edge SDO is released, CS goes high for at least tw1 and the next falling edge of CS starts the next frame. The table gives each interval with its datasheet value.</p>
+<p>Drawn from: <a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a></li>
 </ul>
 
 

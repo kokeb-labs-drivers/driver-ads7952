@@ -1,0 +1,66 @@
+---
+# Model of the figure 'spi-timing'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+# Every number is a param with the datasheet section and page it comes from (`ref`, a name under refs here or in
+# docs/hardware.yml); a number without one fails the build. Wave characters and keys: docs/figkit.md in ci-tools.
+kind: timing
+id: spi-timing
+title: SPI timing of one frame
+kicker: On the bus
+alt: >-
+  SPI timing of the ADS7952 in mode 0: CS low frames a 16-clock word, SDI is read on each rising SCLK edge, SDO
+  changes on each falling edge and is released after the 16th, with the setup, hold, delay and quiet times of the
+  datasheet.
+reads: >-
+  The four lanes are CS, SCLK, SDI and SDO, left to right in time. The falling edge of CS samples the input and puts
+  DO15 on SDO; SCLK idles low, the chip reads DI15 to DI0 on SDI at the rising edges and shifts DO14 to DO0 out on
+  SDO after the falling edges (each slot shows its bit number), with clocks 5 to 13 left out. After the 16th falling
+  edge SDO is released, CS goes high for at least tw1 and the next falling edge of CS starts the next frame. The
+  table gives each interval with its datasheet value.
+bus: spi
+mode: {cpol: 0, cpha: 0}
+refs:
+  timing: {doc: ds, section: "7.9 Timing Requirements", page: 17}
+  frame: {doc: ds, section: "8.1 Overview", page: 28}
+signals:
+  - {id: cs, label: CS, wave: "10.........1.0"}
+  - {id: sclk, label: SCLK, wave: "0.nnnn|nnn0...", clock: true}
+  - {id: sdi, label: SDI, wave: "x.====|===x...", data: ["15", "14", "13", "12", "2", "1", "0"]}
+  - {id: sdo, label: SDO, wave: "z=.===|===z..=", data: ["15", "14", "13", "12", "2", "1", "0", "15"],
+     tone: teal}
+groups:
+  - {from: 2, to: 10, label: "16 clocks, MSB first", ref: frame}
+params:
+  - {id: tsu1, symbol: tsu1, label: Setup time from CS low to the first rising SCLK edge, min: 8, unit: ns,
+     ref: timing, note: "At +VBD = 1.8 V; 6 ns at 3 V, 4 ns at 5 V"}
+  - {id: td1, symbol: td1, label: Delay from CS low to the first data bit (DO15) on SDO, max: 38, unit: ns,
+     ref: timing, note: "At +VBD = 1.8 V; 27 ns at 3 V, 17 ns at 5 V"}
+  - {id: td2, symbol: td2, label: Delay from a falling SCLK edge to the next SDO bit valid, max: 35, unit: ns,
+     ref: timing, note: "At +VBD = 1.8 V; 27 ns at 3 V, 17 ns at 5 V"}
+  - {id: th1, symbol: th1, label: Hold time of the SDO bit after a falling SCLK edge, min: 3, unit: ns,
+     ref: timing, note: "At +VBD = 5 V; 5 ns at 3 V, 7 ns at 1.8 V"}
+  - {id: tsu2, symbol: tsu2, label: Setup time of SDI before a rising SCLK edge, min: 4, unit: ns, ref: timing,
+     note: "At +VBD = 5 V; 3 ns at 3 V, 2 ns at 1.8 V"}
+  - {id: th2, symbol: th2, label: Hold time of SDI after a rising SCLK edge, min: 12, unit: ns, ref: timing,
+     note: "At +VBD = 1.8 V; 10 ns at 3 V, 6 ns at 5 V"}
+  - {id: twh, symbol: twh, label: SCLK high time, min: 20, unit: ns, ref: timing}
+  - {id: twl, symbol: twl, label: SCLK low time, min: 20, unit: ns, ref: timing}
+  - {id: td3, symbol: td3, label: Delay from the 16th falling SCLK edge to SDO released, max: 26, unit: ns,
+     ref: timing, note: "At +VBD = 1.8 V; 22 ns at 3 V, 13 ns at 5 V"}
+  - {id: tq, symbol: tq, label: Quiet time from SDO released to the start of the next conversion, min: 40, unit: ns,
+     ref: timing}
+  - {id: tw1, symbol: tw1, label: CS high time between two frames, min: 20, unit: ns, ref: timing}
+  - {id: fsclk, symbol: fSCLK, label: SCLK frequency, max: 20, unit: MHz, ref: timing}
+marks:
+  - {param: tsu1, signal: cs, from: 1, to: 2.5}
+  - {param: tw1, signal: cs, from: 11, to: 13}
+  - {param: twh, signal: sclk, from: 3.5, to: 4}
+  - {param: twl, signal: sclk, from: 4, to: 4.5}
+  - {param: tsu2, signal: sdi, from: 2, to: 2.5}
+  - {param: th2, signal: sdi, from: 2.5, to: 3}
+  - {param: td1, signal: sdo, from: 1, to: 1.5}
+  - {param: td2, signal: sdo, from: 3, to: 3.5}
+  - {param: td3, signal: sdo, from: 10, to: 10.5}
+  - {param: tq, signal: sdo, from: 10.5, to: 13}
+notes:
+  - {text: "Each +VBD column of 7.9 covers a band: 1.8 V is 1.7 V to 1.9 V, 3 V is 2.7 V to 3.6 V, 5 V is 4.75 V to
+      5.25 V; outputs with a 50 pF load.", ref: timing}

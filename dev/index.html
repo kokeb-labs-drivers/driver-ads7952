@@ -100,72 +100,6 @@
   <meta property="og:description" content="C++20 driver for the TI ADS7950, ADS7951, ADS7952 and ADS7953 12-bit SPI SAR ADCs.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-ads7952/latest/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -537,6 +471,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Driver coverage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#what-you-get" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -544,6 +545,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -585,6 +591,8 @@
   
     
     
+      
+        
       
         
       
@@ -866,6 +874,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Driver coverage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#what-you-get" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -873,6 +948,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -935,8 +1015,89 @@ result on the channel address in its reply, on any MCU.</p>
 <a class="md-button" href="api-guide/">API guide</a>
 <a class="md-button" href="https://github.com/kokeb-labs-drivers/driver-ads7952">Source on GitHub</a></p>
 </div>
-<p>The driver has no platform code. You give it a small class that brings the bus up and moves one 16-bit frame at a
-time; it does the rest: the reset, the identity check, the frame pipeline, the program sequences and the checks.</p>
+<!-- generated: chip-summary -->
+<p>The <strong>ADS7952</strong> is a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit
+SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequences (1 Features, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1">p.
+1</a>).</p>
+<!-- /generated -->
+
+<figure class="kb-figure">
+<img src="diagrams/chip-hero.svg#only-light" alt="Overview of the ADS7952, a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequences. A MCU talks to it over SPI; it drives GPIO0 to GPIO3; it reads back Analog inputs, External reference. Headline figures: 12 x 12-bit single-ended inputs, one ADC; 1 MSPS sample rate; 20 MHz SPI clock, one 16-bit frame per sample; 2.7 to 5.25 V analog supply; I/O 1.7 to 5.25 V; 0 to 2 x VREF input range, or 0 to VREF; 1 µA power-down current." width="1200" height="842"><img src="diagrams/chip-hero.dark.svg#only-dark" alt="Overview of the ADS7952, a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequences. A MCU talks to it over SPI; it drives GPIO0 to GPIO3; it reads back Analog inputs, External reference. Headline figures: 12 x 12-bit single-ended inputs, one ADC; 1 MSPS sample rate; 20 MHz SPI clock, one 16-bit frame per sample; 2.7 to 5.25 V analog supply; I/O 1.7 to 5.25 V; 0 to 2 x VREF input range, or 0 to VREF; 1 µA power-down current." width="1200" height="842">
+<figcaption>ADS7952</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The ADS7952 in the middle, drawn as its TSSOP-38 package. On the left the MCU that runs the driver, joined to it by SPI. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-capabilities.svg#only-light" alt="Capability map of the ADS7952: Manual mode (supported): Converts the channel each frame names; the result comes two frames later, tagged with its channel; Auto-1 sequence (supported): Scans a programmed list of channels in ascending order, one per frame; Auto-2 sequence (supported): Scans from channel 0 up to a programmed last channel, one per frame; Input range (supported): Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts; Alarm thresholds (supported): A high and a low threshold per channel, signalled on GPIO0 and GPIO1; GPIOs (supported): Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames; Power-down (supported): Powers the chip down at the end of a frame, by command or by the GPIO3 input; Reset and checks (supported): Resets every register by command, waits the power-up time and checks that the chip answers." width="1200" height="1002" loading="lazy"><img src="diagrams/chip-capabilities.dark.svg#only-dark" alt="Capability map of the ADS7952: Manual mode (supported): Converts the channel each frame names; the result comes two frames later, tagged with its channel; Auto-1 sequence (supported): Scans a programmed list of channels in ascending order, one per frame; Auto-2 sequence (supported): Scans from channel 0 up to a programmed last channel, one per frame; Input range (supported): Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts; Alarm thresholds (supported): A high and a low threshold per channel, signalled on GPIO0 and GPIO1; GPIOs (supported): Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames; Power-down (supported): Powers the chip down at the end of a frame, by command or by the GPIO3 input; Reset and checks (supported): Resets every register by command, waits the power-up time and checks that the chip answers." width="1200" height="1002" loading="lazy">
+<figcaption>What the ADS7952 does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the ADS7952: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="where-it-is-used">Where it is used<a class="headerlink" href="#where-it-is-used" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-uses -->
+<ul>
+<li>PLC and industrial PC inputs</li>
+<li>Optical line card monitoring</li>
+<li>Medical instrumentation</li>
+<li>Digital power supplies</li>
+<li>Multichannel signal monitoring</li>
+<li>High-speed data acquisition</li>
+<li>High-speed closed-loop systems</li>
+</ul>
+<p>Uses named by the datasheet (2 Applications, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=1">p. 1</a>).</p>
+<!-- /generated -->
+
+<h2 id="inside-the-chip">Inside the chip<a class="headerlink" href="#inside-the-chip" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-blocks.svg#only-light" alt="Block diagram of the ADS7952: its function blocks, how they connect and which package pins reach each block." width="1200" height="1029" loading="lazy"><img src="diagrams/chip-blocks.dark.svg#only-dark" alt="Block diagram of the ADS7952: its function blocks, how they connect and which package pins reach each block." width="1200" height="1029" loading="lazy">
+<figcaption>Inside the ADS7952</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The ADS7952's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="pins-and-wiring">Pins and wiring<a class="headerlink" href="#pins-and-wiring" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-pinout.svg#only-light" alt="Pinout of the ADS7952 in TSSOP-38, top view: 38 pins, each with its name, its electrical type as a colour and the driver hook that uses it." width="760" height="931" loading="lazy"><img src="diagrams/chip-pinout.dark.svg#only-dark" alt="Pinout of the ADS7952 in TSSOP-38, top view: 38 pins, each with its name, its electrical type as a colour and the driver hook that uses it." width="760" height="931" loading="lazy">
+<figcaption>ADS7952 pinout, TSSOP-38</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The ADS7952 seen from the top, in its TSSOP-38 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-wiring-typical.svg#only-light" alt="Wiring of the ADS7952 for the Typical application: MCU SPI SCK to SCLK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU GPIO / CS to CS (Transfer()); REFP to REF5025 OUT. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="852" loading="lazy"><img src="diagrams/chip-wiring-typical.dark.svg#only-dark" alt="Wiring of the ADS7952 for the Typical application: MCU SPI SCK to SCLK (Transfer()); MCU SPI MOSI to SDI (Transfer()); MCU SPI MISO to SDO (Transfer()); MCU GPIO / CS to CS (Transfer()); REFP to REF5025 OUT. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="852" loading="lazy">
+<figcaption>Wiring: Typical application</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the ADS7952 in the middle, the blocks it drives on the right. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-frame-spi.svg#only-light" alt="SPI frame of the ADS7952, 16 bits, most significant bit first. Manual: mode (bits 15 to 12), program (bit 11), channel (bits 10 to 7), range (bit 6), power down (bit 5), GPIO read (bit 4), GPIO data (bits 3 to 0); Reply: channel address (bits 15 to 12), 12-bit result (bits 11 to 0). Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="664" loading="lazy"><img src="diagrams/chip-frame-spi.dark.svg#only-dark" alt="SPI frame of the ADS7952, 16 bits, most significant bit first. Manual: mode (bits 15 to 12), program (bit 11), channel (bits 10 to 7), range (bit 6), power down (bit 5), GPIO read (bit 4), GPIO data (bits 3 to 0); Reply: channel address (bits 15 to 12), 12-bit result (bits 11 to 0). Below, the SPI mode 0 waveform of one transfer in the same bit grid." width="1200" height="664" loading="lazy">
+<figcaption>ADS7952: SPI frame</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One SPI frame of the ADS7952, 16 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_spi_interface.hpp"><code>inc/ads7952_spi_interface.hpp</code></a>.</p>
+</details>
 <div class="kb-chip">
 <div class="kb-chip__head">
 <span class="kb-chip__kicker">12-bit SAR ADC</span>
@@ -958,7 +1119,118 @@ time; it does the rest: the reset, the identity check, the frame pipeline, the p
 <dd>+VA 2.7 V to 5.25 V, +VBD 1.7 V to +VA</dd>
 </dl>
 </div>
-<h2 id="what-you-get">What you get<a class="headerlink" href="#what-you-get" title="Permanent link">&para;</a></h2>
+<p>Every pin, the reference circuits, the bus settings, the timing and the power: <a href="hardware/">Hardware</a>.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Wire the chip as above, write the port for your MCU (<a href="porting/">Porting</a>), then:</p>
+<!-- generated: quickstart-code -->
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"ads7952.hpp"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">read_input_3</span><span class="p">(</span><span class="n">MyPort</span><span class="o">&amp;</span><span class="w"> </span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">microvolts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">ads7952</span><span class="o">::</span><span class="n">ADS7952</span><span class="o">&lt;</span><span class="n">MyPort</span><span class="o">&gt;</span><span class="w"> </span><span class="n">adc</span><span class="p">(</span><span class="n">port</span><span class="p">);</span><span class="w"> </span><span class="c1">// no I/O yet; Config{} is an ADS7952 at its reset state</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adc</span><span class="p">.</span><span class="n">EnsureInitialized</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 1. bus up, reset, registers, identity check</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">);</span><span class="w">         </span><span class="c1">//    Bus, NoDevice or DeviceIdMismatch: check wiring</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adc</span><span class="p">.</span><span class="n">ReadChannel</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2. Manual mode: select, acquire, convert</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">code</span><span class="p">.</span><span class="n">error</span><span class="p">);</span><span class="w"> </span><span class="c1">//    ChannelMismatch: a reply for another channel</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="n">microvolts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adc</span><span class="p">.</span><span class="n">ToMicrovolts</span><span class="p">(</span><span class="n">code</span><span class="p">.</span><span class="n">value</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3. 0 to VREF, one LSB = VREF / 4096</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">}</span>
+</span></code></pre></div>
+<!-- /generated -->
+
+<p>Step by step, from a bare chip to the first result: <a href="quickstart/">Quickstart</a>.</p>
+<h2 id="driver-coverage">Driver coverage<a class="headerlink" href="#driver-coverage" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-coverage -->
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>What the chip does</th>
+<th>Driver API</th>
+<th>Registers</th>
+<th>Status</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="api-guide/">Manual mode</a></td>
+<td>Converts the channel each frame names; the result comes two frames later, tagged with its channel</td>
+<td><code>ReadChannel</code>, <code>ReadChannels</code></td>
+<td><code>Mode Control 0001</code> (<code>kManual</code>), <code>DI11 program</code> (<code>kProgramEnable</code>)</td>
+<td>Supported</td>
+<td>8.4.4, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=31">p. 31</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Auto-1 sequence</a></td>
+<td>Scans a programmed list of channels in ascending order, one per frame</td>
+<td><code>SetAuto1Channels</code>, <code>ReadAuto1</code></td>
+<td><code>Mode Control 0010</code> (<code>kAuto1</code>), <code>Auto-1 Program</code> (<code>kAuto1Program</code>)</td>
+<td>Supported</td>
+<td>8.4.5, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=34">p. 34</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Auto-2 sequence</a></td>
+<td>Scans from channel 0 up to a programmed last channel, one per frame</td>
+<td><code>SetAuto2LastChannel</code>, <code>ReadAuto2</code></td>
+<td><code>Mode Control 0011</code> (<code>kAuto2</code>), <code>Auto-2 Program</code> (<code>kAuto2Program</code>)</td>
+<td>Supported</td>
+<td>8.4.6, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=38">p. 38</a></td>
+</tr>
+<tr>
+<td><a href="configuration/">Input range</a></td>
+<td>Selects 0 to VREF or 0 to 2 x VREF, and converts codes to microvolts</td>
+<td><code>SetRange</code>, <code>Range</code>, <code>ToMicrovolts</code></td>
+<td><code>DI06 range</code> (<code>kRangeTwoVref</code>), <code>GPIO Program DI07</code> (<code>kGpio2Range</code>)</td>
+<td>Supported</td>
+<td>8.4.4, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=33">p. 33</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Alarm thresholds</a></td>
+<td>A high and a low threshold per channel, signalled on GPIO0 and GPIO1</td>
+<td><code>SetAlarmThresholds</code>, <code>AlarmThreshold</code></td>
+<td><code>Alarm Program</code> (<code>kAlarmProgramGroup0</code>), <code>DI13 high or low</code> (<code>kAlarmHigh</code>)</td>
+<td>Supported</td>
+<td>8.5.3, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=43">p. 43</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">GPIOs</a></td>
+<td>Four pins on TSSOP, one on VQFN, each an input or an output, read and written with the frames</td>
+<td><code>SetGpioOutputs</code>, <code>ReadGpio</code></td>
+<td><code>GPIO Program</code> (<code>kGpioProgram</code>), <code>DI04 GPIO read</code> (<code>kGpioReadout</code>), <code>DI03-00 GPIO data</code> (<code>kGpioDataMask</code>)</td>
+<td>Supported</td>
+<td>8.5.2, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=42">p. 42</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Power-down</a></td>
+<td>Powers the chip down at the end of a frame, by command or by the GPIO3 input</td>
+<td><code>Deinitialize</code></td>
+<td><code>DI05 power down</code> (<code>kPowerDown</code>), <code>GPIO Program DI08</code> (<code>kGpio3PowerDown</code>)</td>
+<td>Supported</td>
+<td>8.3.2, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=29">p. 29</a></td>
+</tr>
+<tr>
+<td><a href="contract/">Reset and checks</a></td>
+<td>Resets every register by command, waits the power-up time and checks that the chip answers</td>
+<td><code>EnsureInitialized</code>, <code>CheckScale</code></td>
+<td><code>GPIO Program DI09</code> (<code>kGpioResetAll</code>)</td>
+<td>Supported</td>
+<td>8.4.3, <a href="https://www.ti.com/lit/ds/symlink/ads7952.pdf#page=30">p. 30</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Supported</strong>: the driver covers it and a host test checks it.</p>
+<p>From <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <code>kokeb-docs hardware --check</code> confirms that every API name is in
+<code>inc/ads7952.hpp</code>, <code>inc/ads7952_types.hpp</code> and every register (the header constant in brackets, where the header spells
+it otherwise) in <code>inc/ads7952_registers.hpp</code>.</p>
+<!-- /generated -->
+
+<p>The driver has no platform code. You give it a small class that brings the bus up and moves one 16-bit frame at a
+time; it does the rest: the reset, the identity check, the frame pipeline, the program sequences and the checks.</p>
+<h3 id="what-you-get">What you get<a class="headerlink" href="#what-you-get" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>One object per chip.</strong> <code>ADS7952&lt;YourPort&gt;</code> takes a reference to your port and does no I/O until
   <code>EnsureInitialized()</code>. See <a href="api-guide/">API guide</a>.</li>

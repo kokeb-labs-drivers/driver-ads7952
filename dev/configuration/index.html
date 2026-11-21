@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the TI ADS7950, ADS7951, ADS7952 and ADS7953 12-bit SPI SAR ADCs.">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-ads7952/latest/configuration/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -1261,8 +1197,8 @@ rail, <code>Validate()</code> refuses Range 2 until the supply or the reference 
 supplies</a>.</p>
 <h2 id="kconfig">Kconfig<a class="headerlink" href="#kconfig" title="Permanent link">&para;</a></h2>
 <p>Under ESP-IDF, <code>idf.py menuconfig</code> shows <strong>ADS7950 / ADS7951 / ADS7952 / ADS7953 SAR ADC</strong> when the driver is a
-component of the project (<a href="../installation/">Installation</a>); the menu is <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/_config/Kconfig"><code>_config/Kconfig</code></a>. The
-options reach the code only through <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/491ac20325c57213febc413d33a917480be96876/inc/ads7952_kconfig.hpp"><code>inc/ads7952_kconfig.hpp</code></a>, never through a driver
+component of the project (<a href="../installation/">Installation</a>); the menu is <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/_config/Kconfig"><code>_config/Kconfig</code></a>. The
+options reach the code only through <a href="https://github.com/kokeb-labs-drivers/driver-ads7952/blob/d84ae25c40eb109f0b7404777a366632b92331b3/inc/ads7952_kconfig.hpp"><code>inc/ads7952_kconfig.hpp</code></a>, never through a driver
 signature:</p>
 <div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">ads7952</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="nf">StartFromMenuconfig</span><span class="p">(</span><span class="n">MyPort</span><span class="o">&amp;</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="n">ads7952</span><span class="o">::</span><span class="n">ADS7952</span><span class="o">&lt;</span><span class="n">MyPort</span><span class="o">&gt;</span><span class="w"> </span><span class="n">adc</span><span class="p">(</span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">ads7952</span><span class="o">::</span><span class="n">KconfigDefaults</span><span class="p">());</span>
