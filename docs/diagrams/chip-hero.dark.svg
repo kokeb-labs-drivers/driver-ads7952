@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="842" viewBox="0 0 1200 842" role="img" aria-labelledby="chip-hero-title chip-hero-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-hero-title">ADS7952</title>
+<desc id="chip-hero-desc">Overview of the ADS7952, a 12-channel, 12-bit SAR analog-to-digital converter that samples one single-ended input per 16-bit SPI frame at up to 1 MSPS, in a manual order or in one of two automatic sequences. A MCU talks to it over SPI; it drives GPIO0 to GPIO3; it reads back Analog inputs, External reference. Headline figures: 12 x 12-bit single-ended inputs, one ADC; 1 MSPS sample rate; 20 MHz SPI clock, one 16-bit frame per sample; 2.7 to 5.25 V analog supply; I/O 1.7 to 5.25 V; 0 to 2 x VREF input range, or 0 to VREF; 1 µA power-down current.</desc>
+<defs><marker id="fk-arrow-amber-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FBBF24"/></marker><marker id="fk-arrow-blue-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#60A5FA"/></marker><marker id="fk-arrow-teal-strong" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2BB3A3"/></marker></defs>
+<rect x="0.5" y="0.5" width="1199" height="841" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#F8D27A">12-CHANNEL 12-BIT SAR ADC</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#E8EDF3">ADS7952</text>
+<text x="32" y="115.4" font-size="18" fill="#9AA6B5">What talks to it, what it drives and what it reads back, with its headline numbers. Datasheet: 1, p. 1.</text>
+<rect x="32" y="131.4" width="1136" height="1" fill="#252F3C"/>
+<path d="M246 262.4 L346 262.4" fill="none" stroke="#60A5FA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-blue-strong)" marker-start="url(#fk-arrow-blue-strong)"/>
+<path d="M608 262.4 L660 262.4" fill="none" stroke="#2BB3A3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-teal-strong)"/>
+<path d="M477 427.4 L477 371.4" fill="none" stroke="#FBBF24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-amber-strong)"/>
+<rect x="350" y="183.3" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="350" y="202.2" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="350" y="221.1" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="350" y="240" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="350" y="258.9" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="350" y="277.8" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="350" y="296.7" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="350" y="315.6" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="350" y="334.5" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="183.3" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="202.2" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="221.1" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="240" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="258.9" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="277.8" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="296.7" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="315.6" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="592" y="334.5" width="12" height="7" rx="2" fill="#1B232E" stroke="#94A3B8" stroke-width="1.2"/>
+<rect x="362" y="157.4" width="230" height="210" rx="10" fill="#18202B" stroke="#D2DAE4" stroke-width="2.2"/>
+<circle cx="382" cy="177.4" r="6" fill="#D2DAE4"/>
+<rect x="32" y="205.4" width="210" height="114" rx="12" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="32" y="213.4" width="4" height="98" rx="2" fill="#60A5FA"/>
+<rect x="664" y="193.4" width="260" height="138" rx="12" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<rect x="664" y="201.4" width="4" height="122" rx="2" fill="#2BB3A3"/>
+<rect x="297" y="431.4" width="360" height="163" rx="12" fill="#2C2310" stroke="#FBBF24" stroke-width="1.4"/>
+<rect x="297" y="439.4" width="4" height="147" rx="2" fill="#FBBF24"/>
+<rect x="32" y="634.4" width="176" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="224" y="634.4" width="176" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="416" y="634.4" width="176" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="608" y="634.4" width="176" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="800" y="634.4" width="176" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<rect x="992" y="634.4" width="176" height="176.9" rx="12" fill="#18202B" stroke="#3A4657" stroke-width="1"/>
+<text x="477" y="256.4" font-size="30" font-weight="700" text-anchor="middle" fill="#E8EDF3">ADS7952</text>
+<text x="477" y="286.4" font-size="17" text-anchor="middle" fill="#9AA6B5">TSSOP-38</text>
+<text x="477" y="310.4" font-size="16" text-anchor="middle" fill="#9AA6B5">38 pins</text>
+<text x="56" y="240.4" font-size="20" font-weight="700" fill="#BFDBFE">MCU</text>
+<text x="56" y="271" font-size="17" fill="#D2DAE4">your firmware and</text>
+<text x="56" y="295.7" font-size="17" fill="#D2DAE4">this driver</text>
+<rect x="276.8" y="250.4" width="38.5" height="24" rx="12" fill="#0E131A"/>
+<text x="296" y="268.2" font-size="16" font-weight="500" text-anchor="middle" fill="#9AA6B5">SPI</text>
+<text x="688" y="228.4" font-size="20" font-weight="700" fill="#A7F3E6">GPIO0 to GPIO3</text>
+<text x="688" y="259" font-size="17" fill="#D2DAE4">outputs, or the alarm</text>
+<text x="688" y="283.7" font-size="17" fill="#D2DAE4">outputs on GPIO0 and</text>
+<text x="688" y="308.4" font-size="17" fill="#D2DAE4">GPIO1</text>
+<text x="321" y="466.4" font-size="20" font-weight="700" fill="#FDE68A">Reads back</text>
+<text x="321" y="497" font-size="17" fill="#D2DAE4">Analog inputs (12 channels through</text>
+<text x="321" y="521.7" font-size="17" fill="#D2DAE4">one multiplexer)</text>
+<text x="321" y="546.3" font-size="17" fill="#D2DAE4">External reference (2.0 V to 3.0 V on</text>
+<text x="321" y="571" font-size="17" fill="#D2DAE4">REFP)</text>
+<text x="48" y="680" font-size="27" font-weight="700" fill="#E8EDF3">12 x 12-bit</text>
+<text x="48" y="712" font-size="17" fill="#D2DAE4">single-ended</text>
+<text x="48" y="735" font-size="17" fill="#D2DAE4">inputs, one ADC</text>
+<text x="48" y="793.2" font-size="16" fill="#9AA6B5">1, p. 1</text>
+<text x="240" y="682.4" font-size="30" font-weight="700" fill="#E8EDF3">1 MSPS</text>
+<text x="240" y="712" font-size="17" fill="#D2DAE4">sample rate</text>
+<text x="240" y="793.2" font-size="16" fill="#9AA6B5">1, p. 1</text>
+<text x="432" y="682.4" font-size="30" font-weight="700" fill="#E8EDF3">20 MHz</text>
+<text x="432" y="712" font-size="17" fill="#D2DAE4">SPI clock, one</text>
+<text x="432" y="735" font-size="17" fill="#D2DAE4">16-bit frame per</text>
+<text x="432" y="757.9" font-size="17" fill="#D2DAE4">sample</text>
+<text x="432" y="793.2" font-size="16" fill="#9AA6B5">7.3, p. 10</text>
+<text x="624" y="675.2" font-size="21" font-weight="700" fill="#E8EDF3">2.7 to 5.25 V</text>
+<text x="624" y="712" font-size="17" fill="#D2DAE4">analog supply;</text>
+<text x="624" y="735" font-size="17" fill="#D2DAE4">I/O 1.7 to 5.25 V</text>
+<text x="624" y="793.2" font-size="16" fill="#9AA6B5">1, p. 1</text>
+<text x="816" y="675.2" font-size="21" font-weight="700" fill="#E8EDF3">0 to 2 x VREF</text>
+<text x="816" y="712" font-size="17" fill="#D2DAE4">input range, or 0</text>
+<text x="816" y="735" font-size="17" fill="#D2DAE4">to VREF</text>
+<text x="816" y="793.2" font-size="16" fill="#9AA6B5">1, p. 1</text>
+<text x="1008" y="682.4" font-size="30" font-weight="700" fill="#E8EDF3">1 µA</text>
+<text x="1008" y="712" font-size="17" fill="#D2DAE4">power-down</text>
+<text x="1008" y="735" font-size="17" fill="#D2DAE4">current</text>
+<text x="1008" y="793.2" font-size="16" fill="#9AA6B5">1, p. 1</text>
+</svg>

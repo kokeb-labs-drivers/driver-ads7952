@@ -57,13 +57,13 @@ topics:
     section: 7.9 Timing Requirements; Figures 1 and 2
     page: 17
     driver: "`SpiInterface`, `kFrameBytes`"
-    docs: [porting, hardware]
+    docs: [porting, hardware, bus]
   - topic: Frame, reply word, GPIO refresh and alarm timing
     doc: ds
     section: 8.1 Overview
     page: 28
     driver: "`reg::ReplyAddress()`, `reg::ReplyCode()`, `SetGpioOutputs()`"
-    docs: [hardware, architecture, contract]
+    docs: [hardware, architecture, contract, bus]
   - topic: The external reference and its 10 µF capacitor
     doc: ds
     section: 8.3.1 Reference
